@@ -1,130 +1,249 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-ES">
   <head>
     <meta charset="utf-8" />
-    <title>ArmaMuebles | Montaje de muebles y cocinas a domicilio en Madrid</title>
-    <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- SEO -->
+    <title>Montaje de Muebles en Madrid | Cocinas y Armarios | ArmaMuebles</title>
+
+    <base href="/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO PRINCIPAL -->
     <meta
       name="description"
-      content="Montaje profesional de cocinas con electrodomésticos incluidos, armarios, dormitorios y salones a domicilio en Madrid. Pide tu presupuesto sin compromiso por WhatsApp."
+      content="ArmaMuebles: especialistas en montaje de muebles, cocinas, armarios y mobiliario a domicilio en Madrid. Montadores profesionales y presupuesto sin compromiso."
     />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta
+      name="keywords"
+      content="montaje de muebles Madrid, montadores de muebles Madrid, montaje de cocinas Madrid, montaje de armarios Madrid, montaje de muebles a domicilio, montaje de dormitorios, montaje de salones, montador profesional Madrid"
+    />
+
     <meta name="author" content="ArmaMuebles" />
-    <meta name="theme-color" content="#1b2b34" />
+    <meta name="theme-color" content="#72a91f" />
     <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <!-- INDEXACIÓN -->
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="language" content="es" />
+
+    <!-- SEO LOCAL -->
     <meta name="geo.region" content="ES-M" />
     <meta name="geo.placename" content="Madrid" />
-    <!-- Cambia TU-DOMINIO.com por tu dominio real cuando publiques la web -->
-    <link rel="canonical" href="https://TU-DOMINIO.com/" />
 
-    <!-- Iconos (sustituyen al logo de Angular) -->
-    <!-- LOGO ARMAMUEBLES -->
-    <link rel="icon" type="image/png" href="./images/logito.png" />
-    <link rel="shortcut icon" type="image/png" href="./images/logito.png" />
-    <link rel="apple-touch-icon" href="./images/logito.png" />
+    <!-- CANONICAL E IDIOMA -->
+    <link rel="canonical" href="https://armamuebles.es/" />
+    <link rel="alternate" hreflang="es-ES" href="https://armamuebles.es/" />
+    <link rel="alternate" hreflang="x-default" href="https://armamuebles.es/" />
 
-    <!-- Al compartir el enlace (WhatsApp, Facebook, etc.) -->
+    <!-- SITEMAP -->
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="https://armamuebles.es/sitemap.xml"
+    />
+
+    <!-- RENDIMIENTO -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://wa.me" />
+
+    <!-- PRECARGA DEL LOGOTIPO -->
+    <link rel="preload" as="image" href="/images/logo.png" />
+
+    <!-- GOOGLE ANALYTICS 4 -->
+    <!-- Sustituir G-XXXXXXXXXX por el ID real -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="ArmaMuebles" />
-    <meta property="og:title" content="ArmaMuebles | Montaje de muebles a domicilio en Madrid" />
+
+    <meta property="og:title" content="Montaje de Muebles en Madrid | ArmaMuebles" />
+
     <meta
       property="og:description"
-      content="Cocinas con electrodomésticos incluidos, armarios, dormitorios y salones. Tú eliges, nosotros lo dejamos montado."
+      content="Montaje profesional de muebles, cocinas, armarios y mobiliario a domicilio en Madrid. Solicita tu presupuesto sin compromiso."
     />
-    <meta property="og:url" content="https://TU-DOMINIO.com/" />
-    <meta property="og:image" content="https://TU-DOMINIO.com/assets/images/og-armamuebles.jpg" />
+
+    <meta property="og:url" content="https://armamuebles.es/" />
+
+    <meta property="og:image" content="https://armamuebles.es/images/logo.png" />
+
+    <meta property="og:image:alt" content="ArmaMuebles, montaje profesional de muebles en Madrid" />
+
+    <!-- TWITTER / X -->
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Rendimiento: conexiones tempranas y fuentes sin bloquear el pintado -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=DM+Sans:wght@400;500;600;700&display=swap"
-      media="print"
-      onload="this.media = 'all'"
+    <meta name="twitter:title" content="Montaje de Muebles en Madrid | ArmaMuebles" />
+
+    <meta
+      name="twitter:description"
+      content="Montaje de cocinas, armarios, dormitorios y muebles a domicilio en Madrid."
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=DM+Sans:wght@400;500;600;700&display=swap"
-      />
-      <style>
-        .reveal {
-          opacity: 1 !important;
-          transform: none !important;
-        }
-      </style>
-    </noscript>
 
-    <!-- Estilos globales mínimos (el resto vive en app.css) -->
-    <style>
-      html {
-        scroll-behavior: smooth;
-        -webkit-text-size-adjust: 100%;
-      }
-      body {
-        margin: 0;
-        background: #fff;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-      }
-      app-root {
-        display: block;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
+    <meta name="twitter:image" content="https://armamuebles.es/images/logo.png" />
+
+    <!-- DATOS ESTRUCTURADOS: WEBSITE -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://armamuebles.es/#website",
+        "url": "https://armamuebles.es/",
+        "name": "ArmaMuebles",
+        "inLanguage": "es-ES",
+        "publisher": {
+          "@id": "https://armamuebles.es/#organization"
         }
       }
-    </style>
+    </script>
 
-    <!-- Datos estructurados para Google -->
+    <!-- DATOS ESTRUCTURADOS: NEGOCIO -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "HomeAndConstructionBusiness",
+        "@id": "https://armamuebles.es/#organization",
         "name": "ArmaMuebles",
-        "description": "Montaje profesional de cocinas, armarios, dormitorios y muebles a domicilio en la Comunidad de Madrid.",
-        "url": "https://TU-DOMINIO.com/",
-        "image": "https://TU-DOMINIO.com/assets/images/og-armamuebles.jpg",
-        "logo": "https://TU-DOMINIO.com/assets/images/logo-icon.png",
+        "description": "Servicio profesional de montaje de muebles, cocinas, armarios y mobiliario a domicilio en Madrid.",
+        "url": "https://armamuebles.es/",
+        "logo": "https://armamuebles.es/images/logo.png",
+        "image": "https://armamuebles.es/images/logo.png",
         "telephone": "+34624671374",
-        "priceRange": "€",
-        "areaServed": {
-          "@type": "AdministrativeArea",
-          "name": "Comunidad de Madrid"
+        "priceRange": "€€",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Madrid",
+          "addressRegion": "Comunidad de Madrid",
+          "addressCountry": "ES"
         },
-        "makesOffer": [
+        "areaServed": [
           {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Montaje de cocinas con electrodomésticos"
-            }
+            "@type": "City",
+            "name": "Madrid"
           },
           {
-            "@type": "Offer",
-            "itemOffered": { "@type": "Service", "name": "Montaje de armarios y vestidores" }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Montaje de muebles de dormitorio y salón"
-            }
+            "@type": "AdministrativeArea",
+            "name": "Comunidad de Madrid"
           }
-        ]
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios de ArmaMuebles",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Montaje de cocinas",
+                "description": "Montaje de muebles de cocina y colocación de electrodomésticos."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Montaje de armarios",
+                "description": "Montaje de armarios, vestidores y soluciones de almacenamiento."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Montaje de muebles de salón",
+                "description": "Montaje de muebles de televisión, estanterías y mobiliario de salón."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Montaje de muebles de dormitorio",
+                "description": "Montaje de camas, cómodas, mesitas y muebles de dormitorio."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Montaje de mesas y muebles auxiliares",
+                "description": "Montaje de mesas, escritorios y mobiliario auxiliar."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Montaje de muebles a domicilio",
+                "description": "Servicio de montaje de mobiliario en viviendas y otros espacios."
+              }
+            }
+          ]
+        }
       }
     </script>
   </head>
+
   <body>
     <app-root></app-root>
-    <noscript>Necesitas activar JavaScript para pedir presupuesto en ArmaMuebles.</noscript>
+
+    <!-- CONTENIDO SIN JAVASCRIPT -->
+    <noscript>
+      <div
+        style="
+          font-family: Arial, sans-serif;
+          max-width: 720px;
+          margin: 40px auto;
+          padding: 20px;
+          color: #14232b;
+          line-height: 1.6;
+        "
+      >
+        <h1>ArmaMuebles | Montaje de muebles en Madrid</h1>
+
+        <p>
+          Especialistas en montaje de muebles, cocinas, armarios, dormitorios y mobiliario a
+          domicilio en Madrid. Solicita información para tu montaje.
+        </p>
+
+        <ul>
+          <li>Montaje de cocinas</li>
+          <li>Montaje de armarios</li>
+          <li>Montaje de muebles de salón</li>
+          <li>Montaje de dormitorios</li>
+          <li>Montaje de mesas y muebles auxiliares</li>
+        </ul>
+
+        <p>Activa JavaScript para utilizar nuestra web.</p>
+      </div>
+    </noscript>
   </body>
 </html>

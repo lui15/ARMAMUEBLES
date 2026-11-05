@@ -31,17 +31,14 @@
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
-    <meta name="googlebot" content="index, follow" />
     <meta name="language" content="es" />
 
     <!-- SEO LOCAL -->
     <meta name="geo.region" content="ES-M" />
     <meta name="geo.placename" content="Madrid" />
 
-    <!-- CANONICAL E IDIOMA -->
+    <!-- CANONICAL: SeoService lo actualiza en cada URL -->
     <link rel="canonical" href="https://armamuebles.es/" />
-    <link rel="alternate" hreflang="es-ES" href="https://armamuebles.es/" />
-    <link rel="alternate" hreflang="x-default" href="https://armamuebles.es/" />
 
     <!-- SITEMAP -->
     <link
@@ -110,106 +107,7 @@
 
     <meta name="twitter:image" content="https://armamuebles.es/images/logo.png" />
 
-    <!-- DATOS ESTRUCTURADOS: WEBSITE -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://armamuebles.es/#website",
-        "url": "https://armamuebles.es/",
-        "name": "ArmaMuebles",
-        "inLanguage": "es-ES",
-        "publisher": {
-          "@id": "https://armamuebles.es/#organization"
-        }
-      }
-    </script>
-
-    <!-- DATOS ESTRUCTURADOS: NEGOCIO -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
-        "@id": "https://armamuebles.es/#organization",
-        "name": "ArmaMuebles",
-        "description": "Servicio profesional de montaje de muebles, cocinas, armarios y mobiliario a domicilio en Madrid.",
-        "url": "https://armamuebles.es/",
-        "logo": "https://armamuebles.es/images/logo.png",
-        "image": "https://armamuebles.es/images/logo.png",
-        "telephone": "+34624671374",
-        "priceRange": "€€",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Madrid",
-          "addressRegion": "Comunidad de Madrid",
-          "addressCountry": "ES"
-        },
-        "areaServed": [
-          {
-            "@type": "City",
-            "name": "Madrid"
-          },
-          {
-            "@type": "AdministrativeArea",
-            "name": "Comunidad de Madrid"
-          }
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Servicios de ArmaMuebles",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de cocinas",
-                "description": "Montaje de muebles de cocina y colocación de electrodomésticos."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de armarios",
-                "description": "Montaje de armarios, vestidores y soluciones de almacenamiento."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de muebles de salón",
-                "description": "Montaje de muebles de televisión, estanterías y mobiliario de salón."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de muebles de dormitorio",
-                "description": "Montaje de camas, cómodas, mesitas y muebles de dormitorio."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de mesas y muebles auxiliares",
-                "description": "Montaje de mesas, escritorios y mobiliario auxiliar."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de muebles a domicilio",
-                "description": "Servicio de montaje de mobiliario en viviendas y otros espacios."
-              }
-            }
-          ]
-        }
-      }
-    </script>
+    <!-- DATOS ESTRUCTURADOS: los genera SeoService por URL (landing-data.ts) -->
   </head>
 
   <body>
@@ -227,7 +125,7 @@
           line-height: 1.6;
         "
       >
-        <h1>ArmaMuebles | Montaje de muebles en Madrid</h1>
+        <p><strong>ArmaMuebles | Montaje de muebles en Madrid</strong></p>
 
         <p>
           Especialistas en montaje de muebles, cocinas, armarios, dormitorios y mobiliario a

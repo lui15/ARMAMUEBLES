@@ -99,7 +99,7 @@ export const PAGINAS: PaginaSeo[] = [
     h1: {
       antes: 'Montaje de',
       resaltado: 'cocinas en Madrid',
-      despues: 'con electrodomésticos incluidos',
+      despues: 'a domicilio',
     },
     kicker: 'Montaje de cocinas',
     h2: 'Tu cocina montada, nivelada y con los electrodomésticos colocados',

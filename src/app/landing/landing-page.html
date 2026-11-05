@@ -5,7 +5,14 @@
 <header class="site-header" [class.scrolled]="scrolled()">
   <div class="container header-inner">
     <a class="brand" href="#inicio" aria-label="ArmaMuebles, ir al inicio">
-      <img src="./images/logo.png" alt="ArmaMuebles" class="brand-logo" decoding="async" />
+      <img
+        src="./images/logo.png"
+        alt="ArmaMuebles"
+        class="brand-logo"
+        width="707"
+        height="353"
+        decoding="async"
+      />
     </a>
 
     <nav class="desktop-nav" aria-label="Principal">
@@ -37,6 +44,7 @@
           Montaje de cocinas y muebles · Madrid
         </div>
 
+        @if (esInicio) {
         <h1 class="rise" style="--i: 1">
           Montamos tu <span class="hl">cocina completa</span>
           <span class="h1-line"
@@ -51,6 +59,12 @@
             >de IKEA, Leroy Merlin, Obramat, Conforama, Bricomart o Brico Depot</span
           >
         </h1>
+        } @else {
+          <h1 class="rise" style="--i: 1">
+            {{ pagina.h1.antes }} <span class="hl">{{ pagina.h1.resaltado }}</span>
+            {{ pagina.h1.despues }}
+          </h1>
+        }
 
         <p class="hero-sub rise" style="--i: 2">
           Y también montamos tu
@@ -671,6 +685,62 @@
     </div>
   </section>
 
+  <!-- ================= CONTENIDO PROPIO DE CADA URL ================= -->
+  <section class="seo-section section-padding" id="informacion">
+    <div class="container">
+      <div class="seo-head" appReveal>
+        <span class="kicker">{{ pagina.kicker }}</span>
+        <h2>{{ pagina.h2 }}</h2>
+        <p>{{ pagina.intro }}</p>
+      </div>
+
+      <ul class="seo-puntos">
+        @for (punto of pagina.puntos; track punto) {
+          <li>{{ punto }}</li>
+        }
+      </ul>
+
+      <div class="seo-bloques">
+        @for (bloque of pagina.bloques; track bloque.titulo) {
+          <article class="seo-bloque">
+            <h3>{{ bloque.titulo }}</h3>
+            <p>{{ bloque.texto }}</p>
+          </article>
+        }
+      </div>
+
+      <div class="seo-cta">
+        <button type="button" class="btn btn-primary" (click)="abrirFormulario()">
+          Pedir presupuesto sin compromiso
+          <span class="arrow">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+          </span>
+        </button>
+      </div>
+
+      <div class="seo-faq">
+        <h3>Preguntas frecuentes: {{ pagina.etiqueta }}</h3>
+        @for (faq of pagina.faqs; track faq.pregunta) {
+          <details>
+            <summary>{{ faq.pregunta }}</summary>
+            <p>{{ faq.respuesta }}</p>
+          </details>
+        }
+      </div>
+
+      <nav class="seo-nav" aria-label="Más páginas de ArmaMuebles">
+        <strong>También te puede interesar</strong>
+        <ul>
+          @for (otra of otrasPaginas; track otra.path) {
+            <li>
+              <a [routerLink]="'/' + otra.path">{{ otra.etiqueta }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
+
   <!-- ================= SERVICIOS ================= -->
   <section class="services-section section-padding" id="servicios">
     <div class="container">
@@ -971,6 +1041,8 @@
           src="./images/logo.png"
           alt="ArmaMuebles"
           class="brand-logo"
+          width="707"
+          height="353"
           loading="lazy"
           decoding="async"
         />

@@ -2905,3 +2905,100 @@ section[id] {
     display: none;
   }
 }
+
+/* ---------- SEO: contenido propio de cada URL ---------- */
+main[tabindex='-1']:focus-visible,
+section[tabindex='-1']:focus-visible {
+  outline: none;
+}
+.seo-head {
+  max-width: 760px;
+}
+.seo-head h2 {
+  margin-top: 10px;
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  line-height: 1.15;
+}
+.seo-head p {
+  margin-top: 14px;
+  color: var(--muted);
+}
+.seo-puntos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.seo-puntos li {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.seo-bloques {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.seo-bloque {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+}
+.seo-bloque h3 {
+  font-size: 1.1rem;
+}
+.seo-bloque p {
+  margin-top: 8px;
+  color: var(--muted);
+}
+.seo-cta {
+  margin-top: 28px;
+}
+.seo-faq {
+  margin-top: 40px;
+}
+.seo-faq h3 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+.seo-faq details {
+  border-bottom: 1px solid var(--line);
+}
+.seo-faq summary {
+  padding: 14px 0;
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+.seo-faq details p {
+  padding-bottom: 16px;
+  color: var(--muted);
+}
+.seo-nav {
+  margin-top: 40px;
+}
+.seo-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.seo-nav a {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green-d);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+.seo-nav a:hover {
+  border-color: var(--green);
+}

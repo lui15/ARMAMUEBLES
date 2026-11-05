@@ -1,8 +1,9 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
+import { PAGINAS } from './landing/landing-data';
+
 export const serverRoutes: ServerRoute[] = [
-  {
-    path: '**',
-    renderMode: RenderMode.Prerender
-  }
+  ...PAGINAS.map((pagina): ServerRoute => ({ path: pagina.path, renderMode: RenderMode.Prerender })),
+  // Un comodín no se puede prerenderizar: se renderiza al vuelo con un 404 real.
+  { path: '**', renderMode: RenderMode.Server, status: 404 },
 ];

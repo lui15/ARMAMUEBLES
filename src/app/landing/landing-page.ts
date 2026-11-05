@@ -19,7 +19,11 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
+
+import { SeoService } from '../seo.service';
+import { PAGINAS, buscarPagina, crearJsonLd, urlDePagina } from './landing-data';
 
 /* =====================================================
    CONFIGURACIÓN · CENTRAL DE SOLICITUDES (Supabase)
@@ -547,14 +551,14 @@ export class CountDirective implements AfterViewInit {
 ===================================================== */
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-landing',
   standalone: true,
-  imports: [RevealDirective, CountDirective],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  imports: [RevealDirective, CountDirective, RouterLink],
+  templateUrl: './landing-page.html',
+  styleUrl: './landing-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
+export class LandingPage {
   private readonly zone = inject(NgZone);
   private readonly destroyRef = inject(DestroyRef);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
@@ -564,6 +568,12 @@ export class App {
   private readonly esNavegador = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly dialog = viewChild<ElementRef<HTMLElement>>('dialog');
+
+  /* ---------- SEO: contenido propio de cada URL ---------- */
+
+  readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
+  readonly esInicio = this.pagina.path === '';
+  readonly otrasPaginas = PAGINAS.filter((p) => p !== this.pagina);
 
   readonly currentYear = new Date().getFullYear();
 
@@ -813,6 +823,13 @@ export class App {
   readonly progreso = computed(() => (this.enviado() ? 1 : this.paso() / this.pasos.length));
 
   constructor() {
+    inject(SeoService).update({
+      title: this.pagina.title,
+      description: this.pagina.description,
+      path: urlDePagina(this.pagina),
+      jsonLd: crearJsonLd(this.pagina),
+    });
+
     // Bloquea el scroll de la página mientras el formulario está al frente (solo en el navegador).
     effect(() => {
       const abierto = this.formAbierto();
@@ -1045,6 +1062,27 @@ export class App {
     this.zonaSeleccionada.update((zonas) =>
       zonas.includes(zona) ? zonas.filter((z) => z !== zona) : [...zonas, zona],
     );
+  }
+
+  /**
+   * Con base href="/", un enlace "#servicios" lleva a la home desde cualquier otra URL.
+   * Se intercepta para desplazarse dentro de la página actual.
+   */
+  @HostListener('click', ['$event'])
+  alPulsarEnlace(evento: MouseEvent): void {
+    if (evento.defaultPrevented || evento.button !== 0) return;
+    if (evento.ctrlKey || evento.metaKey || evento.shiftKey || evento.altKey) return;
+
+    const enlace = (evento.target as Element | null)?.closest('a[href^="#"]');
+    const destino = this.doc.getElementById(enlace?.getAttribute('href')?.slice(1) ?? '');
+    if (!destino) return;
+
+    evento.preventDefault();
+    destino.scrollIntoView({ behavior: REDUCIR_MOVIMIENTO ? 'auto' : 'smooth', block: 'start' });
+
+    // Mantiene el comportamiento del enlace "Saltar al contenido": el foco va al destino.
+    if (!destino.hasAttribute('tabindex')) destino.setAttribute('tabindex', '-1');
+    destino.focus({ preventScroll: true });
   }
 
   @HostListener('document:keydown', ['$event'])

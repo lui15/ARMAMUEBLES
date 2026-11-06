@@ -37,6 +37,25 @@ export const TELEFONO_VISIBLE = '624 67 13 74';
 /** Tiendas cuyos muebles montamos. ArmaMuebles no está afiliada a ninguna. */
 export const MARCAS = ['IKEA', 'Leroy Merlin', 'Obramat', 'Conforama', 'Bricomart', 'Brico Depot'];
 
+export interface LogoMarca {
+  nombre: string;
+  /** Sin logotipo disponible, la marca se muestra como texto. */
+  logo: string | null;
+  ancho: number;
+  alto: number;
+  /** Altura relativa, para que logotipos muy anchos y muy altos se vean equilibrados. */
+  escala: number;
+}
+
+export const LOGOS_MARCAS: LogoMarca[] = [
+  { nombre: 'IKEA', logo: '/images/marcas/ikea.svg', ancho: 100, alto: 40, escala: 1 },
+  { nombre: 'Leroy Merlin', logo: '/images/marcas/leroy-merlin.svg', ancho: 176, alto: 106, escala: 1.1 },
+  { nombre: 'Obramat', logo: '/images/marcas/obramat.svg', ancho: 500, alto: 71, escala: 0.5 },
+  { nombre: 'Conforama', logo: '/images/marcas/conforama.svg', ancho: 551, alto: 91, escala: 0.55 },
+  { nombre: 'Bricomart', logo: null, ancho: 0, alto: 0, escala: 1 },
+  { nombre: 'Brico Depot', logo: '/images/marcas/brico-depot.svg', ancho: 375, alto: 228, escala: 1.1 },
+];
+
 export const CATEGORIAS = [
   'Todos',
   'Cocinas',

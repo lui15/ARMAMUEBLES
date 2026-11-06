@@ -54,9 +54,10 @@ const PAGINAS_LEGALES = {
 
         <h2>Propiedad intelectual</h2>
         <p>
-          Los textos, el diseño y los logotipos de esta web pertenecen a su titular o se usan con
-          autorización. Las marcas de terceros que se mencionan pertenecen a sus respectivos
-          propietarios. No se permite reproducir estos contenidos sin autorización.
+          Los textos, el diseño y el logotipo de ArmaMuebles pertenecen a su titular. Las marcas y
+          logotipos de tiendas que aparecen pertenecen a sus respectivos propietarios y solo indican
+          de qué tiendas montamos muebles: no implican afiliación ni patrocinio. No se permite
+          reproducir los contenidos propios de esta web sin autorización.
         </p>
 
         <h2>Responsabilidad</h2>

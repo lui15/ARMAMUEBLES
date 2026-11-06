@@ -54,8 +54,23 @@
   transform: translateY(-70%);
 }
 .slot-marca {
-  color: var(--green-d);
+  height: 1.1em;
   padding-right: 0.08em;
+  color: var(--green-d);
+  vertical-align: -0.2em;
+}
+.slot-marca > span {
+  display: flex;
+  align-items: center;
+}
+.slot-marca .logo-marca {
+  width: auto;
+  height: calc(1em * var(--logo));
+}
+.marca-texto {
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .hero-sub {
   margin-top: 18px;
@@ -64,8 +79,17 @@
   font-weight: 500;
   letter-spacing: -0.012em;
 }
+.slot-pieza > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+}
+.slot-pieza app-icono-mueble {
+  --icono: 1.8em;
+  margin-block: -0.3em;
+}
 .slot-pieza {
-  padding: 1px 12px;
+  padding: 1px 12px 1px 6px;
   border-radius: 999px;
   background: var(--lime);
   color: var(--green-d);
@@ -129,16 +153,33 @@
 }
 .cinta-pista {
   display: flex;
+  align-items: center;
   width: max-content;
   animation: cinta 36s linear infinite;
 }
-.cinta-pista span {
+.cinta-marca {
+  display: flex;
+  align-items: center;
+  height: 46px;
   padding-inline: clamp(20px, 3vw, 44px);
   color: var(--ink-3);
   font-size: clamp(1rem, 1.3vw, 1.2rem);
-  font-weight: 600;
   line-height: 1.1;
   white-space: nowrap;
+}
+.cinta-marca .marca-texto {
+  font-size: inherit;
+}
+.cinta-marca .logo-marca {
+  width: auto;
+  height: calc(38px * var(--logo));
+}
+.cinta-nota {
+  flex: none;
+  max-width: 11rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
 }
 @keyframes cinta {
   to {
@@ -460,7 +501,9 @@
     gap: 8px;
     padding-inline: 0;
   }
-  .cinta-titulo {
+  .cinta-titulo,
+  .cinta-nota {
+    max-width: none;
     text-align: center;
   }
   .cinta-ventana {

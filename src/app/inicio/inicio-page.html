@@ -9,8 +9,14 @@
         <span class="h1-line">
           de
           <span class="slot slot-marca" aria-hidden="true">
-            @for (m of marcas; track m; let i = $index) {
-              <span [class.on]="i === marca()" [class.out]="i === marcaPrev()">{{ m }}</span>
+            @for (m of logos; track m.nombre; let i = $index) {
+              <span [class.on]="i === marca()" [class.out]="i === marcaPrev()">
+                @if (m.logo) {
+                  <img class="logo-marca" [src]="m.logo" alt="" [width]="m.ancho" [height]="m.alto" [style.--logo]="m.escala" />
+                } @else {
+                  <span class="marca-texto">{{ m.nombre }}</span>
+                }
+              </span>
             }
           </span>
         </span>
@@ -21,8 +27,11 @@
       <p class="hero-sub rise" style="--i: 2">
         Y también montamos tu
         <span class="slot slot-pieza" aria-hidden="true">
-          @for (p of piezas; track p; let i = $index) {
-            <span [class.on]="i === pieza()" [class.out]="i === piezaPrev()">{{ p }}</span>
+          @for (p of piezas; track p.nombre; let i = $index) {
+            <span [class.on]="i === pieza()" [class.out]="i === piezaPrev()">
+              <app-icono-mueble [id]="p.icono" />
+              {{ p.nombre }}
+            </span>
           }
         </span>
         <span class="sr-only">mesita de noche, estantería, armario, cama, cómoda, escritorio o mesa</span>
@@ -61,11 +70,18 @@
   <div class="cinta-ventana" aria-hidden="true">
     <div class="cinta-pista">
       @for (m of cinta; track $index) {
-        <span>{{ m }}</span>
+        <span class="cinta-marca">
+          @if (m.logo) {
+            <img class="logo-marca" [src]="m.logo" alt="" [width]="m.ancho" [height]="m.alto" [style.--logo]="m.escala" />
+          } @else {
+            <span class="marca-texto">{{ m.nombre }}</span>
+          }
+        </span>
       }
     </div>
   </div>
   <span class="sr-only">IKEA, Leroy Merlin, Obramat, Conforama, Bricomart y Brico Depot</span>
+  <small class="cinta-nota">Marcas de sus propietarios. No estamos afiliados a ellas.</small>
 </section>
 
 <!-- ================= PRECIO Y CONFIANZA ================= -->

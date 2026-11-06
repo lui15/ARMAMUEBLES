@@ -10,9 +10,11 @@
     height 0.35s var(--ease),
     box-shadow 0.3s;
 }
+.site-header.compacta {
+  height: 72px;
+}
 .site-header.compacta,
 .site-header.mega-on {
-  height: 72px;
   background: rgba(250, 249, 243, 0.86);
   backdrop-filter: saturate(170%) blur(16px);
   border-bottom-color: var(--line);
@@ -145,6 +147,10 @@
   display: flex;
   align-items: center;
   gap: 16px;
+}
+.header-acciones .btn:hover:not(:disabled),
+.header-acciones .btn:active:not(:disabled) {
+  transform: none;
 }
 .header-tel {
   color: var(--ink);

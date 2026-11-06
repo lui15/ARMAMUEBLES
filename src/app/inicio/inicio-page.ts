@@ -12,9 +12,11 @@ import { RouterLink } from '@angular/router';
 import { CountDirective, REDUCIR_MOVIMIENTO, RevealDirective } from '../compartido/animaciones';
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
+import { IconoMueble } from '../compartido/icono-mueble';
 import {
   ELECTRODOMESTICOS,
   ID_SOLO_ELECTRO,
+  LOGOS_MARCAS,
   MARCAS,
   SERVICIOS,
   ZONAS,
@@ -27,14 +29,14 @@ import { KitchenScene } from './kitchen-scene';
 
 /** Palabras que se deslizan en el texto bajo el titular. */
 const PIEZAS = [
-  'mesita de noche',
-  'estantería',
-  'armario',
-  'cama',
-  'cómoda',
-  'escritorio',
-  'mueble de TV',
-  'mesa de comedor',
+  { nombre: 'mesita de noche', icono: 8 },
+  { nombre: 'estantería', icono: 15 },
+  { nombre: 'armario', icono: 5 },
+  { nombre: 'cama', icono: 9 },
+  { nombre: 'cómoda', icono: 10 },
+  { nombre: 'escritorio', icono: 14 },
+  { nombre: 'mueble de TV', icono: 11 },
+  { nombre: 'mesa de comedor', icono: 13 },
 ];
 
 @Component({
@@ -44,6 +46,7 @@ const PIEZAS = [
     RouterLink,
     RevealDirective,
     CountDirective,
+    IconoMueble,
     KitchenScene,
     CatalogoServicios,
     ProcesoPasos,
@@ -59,7 +62,7 @@ export class InicioPage {
   readonly presupuesto = inject(PresupuestoService);
 
   readonly pagina = buscarPagina('');
-  readonly marcas = MARCAS;
+  readonly logos = LOGOS_MARCAS;
   readonly cifras = {
     servicios: SERVICIOS.length,
     tiendas: MARCAS.length,
@@ -75,7 +78,7 @@ export class InicioPage {
   readonly soloElectro = servicioPorId(ID_SOLO_ELECTRO);
 
   /** Doble lista para que la cinta de tiendas se repita sin saltos. */
-  readonly cinta = [...MARCAS, ...MARCAS];
+  readonly cinta = [...LOGOS_MARCAS, ...LOGOS_MARCAS];
 
   readonly estancias = [
     { path: 'montaje-cocinas-madrid', titulo: 'Cocinas', desde: '120 €', foto: './images/cocina-isla.webp', alt: 'Cocina con isla central', clase: 'grande' },
@@ -117,7 +120,7 @@ export class InicioPage {
       this.destroyRef.onDestroy(() => clearInterval(id));
     };
 
-    girar(this.marca, this.marcaPrev, MARCAS.length, 2400);
+    girar(this.marca, this.marcaPrev, LOGOS_MARCAS.length, 2400);
     girar(this.pieza, this.piezaPrev, PIEZAS.length, 2900);
   }
 }

@@ -1,0 +1,531 @@
+:host {
+  display: block;
+}
+
+/* ---------- Portada ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(100svh, 64rem);
+  padding-block: calc(var(--hh) + clamp(1rem, 2.5vw, 2rem)) clamp(2.5rem, 5vw, 4.5rem);
+  background: var(--bg);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 4vw, 72px);
+  align-items: center;
+}
+.hero h1 {
+  margin-top: 22px;
+  font-size: clamp(2.3rem, 4.1vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+.hero h1 em {
+  display: block;
+  white-space: nowrap;
+}
+.h1-line {
+  display: block;
+}
+.slot {
+  position: relative;
+  display: inline-grid;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.slot > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(70%);
+  transition:
+    opacity 0.45s ease,
+    transform 0.7s var(--ease);
+  white-space: nowrap;
+}
+.slot > span.on {
+  opacity: 1;
+  transform: none;
+}
+.slot > span.out {
+  opacity: 0;
+  transform: translateY(-70%);
+}
+.slot-marca {
+  height: 1.1em;
+  padding-right: 0.08em;
+  color: var(--green-d);
+  vertical-align: -0.2em;
+}
+.slot-marca > span {
+  display: flex;
+  align-items: center;
+}
+.slot-marca .logo-marca {
+  width: auto;
+  height: calc(1em * var(--logo));
+}
+.marca-texto {
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.hero-sub {
+  margin-top: 18px;
+  color: var(--ink);
+  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+.slot-pieza > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+}
+.slot-pieza app-icono-mueble {
+  --icono: 1.8em;
+  margin-block: -0.3em;
+}
+.slot-pieza {
+  padding: 1px 12px 1px 6px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--green-d);
+  font-weight: 700;
+}
+.hero-texto {
+  max-width: 50ch;
+  margin-top: 14px;
+  color: var(--muted);
+}
+.hero-texto strong {
+  color: var(--ink);
+}
+.hero-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.hero-ventajas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 24px;
+  color: var(--ink-3);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.hero-ventajas li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-ventajas li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+/* ---------- Cinta de tiendas ---------- */
+.cinta {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  padding: 20px var(--gutter);
+  border-block: 1px solid var(--line);
+  background: var(--surface);
+}
+.cinta-titulo {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+.cinta-ventana {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.cinta-pista {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: cinta 36s linear infinite;
+}
+.cinta-marca {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  padding-inline: clamp(20px, 3vw, 44px);
+  color: var(--ink-3);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.cinta-marca .marca-texto {
+  font-size: inherit;
+}
+.cinta-marca .logo-marca {
+  width: auto;
+  height: calc(38px * var(--logo));
+}
+.cinta-nota {
+  flex: none;
+  max-width: 11rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+@keyframes cinta {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Confianza ---------- */
+.confianza {
+  padding-block: clamp(2.5rem, 5vw, 4rem) 0;
+}
+.confianza-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 24px clamp(28px, 5vw, 80px);
+  align-items: center;
+}
+.confianza-precio span,
+.confianza-precio small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.confianza-precio strong {
+  display: block;
+  margin-block: 2px 6px;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.confianza-puntos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.confianza-puntos li {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.confianza-puntos strong {
+  display: block;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.confianza-puntos span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ---------- Cifras ---------- */
+.cifras {
+  padding-block: clamp(2.5rem, 5vw, 4rem) 0;
+}
+.cifras-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: 1px solid var(--line);
+}
+.cifras-grid > div {
+  padding: 26px 20px 24px 0;
+}
+.cifras-grid > div + div {
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+}
+.cifras strong {
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.cifras i {
+  color: var(--green-d);
+}
+.cifras p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ---------- Estancias ---------- */
+.estancias-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(13rem, 21vw, 21rem);
+  gap: 12px;
+}
+.estancias-grid .grande {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+.estancias-grid li:nth-child(2) {
+  grid-row: span 2;
+}
+.estancias-grid li:nth-child(n + 5) {
+  grid-column: span 2;
+}
+.estancia {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+  color: #fff;
+  text-decoration: none;
+}
+.estancia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.estancia::after {
+  content: '';
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(transparent, rgba(11, 20, 24, 0.82));
+}
+.estancia-texto {
+  position: absolute;
+  inset: auto 18px 16px;
+  z-index: 1;
+}
+.estancia strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.02rem, 1.5vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.grande .estancia strong {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+}
+.estancia small {
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.estancias-mas {
+  margin-top: 24px;
+}
+
+/* ---------- Desarrollo ---------- */
+.detalle {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 28px clamp(32px, 7vw, 112px);
+}
+.detalle-parrafo {
+  color: var(--ink-3);
+  font-size: clamp(1.02rem, 1.2vw, 1.13rem);
+}
+.detalle-parrafo + .detalle-parrafo {
+  margin-top: 16px;
+}
+.detalle-bloques {
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.detalle-bloques li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.detalle-bloques p {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+/* ---------- Electrodomésticos ---------- */
+.electro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  color: var(--muted);
+}
+.electro-foto img {
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  object-fit: cover;
+}
+.electro-copia {
+  padding: clamp(2rem, 5vw, 4.75rem);
+}
+.electro h2 {
+  margin-top: 14px;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+}
+.electro p {
+  margin-top: 16px;
+}
+.electro ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
+}
+.electro li {
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.84rem;
+}
+.electro-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: 28px;
+}
+.link-claro {
+  padding: 3px 0;
+  border: 0;
+  border-bottom: 1px solid var(--ink-3);
+  background: none;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* ---------- Zonas ---------- */
+.zonas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 32px clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+.zonas h2 {
+  margin-top: 18px;
+}
+.zonas p {
+  margin-block: 18px;
+  color: var(--muted);
+}
+.zonas .enlaces-grid {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+/* ---------- Pantallas muy grandes ---------- */
+/* ---------- Tableta ---------- */
+@media (max-width: 1080px) {
+  .hero {
+    min-height: 0;
+  }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 7vw, 4rem);
+  }
+  .confianza-grid,
+  .detalle,
+  .zonas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .electro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .electro-foto img {
+    max-height: 22rem;
+  }
+}
+@media (max-width: 860px) {
+  .cifras-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cifras-grid > div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .cifras-grid > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .estancias-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: clamp(12rem, 42vw, 20rem);
+  }
+  .estancias-grid li:nth-child(2) {
+    grid-row: auto;
+  }
+  .estancias-grid li:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 560px) {
+  .hero h1 {
+    font-size: clamp(2rem, 9.8vw, 2.7rem);
+  }
+  .hero-acciones .btn {
+    flex: 1 1 100%;
+  }
+  /* La animación entra antes en pantalla. */
+  .hero-ventajas {
+    display: none;
+  }
+  .confianza-puntos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .cinta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-inline: 0;
+  }
+  .cinta-titulo,
+  .cinta-nota {
+    max-width: none;
+    text-align: center;
+  }
+  .cinta-ventana {
+    flex: none;
+  }
+  .estancias-grid .grande {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+  .estancias-grid {
+    grid-auto-rows: 48vw;
+  }
+  .grande .estancia {
+    height: 100%;
+  }
+  .estancia-texto {
+    inset: auto 12px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-pista {
+    animation: none;
+  }
+}

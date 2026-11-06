@@ -1,0 +1,107 @@
+.site-footer {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  /* El margen inferior deja libres los enlaces legales del botón flotante y la barra móvil. */
+  padding-block: clamp(3.5rem, 7vw, 6.5rem) calc(6.5rem + env(safe-area-inset-bottom));
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.94rem;
+}
+.pie-marca {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px 48px;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--line-dark);
+}
+.pie-wordmark {
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 4.25rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-decoration: none;
+}
+.pie-wordmark em {
+  color: var(--green-l);
+}
+.pie-contacto {
+  display: grid;
+  gap: 6px;
+  max-width: 19rem;
+}
+.pie-contacto a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.pie-contacto a:hover,
+.pie-columnas a:hover,
+.legal-links a:hover {
+  color: var(--green-l);
+}
+.pie-columnas {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 36px 32px;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+.pie-columnas strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #fff;
+  font-weight: 700;
+}
+.pie-columnas a {
+  display: block;
+  padding: 6px 0;
+  color: inherit;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.pie-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line-dark);
+  font-size: 0.82rem;
+}
+.pie-legal small {
+  display: block;
+  max-width: 60ch;
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: inherit;
+}
+.legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+}
+.legal-links a,
+.legal-links button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.legal-links button:hover {
+  color: var(--green-l);
+}
+@media (max-width: 860px) {
+  .pie-columnas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 460px) {
+  .pie-columnas a {
+    padding: 8px 0;
+  }
+}

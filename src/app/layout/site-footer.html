@@ -1,0 +1,55 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="pie-marca">
+      <a class="pie-wordmark" routerLink="/">Arma<em>Muebles</em></a>
+      <div class="pie-contacto">
+        <p>Montaje de muebles y cocinas a domicilio en Madrid.</p>
+        <a [href]="'tel:' + telefono">{{ telefonoVisible }}</a>
+        <a [href]="'https://wa.me/' + whatsapp" target="_blank" rel="noopener">Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="pie-columnas">
+      <nav aria-label="Servicios">
+        <strong>Servicios</strong>
+        @for (p of servicios; track p.path) {
+          <a [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
+        }
+      </nav>
+      <nav aria-label="Tiendas">
+        <strong>Por tienda</strong>
+        @for (p of tiendas; track p.path) {
+          <a [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
+        }
+      </nav>
+      <nav aria-label="Zonas">
+        <strong>Por zona</strong>
+        @for (p of zonas; track p.path) {
+          <a [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
+        }
+      </nav>
+      <nav aria-label="Información">
+        <strong>Información</strong>
+        @for (p of empresa; track p.path) {
+          <a [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
+        }
+      </nav>
+    </div>
+
+    <div class="pie-legal">
+      <div>
+        <span>© {{ anio }} ArmaMuebles. Todos los derechos reservados.</span>
+        <small>
+          IKEA, Leroy Merlin, Obramat, Conforama, Bricomart y Brico Depot son marcas de sus
+          respectivos propietarios. ArmaMuebles no está afiliada a ellas.
+        </small>
+      </div>
+      <span class="legal-links">
+        <a routerLink="/aviso-legal">Aviso legal</a>
+        <a routerLink="/politica-privacidad">Política de privacidad</a>
+        <a routerLink="/politica-cookies">Política de cookies</a>
+        <button type="button" (click)="consentimiento.reabrir()">Configurar cookies</button>
+      </span>
+    </div>
+  </div>
+</footer>

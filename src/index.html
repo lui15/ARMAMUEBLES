@@ -49,29 +49,13 @@
     />
 
     <!-- RENDIMIENTO -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/plus-jakarta-var.woff2" crossorigin />
     <link rel="dns-prefetch" href="https://wa.me" />
 
     <!-- PRECARGA DEL LOGOTIPO -->
-    <link rel="preload" as="image" href="/images/logo.png" />
+    <link rel="preload" as="image" href="/images/logo-web.png" />
 
-    <!-- GOOGLE ANALYTICS 4 -->
-    <!-- Sustituir G-XXXXXXXXXX por el ID real -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
-
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
+    <!-- GOOGLE ANALYTICS: solo se carga si el visitante lo acepta (consentimiento.service.ts) -->
 
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="/images/logo.png" />
@@ -115,6 +99,7 @@
 
     <!-- CONTENIDO SIN JAVASCRIPT -->
     <noscript>
+      <style>.reveal,.rise{opacity:1!important;transform:none!important;animation:none!important}</style>
       <div
         style="
           font-family: Arial, sans-serif;

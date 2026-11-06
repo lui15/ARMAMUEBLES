@@ -1,0 +1,342 @@
+<div class="scene-card" [class.lista]="lista()">
+  <div class="scene-top">
+    <div class="scene-chip">
+      <span class="punto"></span>
+      @for (t of [etapas[etapa()].texto]; track t) {
+        <span class="scene-label">{{ t }}</span>
+      }
+    </div>
+    <button
+      type="button"
+      class="scene-play"
+      (click)="alternarReproduccion()"
+      [attr.aria-label]="reproduciendo() ? 'Pausar animación' : 'Reproducir animación'"
+    >
+      @if (reproduciendo()) {
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14" /></svg>
+      } @else {
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z" /></svg>
+      }
+    </button>
+  </div>
+
+  <svg
+    class="kitchen"
+    viewBox="0 0 720 480"
+    role="img"
+    [attr.aria-label]="'Montaje de una cocina paso a paso. Fase actual: ' + etapas[etapa()].texto"
+  >
+    <defs>
+      <linearGradient id="kWall" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6f3e8" />
+        <stop offset="1" stop-color="#e8e3d2" />
+      </linearGradient>
+      <linearGradient id="kFloor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#b99a72" />
+        <stop offset="1" stop-color="#8f7354" />
+      </linearGradient>
+      <linearGradient id="kFront" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2d4a39" />
+        <stop offset="1" stop-color="#1b3024" />
+      </linearGradient>
+      <linearGradient id="kCarcass" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#d9c8a6" />
+        <stop offset="1" stop-color="#eadfc8" />
+      </linearGradient>
+      <linearGradient id="kSteel" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f3f5f5" />
+        <stop offset=".5" stop-color="#c3ccd0" />
+        <stop offset="1" stop-color="#e4e9ea" />
+      </linearGradient>
+      <linearGradient id="kGlass" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#34505c" />
+        <stop offset="1" stop-color="#0d1a20" />
+      </linearGradient>
+      <linearGradient id="kStone" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fbf8f1" />
+        <stop offset="1" stop-color="#d8cfbc" />
+      </linearGradient>
+      <linearGradient id="kBrass" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e4c98d" />
+        <stop offset="1" stop-color="#a88445" />
+      </linearGradient>
+      <linearGradient id="kSky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#cfe6ee" />
+        <stop offset="1" stop-color="#f3f1df" />
+      </linearGradient>
+      <linearGradient id="kDusk" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1b2c4d" />
+        <stop offset="1" stop-color="#e49a62" />
+      </linearGradient>
+      <linearGradient id="kSun" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fffbe8" stop-opacity=".85" />
+        <stop offset="1" stop-color="#fffbe8" stop-opacity="0" />
+      </linearGradient>
+      <linearGradient id="kLed" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffdf9e" stop-opacity=".95" />
+        <stop offset="1" stop-color="#ffdf9e" stop-opacity="0" />
+      </linearGradient>
+      <linearGradient id="kLedUp" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stop-color="#ffdf9e" stop-opacity=".7" />
+        <stop offset="1" stop-color="#ffdf9e" stop-opacity="0" />
+      </linearGradient>
+      <pattern id="kTiles" width="30" height="18" patternUnits="userSpaceOnUse">
+        <rect width="30" height="18" fill="#f1eee2" />
+        <path d="M0 .5H30M.5 0V9M15.5 9V18M0 9.5H30" stroke="#dcd7c6" fill="none" />
+      </pattern>
+      <pattern id="kPlanks" width="120" height="17.5" patternUnits="userSpaceOnUse">
+        <path d="M0 .5H120M0 17.5H120" stroke="#7d6346" stroke-opacity=".28" fill="none" />
+      </pattern>
+    </defs>
+
+    <g class="cam" [style.transform]="camara()">
+      <!-- ========== CAPA 1 · HABITACIÓN ========== -->
+      <g class="capa capa-1">
+        <rect x="-40" y="-40" width="800" height="452" fill="url(#kWall)" />
+        <rect x="-40" y="412" width="800" height="110" fill="url(#kFloor)" />
+        <rect x="-40" y="412" width="800" height="110" fill="url(#kPlanks)" />
+        <rect x="-40" y="406" width="800" height="7" fill="#d6cfba" />
+
+        <!-- Ventana -->
+        <g>
+          <rect x="528" y="46" width="146" height="132" rx="3" fill="#fbfaf4" />
+          <rect x="535" y="53" width="132" height="118" fill="url(#kSky)" />
+          <rect class="ocaso" [class.on]="lista()" x="535" y="53" width="132" height="118" fill="url(#kDusk)" />
+          <path d="M601 53v118M535 112h132" stroke="#fbfaf4" stroke-width="5" />
+          <rect x="522" y="176" width="158" height="6" rx="1" fill="#fbfaf4" />
+        </g>
+
+        <g class="sol" [class.off]="lista()">
+          <polygon points="540,172 662,172 470,412 240,412" fill="url(#kSun)" />
+        </g>
+      </g>
+
+      <!-- ========== CAPA 2 · COCINA ========== -->
+      <g class="capa capa-2">
+        <!-- Fase 2 · Encimera, azulejo y frigorífico -->
+        <g class="p solo-fade" [class.on]="etapa() >= 2">
+          <rect x="150" y="188" width="540" height="102" fill="url(#kTiles)" />
+        </g>
+
+        <g class="p" [class.on]="etapa() >= 2" style="--from: translateX(-170px); --d: 0.3s">
+          <rect x="44" y="406" width="100" height="10" fill="#101c21" opacity=".25" />
+          <rect x="38" y="112" width="106" height="298" rx="4" fill="url(#kSteel)" />
+          <path d="M38 208h106" stroke="#98a5aa" stroke-width="2" />
+          <rect x="52" y="146" width="5" height="50" rx="2.5" fill="#8d9a9f" />
+          <rect x="52" y="222" width="5" height="76" rx="2.5" fill="#8d9a9f" />
+        </g>
+
+        <!-- Fase 1 · Muebles bajos sin puertas -->
+        <g class="p" [class.on]="etapa() >= 1" style="--from: translateY(150px)">
+          <rect x="150" y="300" width="90" height="104" fill="url(#kCarcass)" />
+          <path d="M150 352h90M150 300h90M150 300v104M240 300v104" stroke="#bda98a" stroke-width="1.4" fill="none" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 1" style="--from: translateY(150px); --d: 0.1s">
+          <rect x="240" y="300" width="90" height="104" fill="url(#kCarcass)" />
+          <path d="M240 352h90M330 300v104" stroke="#bda98a" stroke-width="1.4" fill="none" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 1" style="--from: translateY(150px); --d: 0.2s">
+          <rect x="330" y="300" width="180" height="104" fill="url(#kCarcass)" />
+          <path d="M510 300v104M330 382h180" stroke="#bda98a" stroke-width="1.4" fill="none" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 1" style="--from: translateY(150px); --d: 0.3s">
+          <rect x="510" y="300" width="90" height="104" fill="url(#kCarcass)" />
+          <path d="M510 352h90M600 300v104" stroke="#bda98a" stroke-width="1.4" fill="none" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 1" style="--from: translateY(150px); --d: 0.4s">
+          <rect x="600" y="300" width="90" height="104" fill="url(#kCarcass)" />
+          <path d="M690 300v104" stroke="#bda98a" stroke-width="1.4" fill="none" />
+          <rect x="146" y="404" width="548" height="8" fill="#16241d" />
+        </g>
+
+        <!-- Fase 2 · Encimera -->
+        <g class="p" [class.on]="etapa() >= 2" style="--from: translateY(-120px); --d: 0.1s">
+          <rect x="142" y="288" width="556" height="13" rx="1.5" fill="url(#kStone)" />
+          <rect x="142" y="299" width="556" height="2" fill="#a89d87" />
+        </g>
+
+        <!-- Fase 3 · Muebles altos sin puertas -->
+        <g class="p" [class.on]="etapa() >= 3" style="--from: translateY(-170px)">
+          <rect x="150" y="62" width="90" height="116" fill="url(#kCarcass)" />
+          <path d="M150 100h90M150 139h90M240 62v116" stroke="#bda98a" stroke-width="1.4" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 3" style="--from: translateY(-170px); --d: 0.15s">
+          <rect x="240" y="62" width="90" height="116" fill="url(#kCarcass)" />
+          <path d="M240 100h90M240 139h90M330 62v116" stroke="#bda98a" stroke-width="1.4" />
+        </g>
+
+        <!-- Fase 4 · Campana y placa -->
+        <g class="p" [class.on]="etapa() >= 4" style="--from: translateY(-170px)">
+          <rect x="402" y="-40" width="36" height="138" fill="url(#kSteel)" />
+          <polygon points="372,98 468,98 492,126 348,126" fill="url(#kSteel)" />
+          <rect x="348" y="126" width="144" height="7" fill="#9aa7ac" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 4" style="--from: translateX(70px); --d: 0.2s">
+          <rect x="358" y="283" width="124" height="5" rx="1" fill="url(#kGlass)" />
+        </g>
+
+        <!-- Fase 5 · Puertas y tiradores -->
+        <g class="p puerta" [class.on]="etapa() >= 5">
+          <rect x="151" y="64" width="88" height="112" rx="1" fill="url(#kFront)" />
+          <rect x="228" y="148" width="3" height="20" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p puerta der" [class.on]="etapa() >= 5" style="--d: 0.08s">
+          <rect x="241" y="64" width="88" height="112" rx="1" fill="url(#kFront)" />
+          <rect x="249" y="148" width="3" height="20" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p puerta" [class.on]="etapa() >= 5" style="--d: 0.16s">
+          <rect x="151" y="302" width="88" height="101" rx="1" fill="url(#kFront)" />
+          <rect x="228" y="312" width="3" height="20" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p puerta der" [class.on]="etapa() >= 5" style="--d: 0.24s">
+          <rect x="241" y="302" width="88" height="101" rx="1" fill="url(#kFront)" />
+          <rect x="249" y="312" width="3" height="20" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 5" style="--from: translateY(26px); --d: 0.32s">
+          <rect x="331" y="302" width="178" height="101" rx="1" fill="url(#kFront)" />
+          <rect x="396" y="388" width="48" height="3" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p puerta" [class.on]="etapa() >= 5" style="--d: 0.4s">
+          <rect x="511" y="302" width="88" height="101" rx="1" fill="url(#kFront)" />
+          <rect x="588" y="312" width="3" height="20" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p puerta der" [class.on]="etapa() >= 5" style="--d: 0.48s">
+          <rect x="601" y="302" width="88" height="101" rx="1" fill="url(#kFront)" />
+          <rect x="609" y="312" width="3" height="20" rx="1.5" fill="url(#kBrass)" />
+        </g>
+
+        <!-- Fase 6 · Electrodomésticos -->
+        <g class="p" [class.on]="etapa() >= 6" style="--from: scale(0.82) translateY(16px)">
+          <rect x="358" y="306" width="124" height="74" rx="2" fill="url(#kSteel)" />
+          <rect x="364" y="326" width="112" height="48" rx="2" fill="url(#kGlass)" />
+          <rect x="366" y="316" width="108" height="4" rx="2" fill="#8d9a9f" />
+          <path d="M372 368l28-36" stroke="#fff" stroke-opacity=".12" stroke-width="6" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 6" style="--from: translateY(-60px); --d: 0.18s">
+          <rect x="204" y="246" width="80" height="42" rx="3" fill="url(#kSteel)" />
+          <rect x="210" y="252" width="52" height="30" rx="1.5" fill="url(#kGlass)" />
+          <circle cx="273" cy="260" r="3" fill="#8d9a9f" />
+          <circle cx="273" cy="272" r="3" fill="#8d9a9f" />
+        </g>
+        <g class="p" [class.on]="etapa() >= 6" style="--from: translateY(40px); --d: 0.3s">
+          <rect x="601" y="302" width="88" height="101" rx="1" fill="url(#kFront)" />
+          <rect x="601" y="302" width="88" height="10" fill="url(#kSteel)" />
+          <rect x="618" y="316" width="54" height="3" rx="1.5" fill="url(#kBrass)" />
+        </g>
+        <g class="p solo-fade" [class.on]="etapa() >= 6" style="--d: 0.4s">
+          <path d="M556 288v-34q0-16 16-16h10q10 0 10 10v8" stroke="#aeb9bd" stroke-width="5" fill="none" stroke-linecap="round" />
+          <rect x="546" y="284" width="22" height="4" rx="2" fill="#aeb9bd" />
+        </g>
+
+        <!-- Fase 7 · Detalles finales -->
+        <g class="p" [class.on]="lista()" style="--from: translateY(-22px); --d: 0.3s">
+          <rect x="610" y="150" width="22" height="26" rx="2" fill="#c98f5e" />
+          <path d="M621 150c-2-16-12-22-20-22 2 10 8 18 20 22Zm0 0c2-18 10-26 20-28-1 12-8 22-20 28Zm0 0c0-14 0-24 0-34" fill="#5b8a2d" stroke="#4c7a22" stroke-width="1" />
+        </g>
+        <g class="p" [class.on]="lista()" style="--from: translateY(-22px); --d: 0.45s">
+          <rect x="162" y="260" width="13" height="28" rx="2" fill="#efe7d6" stroke="#c9bda5" />
+          <rect x="179" y="266" width="13" height="22" rx="2" fill="#efe7d6" stroke="#c9bda5" />
+          <rect x="161" y="256" width="15" height="5" rx="1" fill="url(#kBrass)" />
+          <rect x="178" y="262" width="15" height="5" rx="1" fill="url(#kBrass)" />
+        </g>
+      </g>
+
+      <!-- ========== FASE 0 · MEDIDAS ========== -->
+      <g class="plano" [class.on]="etapa() === 0">
+        <rect x="-40" y="-40" width="800" height="560" fill="#f4f7ea" opacity=".55" />
+        <g fill="none" stroke="#4c7a0e" stroke-width="1.6">
+          <rect pathLength="1" x="38" y="112" width="106" height="298" />
+          <rect pathLength="1" x="150" y="300" width="180" height="104" />
+          <rect pathLength="1" x="330" y="300" width="180" height="104" />
+          <rect pathLength="1" x="510" y="300" width="180" height="104" />
+          <rect pathLength="1" x="150" y="62" width="180" height="116" />
+          <path pathLength="1" d="M372 98h96l24 28H348z" />
+        </g>
+        <path d="M38 438H690M38 430v16M690 430v16" stroke="#4c7a0e" stroke-width="1.5" fill="none" />
+        <path d="M18 112V410M10 112h16M10 410h16" stroke="#4c7a0e" stroke-width="1.5" fill="none" />
+        <rect class="laser" x="0" y="0" width="720" height="2" fill="#79b020" />
+        <text x="364" y="443" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="800" fill="#2f5207" stroke="#f4f7ea" stroke-width="6" paint-order="stroke">
+          Tomamos medidas
+        </text>
+      </g>
+
+      <!-- ========== FASE 7 · LUCES ENCENDIDAS ========== -->
+      <g class="noche" [class.on]="lista()">
+        <rect x="-40" y="-40" width="800" height="560" fill="#0b1626" class="oscuro" />
+        <rect class="led" x="151" y="178" width="178" height="110" fill="url(#kLed)" />
+        <polygon class="led" style="--d: 0.25s" points="358,133 482,133 520,288 320,288" fill="url(#kLed)" />
+        <polygon class="led" style="--d: 0.5s" points="146,412 694,412 740,452 100,452" fill="url(#kLed)" opacity=".75" />
+        <rect class="led" style="--d: 0.65s" x="151" y="30" width="178" height="32" fill="url(#kLedUp)" />
+        <rect class="led led-ventana" style="--d: 0.1s" x="535" y="53" width="132" height="118" fill="url(#kDusk)" opacity="0" />
+        <g class="brillos" fill="#fff4d0">
+          <path class="brillo" style="--b: 0.8s" d="M246 216l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" />
+          <path class="brillo" style="--b: 1.15s" d="M420 208l2.4 7 7 2.4-7 2.4-2.4 7-2.4-7-7-2.4 7-2.4z" />
+          <path class="brillo" style="--b: 1.5s" d="M566 348l2.4 7 7 2.4-7 2.4-2.4 7-2.4-7-7-2.4 7-2.4z" />
+          <path class="brillo" style="--b: 1.85s" d="M92 170l2.4 7 7 2.4-7 2.4-2.4 7-2.4-7-7-2.4 7-2.4z" />
+        </g>
+      </g>
+
+      <!-- ========== CAPA 3 · TALADRO ========== -->
+      <g class="capa capa-3">
+        <g class="taladro" [style.transform]="taladro().t" [style.opacity]="taladro().o">
+          <g class="vibra">
+            <circle class="chispa c1" cx="-3" cy="0" r="2.4" fill="#ffd27a" />
+            <circle class="chispa c2" cx="-3" cy="0" r="1.8" fill="#ffe7ae" />
+            <circle class="chispa c3" cx="-3" cy="0" r="1.6" fill="#fff" />
+            <rect x="0" y="-1.8" width="22" height="3.6" rx="1.2" fill="#cfd8dc" />
+            <path class="broca" d="M3 -1.8 6 1.8M8 -1.8 11 1.8M13 -1.8 16 1.8" stroke="#8fa0a8" stroke-width="1" fill="none" />
+            <rect x="22" y="-6" width="13" height="12" rx="2.5" fill="#9fb0b8" />
+            <path d="M35 -14H78Q90 -14 90 -2V3Q90 14 78 14H35Z" fill="#79b020" />
+            <rect x="35" y="-14" width="15" height="28" fill="#4c7a0e" />
+            <rect x="54" y="-10" width="28" height="4" rx="2" fill="#fff" opacity=".3" />
+            <path d="M56 14H67L75 46H62Z" fill="#101c21" />
+            <rect x="54" y="46" width="32" height="15" rx="4" fill="#0a1317" />
+            <rect x="58" y="51" width="24" height="3" rx="1.5" fill="#a3d34d" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  <div class="scene-bar" aria-hidden="true">
+    <i
+      [style.transform]="'scaleX(' + progreso() + ')'"
+      [style.transition-duration]="etapa() === 0 ? '0ms' : msEtapa() + 'ms'"
+    ></i>
+  </div>
+
+  <ol class="scene-steps" aria-label="Fases del montaje">
+    @for (e of etapas; track e.nombre; let i = $index) {
+      <li>
+        <button
+          type="button"
+          [class.activo]="etapa() === i"
+          [class.hecho]="etapa() > i"
+          [attr.aria-current]="etapa() === i ? 'step' : null"
+          [attr.aria-label]="e.texto"
+          (click)="irAEtapa(i)"
+        >
+          <span class="sdot"></span>
+          <span class="nm">{{ e.nombre }}</span>
+        </button>
+      </li>
+    }
+  </ol>
+
+  <div class="scene-cta">
+    <p>
+      <strong>Cocinas desde {{ precioCocina }}</strong>
+      <small>Electrodomésticos incluidos</small>
+    </p>
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      (click)="presupuesto.abrir(undefined, 'Cocinas')"
+    >
+      Montar mi cocina
+      <span class="arrow">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+      </span>
+    </button>
+  </div>
+</div>

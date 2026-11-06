@@ -16,6 +16,8 @@ export interface SeoConfig {
   path: string;
   jsonLd?: object;
   noindex?: boolean;
+  /** Ruta de la imagen para redes sociales. Por defecto, el logotipo. */
+  imagen?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -40,7 +42,9 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:description', content: config.description });
     this.meta.updateTag({ property: 'og:url', content: url });
     this.meta.updateTag({ property: 'og:locale', content: 'es_ES' });
-    this.meta.updateTag({ property: 'og:image', content: SITE_URL + '/images/logo.png' });
+    const imagen = SITE_URL + (config.imagen ?? '/images/logo.png').replace(/^\./, '');
+    this.meta.updateTag({ property: 'og:image', content: imagen });
+    this.meta.updateTag({ name: 'twitter:image', content: imagen });
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description });
 

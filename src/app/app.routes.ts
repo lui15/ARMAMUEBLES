@@ -6,7 +6,10 @@ const rutasLanding: Routes = PAGINAS.map(
   (pagina): Route => ({
     path: pagina.path,
     pathMatch: 'full',
-    loadComponent: () => import('./landing/landing-page').then((m) => m.LandingPage),
+    loadComponent: () =>
+      pagina.path === ''
+        ? import('./inicio/inicio-page').then((m) => m.InicioPage)
+        : import('./landing/landing-page').then((m) => m.LandingPage),
     data: { slug: pagina.path },
   }),
 );
@@ -22,6 +25,11 @@ export const routes: Routes = [
     path: 'politica-privacidad',
     loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
     data: { tipo: 'privacidad' },
+  },
+  {
+    path: 'politica-cookies',
+    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
+    data: { tipo: 'cookies' },
   },
   {
     path: '**',

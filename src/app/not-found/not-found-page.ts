@@ -9,7 +9,7 @@ import { SeoService } from '../seo.service';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <main class="nf">
+    <div class="nf">
       <p class="nf-code">404</p>
       <h1>No encontramos esta página</h1>
       <p>
@@ -17,7 +17,7 @@ import { SeoService } from '../seo.service';
         presupuesto de montaje.
       </p>
       <a routerLink="/">Volver al inicio</a>
-    </main>
+    </div>
   `,
   styles: `
     .nf {

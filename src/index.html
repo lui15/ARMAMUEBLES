@@ -49,14 +49,14 @@
     />
 
     <!-- RENDIMIENTO -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/manrope-var.woff2" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />
     <link rel="dns-prefetch" href="https://wa.me" />
 
     <!-- PRECARGA DEL LOGOTIPO -->
-    <link rel="preload" as="image" href="/images/logo.png" />
+    <link rel="preload" as="image" href="/images/logo-web.png" />
 
     <!-- GOOGLE ANALYTICS 4 -->
     <!-- Sustituir G-XXXXXXXXXX por el ID real -->
@@ -115,6 +115,7 @@
 
     <!-- CONTENIDO SIN JAVASCRIPT -->
     <noscript>
+      <style>.reveal,.rise{opacity:1!important;transform:none!important;animation:none!important}</style>
       <div
         style="
           font-family: Arial, sans-serif;

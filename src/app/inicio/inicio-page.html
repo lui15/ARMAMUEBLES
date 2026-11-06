@@ -1,0 +1,258 @@
+<!-- ================= INICIO ================= -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div class="hero-copia">
+      <span class="kicker rise" style="--i: 0">Montaje de cocinas y muebles · Madrid</span>
+
+      <h1 class="rise" style="--i: 1">
+        Montamos tu <em>cocina completa</em>
+        <span class="h1-line">
+          de
+          <span class="slot slot-marca" aria-hidden="true">
+            @for (m of marcas; track m; let i = $index) {
+              <span [class.on]="i === marca()" [class.out]="i === marcaPrev()">{{ m }}</span>
+            }
+          </span>
+        </span>
+        <span class="sr-only">de IKEA, Leroy Merlin, Obramat, Conforama, Bricomart o Brico Depot</span>
+        <span class="h1-line">en Madrid</span>
+      </h1>
+
+      <p class="hero-sub rise" style="--i: 2">
+        Y también montamos tu
+        <span class="slot slot-pieza" aria-hidden="true">
+          @for (p of piezas; track p; let i = $index) {
+            <span [class.on]="i === pieza()" [class.out]="i === piezaPrev()">{{ p }}</span>
+          }
+        </span>
+        <span class="sr-only">mesita de noche, estantería, armario, cama, cómoda, escritorio o mesa</span>
+      </p>
+
+      <p class="hero-texto rise" style="--i: 3">
+        Cocinas con <strong>electrodomésticos colocados</strong>, armarios, dormitorios y salones, a
+        domicilio y sin complicaciones. Tú compras, nosotros lo dejamos montado, nivelado y listo para
+        usar.
+      </p>
+
+      <div class="hero-acciones rise" style="--i: 4">
+        <button type="button" class="btn btn-primary btn-lg" (click)="presupuesto.abrir()">
+          Solicitar presupuesto
+          <span class="arrow">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+          </span>
+        </button>
+        <a routerLink="/servicios" class="btn btn-ghost btn-lg">Ver servicios</a>
+      </div>
+
+      <ul class="hero-ventajas rise" style="--i: 5">
+        <li>Montaje profesional</li>
+        <li>Atención personalizada</li>
+        <li>Servicio a domicilio</li>
+      </ul>
+    </div>
+
+    <app-kitchen-scene class="rise" style="--i: 2" />
+  </div>
+</section>
+
+<!-- ================= CINTA DE TIENDAS ================= -->
+<section class="cinta" aria-label="Tiendas cuyos muebles montamos">
+  <span class="cinta-titulo">Montamos muebles de</span>
+  <div class="cinta-ventana" aria-hidden="true">
+    <div class="cinta-pista">
+      @for (m of cinta; track $index) {
+        <span>{{ m }}</span>
+      }
+    </div>
+  </div>
+  <span class="sr-only">IKEA, Leroy Merlin, Obramat, Conforama, Bricomart y Brico Depot</span>
+</section>
+
+<!-- ================= PRECIO Y CONFIANZA ================= -->
+<section class="confianza" aria-label="Por qué elegirnos">
+  <div class="container confianza-grid">
+    <div class="confianza-precio" appReveal>
+      <span>Nuestros montajes</span>
+      <strong>Desde 25 €</strong>
+      <small>Presupuestos orientativos y atención personalizada</small>
+    </div>
+    <ul class="confianza-puntos">
+      <li appReveal [appRevealDelay]="80">
+        <strong>Vamos a tu casa</strong>
+        <span>Coordinamos día y hora contigo</span>
+      </li>
+      <li appReveal [appRevealDelay]="160">
+        <strong>Montaje sin prisas</strong>
+        <span>Nivelado, ajustado y revisado</span>
+      </li>
+      <li appReveal [appRevealDelay]="240">
+        <strong>Presupuesto sin compromiso</strong>
+        <span>Respuesta rápida</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ESTADÍSTICAS ================= -->
+<!-- Cifras orientativas: actualízalas con los trabajos reales realizados. -->
+<section class="cifras" aria-label="Cifras">
+  <div class="container cifras-grid">
+    <div appReveal="zoom">
+      <strong><span [appCount]="200">200</span><i>+</i></strong>
+      <p>Muebles IKEA montados</p>
+    </div>
+    <div appReveal="zoom" [appRevealDelay]="100">
+      <strong><span [appCount]="50">50</span><i>+</i></strong>
+      <p>Cocinas montadas</p>
+    </div>
+    <div appReveal="zoom" [appRevealDelay]="200">
+      <strong><span [appCount]="100">100</span><i>+</i></strong>
+      <p>Armarios y dormitorios</p>
+    </div>
+    <div appReveal="zoom" [appRevealDelay]="300">
+      <strong><span [appCount]="350">350</span><i>+</i></strong>
+      <p>Montajes realizados</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ESTANCIAS ================= -->
+<section class="section" id="estancias">
+  <div class="container">
+    <div class="section-heading" appReveal>
+      <div>
+        <span class="kicker">{{ pagina.kicker }}</span>
+        <h2>Cada estancia, <em>lista para estrenar</em></h2>
+      </div>
+      <p>{{ pagina.intro }}</p>
+    </div>
+
+    <ul class="estancias-grid">
+      @for (e of estancias; track e.path; let i = $index) {
+        <li [class]="e.clase" appReveal [appRevealDelay]="i * 60">
+          <a class="estancia" [routerLink]="'/' + e.path">
+            <img [src]="e.foto" [alt]="e.alt" width="800" height="1000" loading="lazy" decoding="async" />
+            <span class="estancia-texto">
+              <strong>{{ e.titulo }}</strong>
+              <small>Desde {{ e.desde }}</small>
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
+    <p class="estancias-mas"><a class="link-flecha" routerLink="/servicios">Ver todos los servicios</a></p>
+  </div>
+</section>
+
+<!-- ================= DESARROLLO ================= -->
+<section class="section section-alt" id="detalle">
+  <div class="container detalle">
+    <div appReveal>
+      <h2>{{ pagina.h2 }}</h2>
+    </div>
+    <div>
+      @for (parrafo of pagina.parrafos; track parrafo) {
+        <p class="detalle-parrafo" appReveal>{{ parrafo }}</p>
+      }
+      <ul class="detalle-bloques">
+        @for (bloque of pagina.bloques; track bloque.titulo) {
+          <li appReveal>
+            <h3>{{ bloque.titulo }}</h3>
+            <p>{{ bloque.texto }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATÁLOGO ================= -->
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="section-heading" appReveal>
+      <div>
+        <span class="kicker">Qué podemos montar</span>
+        <h2>Desde una mesita de noche hasta <em>una cocina completa</em></h2>
+      </div>
+      <p>
+        Cuéntanos qué necesitas y nos encargamos del montaje. En las cocinas, los electrodomésticos
+        van siempre incluidos.
+      </p>
+    </div>
+    <app-catalogo-servicios />
+  </div>
+</section>
+
+<!-- ================= ELECTRODOMÉSTICOS ================= -->
+<section class="section-tight">
+  <div class="container">
+    <div class="electro" appReveal="zoom">
+      <div class="electro-foto">
+        <img
+          src="./images/cocina-grande.webp"
+          alt="Cocina con electrodomésticos integrados"
+          width="736"
+          height="589"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="electro-copia">
+        <span class="kicker">Incluido en todas las cocinas</span>
+        <h2>Montamos la cocina y <em>colocamos tus electrodomésticos</em></h2>
+        <p>
+          Da igual el tamaño de tu cocina: la colocación de los electrodomésticos va incluida en el
+          montaje. Los dejamos en su hueco, ajustados y bien integrados en el mobiliario.
+        </p>
+        <ul>
+          @for (item of electrodomesticos; track item) {
+            <li>{{ item }}</li>
+          }
+          <li>y otros, según la instalación</li>
+        </ul>
+        <div class="electro-acciones">
+          <button type="button" class="btn btn-primary" (click)="presupuesto.abrir(undefined, 'Cocinas')">
+            Montar mi cocina
+            <span class="arrow">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+            </span>
+          </button>
+          <button type="button" class="link-claro" (click)="presupuesto.abrir(soloElectro)">
+            ¿Solo necesitas los electrodomésticos?
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-proceso-pasos />
+
+<!-- ================= ZONAS Y TIENDAS ================= -->
+<section class="section" id="zonas">
+  <div class="container zonas">
+    <div appReveal>
+      <span class="kicker">Dónde trabajamos</span>
+      <h2>En Madrid capital y <em>18 municipios</em> de la Comunidad</h2>
+      <p>
+        Alcorcón, Móstoles, Leganés, Getafe, Fuenlabrada, Pozuelo de Alarcón, Majadahonda, Las Rozas,
+        Alcobendas, San Sebastián de los Reyes, Torrejón de Ardoz, Alcalá de Henares, Coslada,
+        Rivas-Vaciamadrid, Arganda del Rey, Parla, Pinto y Valdemoro.
+      </p>
+      <a class="link-flecha" routerLink="/zonas">Ver todas las zonas</a>
+    </div>
+    <nav class="enlaces-grid" aria-label="Páginas por zona y tienda" appReveal="right">
+      @for (p of paginasZona; track p.path) {
+        <a class="enlace-card" [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
+      }
+      @for (p of paginasMarca; track p.path) {
+        <a class="enlace-card" [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
+      }
+      <a class="enlace-card" routerLink="/precios">Tabla de precios</a>
+    </nav>
+  </div>
+</section>
+
+<app-faq-lista titulo="Dudas antes de pedir presupuesto" [faqs]="pagina.faqs" />
+
+<app-cta-final />

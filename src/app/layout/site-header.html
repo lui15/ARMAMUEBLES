@@ -1,0 +1,119 @@
+<header
+  class="site-header"
+  [class.compacta]="scroll.compacta() || menuAbierto()"
+  [class.mega-on]="megaAbierto()"
+>
+  <div class="container header-inner">
+    <a class="brand" routerLink="/" aria-label="ArmaMuebles, ir al inicio" (click)="cerrarTodo()">
+      <img src="/images/logo-web.png" alt="ArmaMuebles" width="669" height="128" />
+    </a>
+
+    <nav class="nav-escritorio" aria-label="Principal">
+      <div class="nav-servicios" (mouseenter)="megaAbierto.set(true)" (mouseleave)="megaAbierto.set(false)">
+        <button
+          type="button"
+          class="nav-link"
+          [attr.aria-expanded]="megaAbierto()"
+          aria-controls="mega-menu"
+          (click)="alPulsarServicios($event)"
+        >
+          Servicios
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3.5 3.5-3.5" /></svg>
+        </button>
+
+        <div class="mega" id="mega-menu">
+          <div class="container mega-inner">
+            <div class="mega-col mega-servicios">
+              <a class="mega-titulo" routerLink="/servicios" (click)="cerrarTodo()">Todos los servicios</a>
+              <ul>
+                @for (p of servicios; track p.path) {
+                  <li>
+                    <a [routerLink]="'/' + p.path" (click)="cerrarTodo()">{{ p.etiqueta }}</a>
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-titulo" routerLink="/montaje-muebles-por-tienda" (click)="cerrarTodo()">Por tienda</a>
+              <ul>
+                @for (p of tiendas; track p.path) {
+                  <li>
+                    <a [routerLink]="'/' + p.path" (click)="cerrarTodo()">{{ p.etiqueta }}</a>
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-titulo" routerLink="/zonas" (click)="cerrarTodo()">Por zona</a>
+              <ul>
+                @for (p of zonas; track p.path) {
+                  <li>
+                    <a [routerLink]="'/' + p.path" (click)="cerrarTodo()">{{ p.etiqueta }}</a>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @for (e of enlaces; track e.ruta) {
+        <a class="nav-link" [routerLink]="e.ruta" routerLinkActive="activo" (click)="cerrarTodo()">{{ e.texto }}</a>
+      }
+    </nav>
+
+    <div class="header-acciones">
+      <a class="header-tel" [href]="'tel:' + telefono">{{ telefonoVisible }}</a>
+      <button type="button" class="btn btn-ink btn-sm" (click)="pedirPresupuesto()">
+        Pedir presupuesto
+      </button>
+      <button
+        type="button"
+        class="hamburguesa"
+        [class.on]="menuAbierto()"
+        [attr.aria-expanded]="menuAbierto()"
+        aria-controls="menu-movil"
+        [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+        (click)="menuAbierto.set(!menuAbierto())"
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menú de móvil y tableta -->
+<div class="menu-movil" id="menu-movil" [class.on]="menuAbierto()" [attr.inert]="menuAbierto() ? null : ''">
+  <nav aria-label="Menú">
+    <a class="mm-grande" routerLink="/" (click)="cerrarTodo()">Inicio</a>
+    <a class="mm-grande" routerLink="/servicios" (click)="cerrarTodo()">Servicios</a>
+    @for (e of enlaces; track e.ruta) {
+      <a class="mm-grande" [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.texto }}</a>
+    }
+
+    <details class="mm-grupo">
+      <summary>Qué montamos</summary>
+      @for (p of servicios; track p.path) {
+        <a [routerLink]="'/' + p.path" (click)="cerrarTodo()">{{ p.etiqueta }}</a>
+      }
+    </details>
+    <details class="mm-grupo">
+      <summary>Por tienda</summary>
+      <a routerLink="/montaje-muebles-por-tienda" (click)="cerrarTodo()">Todas las tiendas</a>
+      @for (p of tiendas; track p.path) {
+        <a [routerLink]="'/' + p.path" (click)="cerrarTodo()">{{ p.etiqueta }}</a>
+      }
+    </details>
+    <details class="mm-grupo">
+      <summary>Por zona</summary>
+      @for (p of zonas; track p.path) {
+        <a [routerLink]="'/' + p.path" (click)="cerrarTodo()">{{ p.etiqueta }}</a>
+      }
+    </details>
+  </nav>
+
+  <div class="mm-acciones">
+    <button type="button" class="btn btn-primary btn-lg" (click)="pedirPresupuesto()">Pedir presupuesto</button>
+    <a class="btn btn-ghost btn-lg" [href]="'tel:' + telefono">Llamar al {{ telefonoVisible }}</a>
+  </div>
+</div>

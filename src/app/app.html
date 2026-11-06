@@ -1,0 +1,52 @@
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<div class="progreso" aria-hidden="true" [style.transform]="'scaleX(' + scroll.progreso() + ')'"></div>
+
+<app-site-header />
+
+<main id="contenido">
+  <router-outlet />
+</main>
+
+<app-site-footer />
+
+<!-- Escritorio: botón flotante · Móvil: barra de acción fija al alcance del pulgar -->
+<button
+  type="button"
+  class="btn btn-primary fab"
+  [class.visible]="scroll.avanzado() && !presupuesto.abierto()"
+  [attr.tabindex]="scroll.avanzado() && !presupuesto.abierto() ? 0 : -1"
+  (click)="presupuesto.abrir()"
+>
+  Pedir presupuesto
+  <span class="arrow">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+  </span>
+</button>
+
+<div class="barra-movil" [class.oculta]="presupuesto.abierto()">
+  <a class="bm-icono" [href]="'tel:' + telefono" aria-label="Llamar por teléfono">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M6.6 3.5 9 3l2 4.6-1.9 1.5a11 11 0 0 0 5.8 5.8l1.5-1.9L21 15l-.5 2.4a2.6 2.6 0 0 1-2.8 2.1C10 19 5 14 4.5 6.3a2.6 2.6 0 0 1 2.1-2.8Z"
+      />
+    </svg>
+  </a>
+  <a
+    class="bm-icono"
+    [href]="'https://wa.me/' + whatsapp"
+    target="_blank"
+    rel="noopener"
+    aria-label="Escribir por WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 19L4 20Z" />
+    </svg>
+  </a>
+  <button type="button" class="btn btn-primary bm-cta" (click)="presupuesto.abrir()">
+    Pedir presupuesto
+  </button>
+</div>
+
+@defer (when presupuesto.abierto(); prefetch on idle) {
+  <app-presupuesto-wizard />
+}

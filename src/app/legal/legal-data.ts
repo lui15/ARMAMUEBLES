@@ -21,6 +21,5 @@ export const LEGAL = {
     'Supabase: base de datos donde se guardan las solicitudes.',
     'EmailJS: envío del aviso por correo de cada solicitud.',
     'WhatsApp (Meta): solo si decides contactarnos o enviar tu solicitud por WhatsApp.',
-    'Google Fonts y Unsplash: tipografías e imágenes que tu navegador descarga al visitar la web, lo que les comunica tu dirección IP.',
   ],
 };

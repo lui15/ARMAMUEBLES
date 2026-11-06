@@ -1,0 +1,448 @@
+<!-- ================= FORMULARIO POR PASOS ================= -->
+@if (presupuesto.abierto()) {
+  <div class="wizard" (click)="alPulsarFondo($event)" role="presentation">
+    <div
+      class="wizard-dialog"
+      #dialog
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="wiz-title"
+      tabindex="-1"
+    >
+      <!-- Resumen en vivo -->
+      <aside class="wizard-side" aria-label="Resumen de tu solicitud">
+        <span class="side-kicker">Tu solicitud</span>
+
+        @if (servicioSeleccionado(); as s) {
+          <div class="side-card">
+            <img
+              [src]="s.foto"
+              [alt]="s.nombre"
+              width="260"
+              height="170"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="side-card-body">
+              <strong>{{ s.nombre }}</strong>
+              <span>{{ cantidad() }} {{ cantidad() === 1 ? unidad()[0] : unidad()[1] }}</span>
+            </div>
+          </div>
+
+          @if (incluyeElectro()) {
+            <p class="side-note">
+              <span aria-hidden="true">✓</span> Colocación de electrodomésticos incluida
+            </p>
+          }
+        } @else {
+          <div class="side-empty">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 10 12 4l8 6v10H4zM9 20v-6h6v6" />
+            </svg>
+            <p>Elige un mueble y aquí verás el resumen.</p>
+          </div>
+        }
+
+        @if (zonaSeleccionada().length) {
+          <p class="side-line">
+            <small>Zonas</small>
+            {{
+              zonaSeleccionada().length === 1
+                ? zonaSeleccionada()[0]
+                : zonaSeleccionada().length + ' zonas seleccionadas'
+            }}
+          </p>
+        }
+
+        <div class="side-price">
+          <small>Precio orientativo desde</small>
+          <strong>{{
+            servicioSeleccionado() ? formatearPrecio(precioEstimadoMinimo()) : '—'
+          }}</strong>
+          <span
+            >El precio definitivo se confirma tras revisar las características y dimensiones.</span
+          >
+        </div>
+      </aside>
+
+      <!-- Contenido -->
+      <div class="wizard-main">
+        <header class="wizard-head">
+          <div>
+            <h2 id="wiz-title">{{ enviado() ? 'Solicitud enviada' : 'Pide tu presupuesto' }}</h2>
+            @if (!enviado()) {
+              <p>Paso {{ paso() }} de {{ pasos.length }}</p>
+            }
+          </div>
+          <button
+            type="button"
+            class="wizard-close"
+            (click)="cerrarFormulario()"
+            aria-label="Cerrar formulario"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+
+        @if (!enviado()) {
+          <ol class="stepper" aria-label="Progreso">
+            @for (p of pasos; track p.num) {
+              <li [class.active]="paso() === p.num" [class.done]="paso() > p.num">
+                <button
+                  type="button"
+                  [disabled]="p.num >= paso()"
+                  [attr.aria-current]="paso() === p.num ? 'step' : null"
+                  (click)="irAPaso(p.num)"
+                >
+                  <span class="step-dot">
+                    @if (paso() > p.num) {
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10" /></svg>
+                    } @else {
+                      <span>{{ p.num }}</span>
+                    }
+                  </span>
+                  <span class="step-name">{{ p.nombre }}</span>
+                </button>
+              </li>
+            }
+          </ol>
+        }
+
+        <div class="wizard-bar" aria-hidden="true">
+          <i [style.transform]="'scaleX(' + progreso() + ')'"></i>
+        </div>
+
+        <div class="wizard-body" aria-live="polite">
+          @if (enviado()) {
+            <section class="step success">
+              <svg class="success-check" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="34" />
+                <path d="m26 41 10 10 19-22" />
+              </svg>
+              <h3>¡Solicitud enviada!</h3>
+              <p>
+                Hemos recibido tu solicitud por email. Te contactaremos lo antes posible para
+                preparar tu presupuesto.
+              </p>
+              <div class="success-actions">
+                <button type="button" class="btn btn-primary" (click)="nuevaSolicitud()">
+                  Hacer otra solicitud
+                </button>
+                <button type="button" class="btn btn-ghost" (click)="cerrarFormulario()">
+                  Cerrar
+                </button>
+              </div>
+            </section>
+          } @else {
+            @switch (paso()) {
+              @case (1) {
+                <section class="step" aria-labelledby="s1">
+                  <h3 id="s1">¿Qué quieres que montemos?</h3>
+                  <p class="step-help">Elige una opción. Podrás cambiarla antes de enviar.</p>
+
+                  <div class="chips" role="group" aria-label="Categorías">
+                    @for (categoria of categorias; track categoria) {
+                      <button
+                        type="button"
+                        class="chip"
+                        [class.active]="categoriaForm() === categoria"
+                        [attr.aria-pressed]="categoriaForm() === categoria"
+                        (click)="categoriaForm.set(categoria)"
+                      >
+                        {{ categoria }}
+                      </button>
+                    }
+                  </div>
+
+                  <div class="pick-grid">
+                    @for (s of serviciosForm(); track s.id) {
+                      <button
+                        type="button"
+                        class="pick"
+                        [class.selected]="servicioSeleccionado()?.id === s.id"
+                        [attr.aria-pressed]="servicioSeleccionado()?.id === s.id"
+                        (click)="elegirServicio(s)"
+                      >
+                        <img
+                          [src]="s.miniatura"
+                          alt=""
+                          width="260"
+                          height="170"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span class="pick-name">{{ s.nombre }}</span>
+                        <span class="pick-price">Desde {{ formatearPrecio(s.precioDesde) }}</span>
+                        @if (s.electro) {
+                          <span class="pick-badge">Electrodomésticos incluidos</span>
+                        }
+                        <span class="pick-check" aria-hidden="true">
+                          <svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10" /></svg>
+                        </span>
+                      </button>
+                    }
+                  </div>
+                </section>
+              }
+
+              @case (2) {
+                <section class="step" aria-labelledby="s2">
+                  <h3 id="s2">Cuántos son y qué detalles hay</h3>
+                  <p class="step-help">Así preparamos un presupuesto más ajustado.</p>
+
+                  <div class="field">
+                    <label id="qlabel">Cantidad de {{ unidad()[1] }}</label>
+                    <div class="qty" role="group" aria-labelledby="qlabel">
+                      <button
+                        type="button"
+                        aria-label="Quitar uno"
+                        [disabled]="cantidad() <= 1"
+                        (click)="cambiarCantidad(cantidad() - 1)"
+                      >
+                        −
+                      </button>
+                      <input
+                        type="number"
+                        inputmode="numeric"
+                        min="1"
+                        max="30"
+                        aria-label="Cantidad"
+                        [value]="cantidad()"
+                        (change)="cambiarCantidad($any($event.target).value)"
+                      />
+                      <button
+                        type="button"
+                        aria-label="Añadir uno"
+                        [disabled]="cantidad() >= 30"
+                        (click)="cambiarCantidad(cantidad() + 1)"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  @if (incluyeElectro()) {
+                    <div class="callout">
+                      <span aria-hidden="true">✓</span>
+                      <p>
+                        <strong>Electrodomésticos incluidos.</strong> Colocamos horno, placa,
+                        campana, microondas, lavavajillas, frigorífico y otros, según la
+                        instalación.
+                      </p>
+                    </div>
+                  }
+
+                  <div class="field">
+                    <label for="desc">Cuéntanos algún detalle <small>(opcional)</small></label>
+                    <textarea
+                      id="desc"
+                      rows="5"
+                      [value]="descripcion()"
+                      (input)="descripcion.set($any($event.target).value)"
+                      placeholder="Ejemplo: cocina de IKEA con 8 módulos, necesito también colocar horno y lavavajillas..."
+                    ></textarea>
+                  </div>
+                </section>
+              }
+
+              @case (3) {
+                <section class="step" aria-labelledby="s3">
+                  <h3 id="s3">¿Dónde necesitas el servicio?</h3>
+                  <p class="step-help">Puedes elegir varias zonas.</p>
+
+                  <label class="search-box search-box-wide">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="11" cy="11" r="6.5" />
+                      <path d="m16 16 4 4" />
+                    </svg>
+                    <span class="sr-only">Buscar zona</span>
+                    <input
+                      type="search"
+                      placeholder="Buscar tu zona..."
+                      [value]="busquedaZona()"
+                      (input)="busquedaZona.set($any($event.target).value)"
+                    />
+                  </label>
+
+                  <div class="zones-grid">
+                    @for (zona of zonasFiltradas(); track zona) {
+                      <button
+                        type="button"
+                        class="zone"
+                        [class.selected]="zonaSeleccionada().includes(zona)"
+                        [attr.aria-pressed]="zonaSeleccionada().includes(zona)"
+                        (click)="alternarZona(zona)"
+                      >
+                        <span class="zone-check" aria-hidden="true">
+                          <svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10" /></svg>
+                        </span>
+                        {{ zona }}
+                      </button>
+                    } @empty {
+                      <p class="zones-empty">
+                        No hay zonas con ese nombre. Prueba con «Otra zona de Madrid».
+                      </p>
+                    }
+                  </div>
+
+                  @if (zonaSeleccionada().length) {
+                    <p class="selected-zones">
+                      {{ zonaSeleccionada().length }} zona(s) seleccionada(s)
+                    </p>
+                  }
+                </section>
+              }
+
+              @case (4) {
+                <section class="step" aria-labelledby="s4">
+                  <h3 id="s4">¿Cómo te contactamos?</h3>
+                  <p class="step-help">Solo usaremos tus datos para preparar tu presupuesto.</p>
+
+                  <div class="form-two">
+                    <div class="field">
+                      <label for="nombre">Nombre <b>*</b></label>
+                      <input
+                        id="nombre"
+                        type="text"
+                        autocomplete="name"
+                        placeholder="Tu nombre"
+                        [value]="nombre()"
+                        (input)="nombre.set($any($event.target).value)"
+                      />
+                    </div>
+
+                    <div class="field">
+                      <label for="telefono">Teléfono <b>*</b></label>
+                      <input
+                        id="telefono"
+                        type="tel"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        placeholder="Tu teléfono"
+                        [class.invalid]="telefono() && !telefonoValido()"
+                        [value]="telefono()"
+                        (input)="telefono.set($any($event.target).value)"
+                      />
+                      @if (telefono() && !telefonoValido()) {
+                        <span class="field-error">Escribe un teléfono con al menos 9 dígitos.</span>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="email">Correo electrónico <small>(opcional)</small></label>
+                    <input
+                      id="email"
+                      type="email"
+                      autocomplete="email"
+                      placeholder="tucorreo@ejemplo.com"
+                      [class.invalid]="email() && !emailValido()"
+                      [value]="email()"
+                      (input)="email.set($any($event.target).value)"
+                    />
+                    @if (email() && !emailValido()) {
+                      <span class="field-error">Revisa que el correo esté bien escrito.</span>
+                    }
+                  </div>
+
+                  <!-- Campo trampa anti-spam: los usuarios no lo ven -->
+                  <div class="hp" aria-hidden="true">
+                    <label>
+                      No rellenar
+                      <input
+                        type="text"
+                        tabindex="-1"
+                        autocomplete="off"
+                        [value]="honeypot()"
+                        (input)="honeypot.set($any($event.target).value)"
+                      />
+                    </label>
+                  </div>
+
+                  <dl class="review">
+                    <div>
+                      <dt>Mueble</dt>
+                      <dd>{{ servicioSeleccionado()?.nombre }} × {{ cantidad() }}</dd>
+                    </div>
+                    <div>
+                      <dt>Zonas</dt>
+                      <dd>{{ zonaSeleccionada().join(', ') }}</dd>
+                    </div>
+                    <div>
+                      <dt>Precio orientativo desde</dt>
+                      <dd class="review-price">{{ formatearPrecio(precioEstimadoMinimo()) }}</dd>
+                    </div>
+                  </dl>
+
+                  <p class="privacy-note">
+                    Al enviar, recibiremos tu solicitud por email y nos pondremos en contacto
+                    contigo para preparar tu presupuesto. Más información en la
+                    <a href="/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.
+                  </p>
+
+                  @if (errorEnvio()) {
+                    <div class="alert" role="alert">
+                      <span
+                        >No hemos podido enviar tu solicitud. Inténtalo de nuevo o envíala por
+                        WhatsApp.</span
+                      >
+                      <button type="button" class="link-btn" (click)="enviarWhatsApp()">
+                        Enviar por WhatsApp
+                      </button>
+                    </div>
+                  }
+                </section>
+              }
+            }
+          }
+        </div>
+
+        @if (!enviado()) {
+          <footer class="wizard-foot">
+            <button
+              type="button"
+              class="btn btn-ghost"
+              [class.invisible]="paso() === 1"
+              (click)="atras()"
+            >
+              <svg class="back-ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6 9 12l6 6" />
+              </svg>
+              Atrás
+            </button>
+
+            <p class="foot-hint" aria-live="polite">{{ pista() }}</p>
+
+            @if (paso() < pasos.length) {
+              <button
+                type="button"
+                class="btn btn-primary"
+                [disabled]="!pasoActualValido()"
+                (click)="siguiente()"
+              >
+                Siguiente
+                <span class="arrow">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+                </span>
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn btn-primary"
+                [disabled]="!todoValido() || enviando()"
+                (click)="enviarSolicitud()"
+              >
+                {{ enviando() ? 'Enviando…' : 'Enviar solicitud' }}
+                <span class="arrow">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" />
+                  </svg>
+                </span>
+              </button>
+            }
+          </footer>
+        }
+      </div>
+    </div>
+  </div>
+}

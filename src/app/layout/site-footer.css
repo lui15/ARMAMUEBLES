@@ -1,6 +1,7 @@
 .site-footer {
   margin-top: clamp(3rem, 6vw, 5rem);
-  padding-block: clamp(3.5rem, 7vw, 6.5rem) calc(2rem + env(safe-area-inset-bottom));
+  /* El margen inferior deja libres los enlaces legales del botón flotante y la barra móvil. */
+  padding-block: clamp(3.5rem, 7vw, 6.5rem) calc(6.5rem + env(safe-area-inset-bottom));
   background: var(--ink);
   color: rgba(255, 255, 255, 0.68);
   font-size: 0.94rem;
@@ -81,18 +82,22 @@
   flex-wrap: wrap;
   gap: 6px 20px;
 }
-.legal-links a {
+.legal-links a,
+.legal-links button {
+  padding: 0;
+  border: 0;
+  background: none;
   color: inherit;
+  font: inherit;
   text-decoration: none;
+  cursor: pointer;
+}
+.legal-links button:hover {
+  color: var(--green-l);
 }
 @media (max-width: 860px) {
   .pie-columnas {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 720px) {
-  .site-footer {
-    padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
   }
 }
 @media (max-width: 460px) {

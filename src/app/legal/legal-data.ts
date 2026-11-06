@@ -21,6 +21,6 @@ export const LEGAL = {
     'Supabase: base de datos donde se guardan las solicitudes.',
     'EmailJS: envío del aviso por correo de cada solicitud.',
     'WhatsApp (Meta): solo si decides contactarnos o enviar tu solicitud por WhatsApp.',
-    'Google Analytics (Google): estadísticas de visitas a la web.',
+    'Google Analytics (Google): estadísticas de visitas a la web, solo si aceptas las cookies analíticas.',
   ],
 };

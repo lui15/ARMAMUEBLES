@@ -1,8 +1,16 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  afterNextRender,
+  inject,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { REDUCIR_MOVIMIENTO } from './compartido/animaciones';
+import { AvisoCookies } from './compartido/aviso-cookies';
+import { ConsentimientoService } from './compartido/consentimiento.service';
 import { TELEFONO, WHATSAPP } from './datos/catalogo';
 import { ScrollEstado } from './layout/scroll-estado.service';
 import { SiteFooter } from './layout/site-footer';
@@ -13,7 +21,7 @@ import { PresupuestoWizard } from './presupuesto/presupuesto-wizard';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteHeader, SiteFooter, PresupuestoWizard],
+  imports: [RouterOutlet, SiteHeader, SiteFooter, PresupuestoWizard, AvisoCookies],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +32,11 @@ export class App {
   readonly telefono = TELEFONO;
   readonly whatsapp = WHATSAPP;
   private readonly doc = inject(DOCUMENT);
+
+  constructor() {
+    const consentimiento = inject(ConsentimientoService);
+    afterNextRender(() => consentimiento.iniciar());
+  }
 
   /**
    * Con base href="/", un enlace "#seccion" llevaría a la home desde cualquier otra URL.

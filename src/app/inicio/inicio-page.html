@@ -94,24 +94,24 @@
 </section>
 
 <!-- ================= ESTADÍSTICAS ================= -->
-<!-- Cifras orientativas: actualízalas con los trabajos reales realizados. -->
-<section class="cifras" aria-label="Cifras">
+<!-- Datos calculados desde el catálogo: siempre coinciden con lo que ofrece la web. -->
+<section class="cifras" aria-label="El servicio en cifras">
   <div class="container cifras-grid">
     <div appReveal="zoom">
-      <strong><span [appCount]="200">200</span><i>+</i></strong>
-      <p>Muebles IKEA montados</p>
+      <strong><span [appCount]="cifras.servicios">{{ cifras.servicios }}</span></strong>
+      <p>Tipos de montaje con precio</p>
     </div>
     <div appReveal="zoom" [appRevealDelay]="100">
-      <strong><span [appCount]="50">50</span><i>+</i></strong>
-      <p>Cocinas montadas</p>
+      <strong><span [appCount]="cifras.tiendas">{{ cifras.tiendas }}</span></strong>
+      <p>Tiendas cuyos muebles montamos</p>
     </div>
     <div appReveal="zoom" [appRevealDelay]="200">
-      <strong><span [appCount]="100">100</span><i>+</i></strong>
-      <p>Armarios y dormitorios</p>
+      <strong><span [appCount]="cifras.municipios">{{ cifras.municipios }}</span></strong>
+      <p>Municipios, además de Madrid capital</p>
     </div>
     <div appReveal="zoom" [appRevealDelay]="300">
-      <strong><span [appCount]="350">350</span><i>+</i></strong>
-      <p>Montajes realizados</p>
+      <strong><span [appCount]="cifras.desde">{{ cifras.desde }}</span><i> €</i></strong>
+      <p>Precio de partida del montaje</p>
     </div>
   </div>
 </section>

@@ -50,26 +50,12 @@
 
     <!-- RENDIMIENTO -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/plus-jakarta-var.woff2" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
     <link rel="dns-prefetch" href="https://wa.me" />
 
     <!-- PRECARGA DEL LOGOTIPO -->
     <link rel="preload" as="image" href="/images/logo-web.png" />
 
-    <!-- GOOGLE ANALYTICS 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXMK571DY8"></script>
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
-
-      gtag('js', new Date());
-      gtag('config', 'G-EXMK571DY8');
-    </script>
+    <!-- GOOGLE ANALYTICS: solo se carga si el visitante lo acepta (consentimiento.service.ts) -->
 
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="/images/logo.png" />

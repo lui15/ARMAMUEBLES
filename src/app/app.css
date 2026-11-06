@@ -4,6 +4,8 @@
 main {
   display: block;
   min-height: 60vh;
+  /* Las animaciones de entrada desplazan bloques a los lados: no deben ensanchar la página. */
+  overflow-x: clip;
 }
 .progreso {
   position: fixed;

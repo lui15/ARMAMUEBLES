@@ -12,7 +12,14 @@ import { RouterLink } from '@angular/router';
 import { CountDirective, REDUCIR_MOVIMIENTO, RevealDirective } from '../compartido/animaciones';
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
-import { ELECTRODOMESTICOS, MARCAS, ID_SOLO_ELECTRO, servicioPorId } from '../datos/catalogo';
+import {
+  ELECTRODOMESTICOS,
+  ID_SOLO_ELECTRO,
+  MARCAS,
+  SERVICIOS,
+  ZONAS,
+  servicioPorId,
+} from '../datos/catalogo';
 import { PAGINAS, buscarPagina, crearJsonLd, urlDePagina } from '../landing/landing-data';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
@@ -53,6 +60,12 @@ export class InicioPage {
 
   readonly pagina = buscarPagina('');
   readonly marcas = MARCAS;
+  readonly cifras = {
+    servicios: SERVICIOS.length,
+    tiendas: MARCAS.length,
+    municipios: ZONAS.filter((z) => z !== 'Madrid capital' && z !== 'Otra zona de Madrid').length,
+    desde: Math.min(...SERVICIOS.map((s) => s.precioDesde)),
+  };
   readonly marca = signal(0);
   readonly marcaPrev = signal(-1);
   readonly piezas = PIEZAS;

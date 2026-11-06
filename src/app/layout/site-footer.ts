@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { ConsentimientoService } from '../compartido/consentimiento.service';
 import { MARCAS, TELEFONO, TELEFONO_VISIBLE, WHATSAPP } from '../datos/catalogo';
 import { PAGINAS } from '../landing/landing-data';
 
@@ -13,6 +14,7 @@ import { PAGINAS } from '../landing/landing-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SiteFooter {
+  readonly consentimiento = inject(ConsentimientoService);
   readonly anio = new Date().getFullYear();
   readonly telefono = TELEFONO;
   readonly telefonoVisible = TELEFONO_VISIBLE;

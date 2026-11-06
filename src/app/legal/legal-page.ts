@@ -1,8 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
+import { ConsentimientoService, GA_ID } from '../compartido/consentimiento.service';
 import { SeoService } from '../seo.service';
 import { LEGAL } from './legal-data';
+
+const PAGINAS_LEGALES = {
+  aviso: { titulo: 'Aviso legal', path: '/aviso-legal' },
+  privacidad: { titulo: 'Política de privacidad', path: '/politica-privacidad' },
+  cookies: { titulo: 'Política de cookies', path: '/politica-cookies' },
+};
 
 @Component({
   selector: 'app-legal',
@@ -63,6 +70,51 @@ import { LEGAL } from './legal-data';
           Estas condiciones se rigen por la legislación española. Si eres consumidor, conservas los
           derechos y el fuero que te reconoce la normativa de consumo.
         </p>
+      } @else if (tipo === 'cookies') {
+        <h1>Política de cookies</h1>
+
+        <h2>Qué son</h2>
+        <p>
+          Las cookies son pequeños archivos que una web guarda en tu navegador para recordar
+          información sobre tu visita.
+        </p>
+
+        <h2>Cookies que usamos</h2>
+        <p>Solo usamos cookies analíticas de Google Analytics, y únicamente si las aceptas:</p>
+        <ul>
+          <li>
+            <strong>_ga y {{ cookieGa }}</strong> (de Google): distinguen visitantes de forma
+            mediante un identificador para medir cuántas personas visitan la web y qué páginas
+            consultan. Duran hasta 2 años.
+          </li>
+        </ul>
+        <p>
+          Además guardamos tu decisión en el almacenamiento local de tu navegador, bajo el nombre
+          armamuebles-cookies, para no volver a preguntarte en 24 meses. Es un dato técnico, no se
+          envía a nadie y no necesita tu consentimiento.
+        </p>
+
+        <h2>Cómo aceptarlas, rechazarlas o cambiar de opinión</h2>
+        <p>
+          Puedes rechazarlas con la misma facilidad con la que las aceptas, y la web funciona igual
+          en ambos casos. Puedes cambiar tu decisión cuando quieras:
+        </p>
+        <p>
+          <button type="button" class="btn btn-ink btn-sm" (click)="consentimiento.reabrir()">
+            Configurar cookies
+          </button>
+        </p>
+        <p>
+          También puedes bloquear o borrar las cookies desde los ajustes de tu navegador.
+        </p>
+
+        <h2>Más información</h2>
+        <p>
+          Google trata estos datos como se explica en su
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de
+            privacidad</a>. Sobre el resto de datos personales, consulta nuestra
+          <a routerLink="/politica-privacidad">política de privacidad</a>.
+        </p>
       } @else {
         <h1>Política de privacidad</h1>
 
@@ -82,6 +134,14 @@ import { LEGAL } from './legal-data';
           Los usamos para atender tu solicitud, contactar contigo y prepararte un presupuesto. La
           base legal es la aplicación de medidas precontractuales que nos pides (artículo 6.1.b del
           RGPD). No los usamos para enviarte publicidad.
+        </p>
+
+        <h2>Estadísticas de visitas</h2>
+        <p>
+          Si aceptas las cookies analíticas, Google Analytics recoge datos sobre cómo usas la web.
+          La base legal es tu consentimiento (artículo 6.1.a del RGPD), que puedes retirar cuando
+          quieras. Tienes los detalles en la
+          <a routerLink="/politica-cookies">política de cookies</a>.
         </p>
 
         <h2>Cuánto tiempo los conservamos</h2>
@@ -151,19 +211,24 @@ import { LEGAL } from './legal-data';
       margin-bottom: 6px;
       overflow-wrap: anywhere;
     }
+    p a {
+      color: var(--green-d);
+    }
   `,
 })
 export class LegalPage {
   readonly legal = LEGAL;
-  readonly tipo = inject(ActivatedRoute).snapshot.data['tipo'] as 'aviso' | 'privacidad';
+  readonly consentimiento = inject(ConsentimientoService);
+  readonly cookieGa = `_ga_${GA_ID.replace('G-', '')}`;
+  readonly tipo = inject(ActivatedRoute).snapshot.data['tipo'] as keyof typeof PAGINAS_LEGALES;
 
   constructor() {
-    const esAviso = this.tipo === 'aviso';
+    const { titulo, path } = PAGINAS_LEGALES[this.tipo];
 
     inject(SeoService).update({
-      title: `${esAviso ? 'Aviso legal' : 'Política de privacidad'} | ${LEGAL.nombre}`,
-      description: `${esAviso ? 'Aviso legal' : 'Política de privacidad'} de ${LEGAL.dominio}.`,
-      path: esAviso ? '/aviso-legal' : '/politica-privacidad',
+      title: `${titulo} | ${LEGAL.nombre}`,
+      description: `${titulo} de ${LEGAL.dominio}.`,
+      path,
       noindex: true,
     });
   }

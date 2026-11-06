@@ -27,6 +27,11 @@ export const routes: Routes = [
     data: { tipo: 'privacidad' },
   },
   {
+    path: 'politica-cookies',
+    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
+    data: { tipo: 'cookies' },
+  },
+  {
     path: '**',
     loadComponent: () => import('./not-found/not-found-page').then((m) => m.NotFoundPage),
   },

@@ -16,6 +16,9 @@
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
             "outputMode": "server",
+            "security": {
+              "allowedHosts": ["armamuebles.es", "www.armamuebles.es"]
+            },
             "ssr": {
               "entry": "src/server.ts"
             },

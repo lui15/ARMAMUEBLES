@@ -3002,3 +3002,11 @@ section[tabindex='-1']:focus-visible {
 .seo-nav a:hover {
   border-color: var(--green);
 }
+
+.legal-links a {
+  color: inherit;
+}
+.privacy-note a {
+  color: inherit;
+  text-decoration: underline;
+}

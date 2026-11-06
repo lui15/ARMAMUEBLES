@@ -14,6 +14,16 @@ const rutasLanding: Routes = PAGINAS.map(
 export const routes: Routes = [
   ...rutasLanding,
   {
+    path: 'aviso-legal',
+    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
+    data: { tipo: 'aviso' },
+  },
+  {
+    path: 'politica-privacidad',
+    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
+    data: { tipo: 'privacidad' },
+  },
+  {
     path: '**',
     loadComponent: () => import('./not-found/not-found-page').then((m) => m.NotFoundPage),
   },

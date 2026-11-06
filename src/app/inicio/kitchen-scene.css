@@ -10,7 +10,7 @@
   border: 1px solid var(--line);
   border-radius: clamp(20px, 2.2vw, 32px);
   background: var(--surface);
-  box-shadow: 0 50px 100px -48px rgba(16, 28, 33, 0.55);
+  box-shadow: 0 30px 70px -44px rgba(16, 28, 33, 0.4);
   transform: rotateY(calc(var(--px) * 3.5deg)) rotateX(calc(var(--py) * -3deg));
   transition: transform 0.6s var(--ease);
   will-change: transform;

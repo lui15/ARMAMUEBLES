@@ -117,7 +117,7 @@ import { LEGAL } from './legal-data';
       display: block;
       min-height: 100vh;
       background: #fff;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-family: var(--ui);
     }
     .legal {
       max-width: 760px;

@@ -16,10 +16,10 @@
 }
 .pie-wordmark {
   color: #fff;
-  font-family: var(--display);
-  font-size: clamp(3.4rem, 11vw, 9.5rem);
-  letter-spacing: -0.03em;
-  line-height: 0.92;
+  font-size: clamp(2.2rem, 5vw, 4.25rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
   text-decoration: none;
 }
 .pie-wordmark em {

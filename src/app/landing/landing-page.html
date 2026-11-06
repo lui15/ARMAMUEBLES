@@ -55,7 +55,7 @@
       />
       @if (desde !== null) {
         <figcaption class="lp-precio">
-          <small>Desde</small>
+          <small>{{ pagina.destacado?.texto ?? 'Desde' }}</small>
           <strong>{{ precio(desde) }}</strong>
         </figcaption>
       }
@@ -138,23 +138,39 @@
       <div class="container">
         @for (grupo of gruposPrecios; track grupo.categoria) {
           <div class="precios-grupo" appReveal>
-            <h2>{{ grupo.categoria }}</h2>
-            <ul>
+            <div class="precios-cabecera">
+              <app-icono-mueble [id]="iconoCategoria[grupo.categoria]" />
+              <h2>{{ grupo.categoria }}</h2>
+            </div>
+            <ul class="precios-rejilla">
               @for (s of grupo.servicios; track s.id) {
                 <li class="precio-fila">
-                  <div>
+                  <div class="precio-foto">
+                    <img
+                      [src]="s.foto"
+                      [alt]="'Montaje: ' + s.nombre"
+                      width="640"
+                      height="480"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <app-icono-mueble [id]="s.id" />
+                  </div>
+                  <div class="precio-cuerpo">
                     <h3>{{ s.nombre }}</h3>
                     <p>{{ s.descripcion }}</p>
+                    <div class="precio-pie">
+                      <span class="precio-valor"><small>Desde</small> {{ precio(s.precioDesde) }}</span>
+                      <button
+                        type="button"
+                        class="btn btn-ink btn-sm"
+                        [attr.aria-label]="'Pedir presupuesto: ' + s.nombre"
+                        (click)="presupuesto.abrir(s)"
+                      >
+                        Pedir
+                      </button>
+                    </div>
                   </div>
-                  <span class="precio-valor"><small>Desde</small> {{ precio(s.precioDesde) }}</span>
-                  <button
-                    type="button"
-                    class="btn btn-ink btn-sm"
-                    [attr.aria-label]="'Pedir presupuesto: ' + s.nombre"
-                    (click)="presupuesto.abrir(s)"
-                  >
-                    Pedir
-                  </button>
                 </li>
               }
             </ul>

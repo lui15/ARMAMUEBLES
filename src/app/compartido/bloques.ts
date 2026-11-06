@@ -12,7 +12,7 @@ import { RevealDirective } from './animaciones';
   imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="section section-dark" id="como-trabajamos">
+    <section class="section section-alt" id="como-trabajamos">
       <div class="container">
         <div class="section-heading" appReveal>
           <div>

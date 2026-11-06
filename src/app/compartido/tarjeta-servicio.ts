@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
 import { Servicio, formatearPrecio } from '../datos/catalogo';
+import { IconoMueble } from './icono-mueble';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 
 @Component({
   selector: 'app-tarjeta-servicio',
   standalone: true,
+  imports: [IconoMueble],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="tarjeta">
@@ -18,6 +20,7 @@ import { PresupuestoService } from '../presupuesto/presupuesto.service';
           loading="lazy"
           decoding="async"
         />
+        <app-icono-mueble [id]="servicio().id" />
         @if (servicio().etiqueta) {
           <span class="tarjeta-sello">{{ servicio().etiqueta }}</span>
         }
@@ -58,7 +61,6 @@ import { PresupuestoService } from '../presupuesto/presupuesto.service';
       flex-direction: column;
       height: 100%;
       overflow: hidden;
-      border: 1px solid var(--line);
       border-radius: var(--r-md);
       background: var(--surface);
       transition:
@@ -76,6 +78,12 @@ import { PresupuestoService } from '../presupuesto/presupuesto.service';
       height: 100%;
       object-fit: cover;
       transition: transform 1.1s var(--ease);
+    }
+    app-icono-mueble {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      --icono: 38px;
     }
     .tarjeta-sello {
       position: absolute;
@@ -96,10 +104,8 @@ import { PresupuestoService } from '../presupuesto/presupuesto.service';
     }
     .tarjeta-cat {
       color: var(--green-d);
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 600;
     }
     h3 {
       margin-top: 6px;
@@ -139,17 +145,18 @@ import { PresupuestoService } from '../presupuesto/presupuesto.service';
     }
     .tarjeta-precio {
       color: var(--ink);
-      font-family: var(--display);
-      font-size: 1.9rem;
-      line-height: 1;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
     }
     .tarjeta-precio small {
       display: block;
       margin-bottom: 4px;
       color: var(--muted);
-      font-family: var(--ui);
-      font-size: 0.72rem;
-      font-weight: 600;
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0;
     }
     @media (hover: hover) {
       .tarjeta:hover {

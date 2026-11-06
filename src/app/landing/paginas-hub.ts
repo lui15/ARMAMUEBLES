@@ -142,7 +142,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     padre: '',
     title: 'Precios de Montaje de Muebles en Madrid | ArmaMuebles',
     description:
-      'Cuánto cuesta montar muebles en Madrid: tabla de precios desde 25 € para cocinas, armarios, camas, mesas y más. Pide tu presupuesto sin compromiso.',
+      'Cuánto cuesta montar tu cocina en Madrid: cocina pequeña desde 120 €, armarios desde 65 €, camas, mesas y más. Consulta la tabla y pide presupuesto.',
     etiqueta: 'Precios',
     h1: { antes: 'Precios de', resaltado: 'montaje de muebles', despues: 'en Madrid' },
     kicker: 'Precios orientativos',
@@ -154,21 +154,21 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       'En el formulario verás una estimación mínima que se actualiza según el servicio y la cantidad que elijas. No te compromete a nada: es una referencia para que decidas con información.',
     ],
     puntos: [
-      'Montajes desde 25 €',
-      'Cocinas con electrodomésticos desde 120 €',
+      'Cocina pequeña desde 120 €',
+      'Armarios desde 65 €',
       'Solo electrodomésticos desde 35 €',
       'Presupuesto sin compromiso',
     ],
     bloques: [
       {
-        titulo: 'Qué significa «desde»',
-        texto:
-          'Es el precio de partida del servicio. El importe final depende de las características y dimensiones, y se confirma tras revisarlas.',
-      },
-      {
         titulo: 'Las cocinas incluyen electrodomésticos',
         texto:
           'En todos los tamaños de cocina, el precio de partida ya incluye la colocación de tus electrodomésticos.',
+      },
+      {
+        titulo: 'Qué significa «desde»',
+        texto:
+          'Es el precio de partida del servicio. El importe final depende de las características y dimensiones, y se confirma tras revisarlas.',
       },
       {
         titulo: 'Varios muebles a la vez',
@@ -177,16 +177,16 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       },
     ],
     faqs: [
+      {
+        pregunta: '¿Cuánto cuesta montar una cocina?',
+        respuesta:
+          'Una cocina pequeña empieza en 120 €, una mediana en 220 €, una grande en 350 € y una con isla en 450 €, con la colocación de electrodomésticos incluida.',
+      },
       { pregunta: '¿Cuánto cuesta montar un mueble?', respuesta: PRECIOS_TEXTO },
       {
         pregunta: '¿Cuál es el montaje más económico?',
         respuesta:
           'El montaje de una mesita de noche, desde 25 €. Mesas, escritorios, estanterías, zapateros y muebles auxiliares parten de 35 €.',
-      },
-      {
-        pregunta: '¿Cuánto cuesta montar una cocina?',
-        respuesta:
-          'Una cocina pequeña empieza en 120 €, una mediana en 220 €, una grande en 350 € y una con isla en 450 €, con la colocación de electrodomésticos incluida.',
       },
       {
         pregunta: '¿Pedir presupuesto me compromete a algo?',
@@ -198,9 +198,10 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       nombre: 'Tarifas de montaje de muebles',
       descripcion: 'Precios de partida orientativos para el montaje de muebles y cocinas en Madrid.',
     },
-    imagen: './images/comoda.webp',
-    imagenAlt: 'Cómoda de dormitorio montada, con los cajones bien ajustados',
-    ids: [8, 13, 14, 15, 16, 17, 19, 10, 20, 9, 11, 18, 5, 6, 12, 1, 7, 2, 3, 4],
+    imagen: './images/cocina-pequena.webp',
+    imagenAlt: 'Cocina pequeña montada, con los electrodomésticos colocados',
+    ids: [1, 2, 3, 4, 19, 5, 6, 7, 11, 12, 8, 9, 10, 15, 16, 17, 18, 13, 14, 20],
+    destacado: { texto: 'Cocina pequeña, desde', precio: 120 },
     modulo: 'precios',
     relacionadas: ['servicios', 'montaje-cocinas-madrid', 'preguntas-frecuentes'],
   },

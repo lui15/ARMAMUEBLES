@@ -32,6 +32,8 @@ export interface PaginaSeo {
   imagenAlt: string;
   /** Servicios del catálogo con precio que se muestran en la página. */
   ids?: number[];
+  /** Precio que se destaca sobre la foto, si no debe ser el más bajo de la página. */
+  destacado?: { texto: string; precio: number };
   /** Categoría que se preselecciona al abrir el formulario. */
   categoria?: string;
   /** Sección especial de las páginas índice. */

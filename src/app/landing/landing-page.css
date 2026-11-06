@@ -5,9 +5,7 @@
 /* ---------- Cabecera de la página ---------- */
 .lp-hero {
   padding-top: calc(var(--hh) + clamp(1.25rem, 3vw, 2.5rem));
-  background:
-    radial-gradient(60% 70% at 88% 8%, rgba(163, 211, 77, 0.2), transparent 70%),
-    var(--bg);
+  background: var(--bg);
 }
 .lp-hero-grid {
   display: grid;
@@ -40,9 +38,9 @@
 }
 h1 {
   margin-top: 18px;
-  font-size: clamp(2.9rem, 6.6vw, 6rem);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.1rem, 4.3vw, 3.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   overflow-wrap: break-word;
 }
 .lp-intro {
@@ -76,21 +74,21 @@ h1 {
   bottom: clamp(18px, 3vw, 36px);
   padding: 14px 22px;
   border-radius: 18px;
-  background: var(--ink);
-  color: #fff;
+  background: var(--surface);
+  color: var(--ink);
   box-shadow: var(--sh);
 }
 .lp-precio small {
   display: block;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--muted);
   font-size: 0.74rem;
   font-weight: 600;
 }
 .lp-precio strong {
-  font-family: var(--display);
-  font-size: 2.3rem;
-  font-weight: 400;
-  line-height: 1.05;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 .lp-puntos {
   display: grid;
@@ -102,7 +100,7 @@ h1 {
   padding: 20px 20px 20px 0;
   color: var(--ink);
   font-size: 0.93rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.35;
 }
 .lp-puntos li + li {
@@ -122,7 +120,7 @@ h1 {
   top: calc(var(--hh) + 32px);
 }
 .lp-detalle-titulo h2 {
-  font-size: clamp(2.15rem, 3.9vw, 3.5rem);
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
 }
 .lp-detalle-texto > p {
   color: var(--ink-3);
@@ -143,10 +141,9 @@ h1 {
 }
 .lp-bloques span {
   color: var(--green-d);
-  font-family: var(--display);
-  font-size: 2rem;
-  font-style: italic;
-  line-height: 1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.6;
 }
 .lp-bloques p {
   margin-top: 6px;
@@ -163,38 +160,94 @@ h1 {
   margin-top: 28px;
 }
 .precios-grupo + .precios-grupo {
-  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  margin-top: clamp(2.75rem, 6vw, 4.5rem);
 }
-.precios-grupo h2 {
-  margin-bottom: 14px;
-  font-size: clamp(1.9rem, 3.4vw, 3rem);
+.precios-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  --icono: 46px;
+}
+.precios-cabecera h2 {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+}
+.precios-rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+  gap: 14px;
 }
 .precio-fila {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 8rem auto;
-  gap: 8px 28px;
-  align-items: center;
-  padding: 20px 0;
-  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  transition:
+    box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease);
 }
-.precio-fila p {
-  margin-top: 3px;
+.precio-foto {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.precio-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.precio-foto app-icono-mueble {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  --icono: 38px;
+  box-shadow: var(--sh-sm);
+}
+.precio-cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px;
+}
+.precio-cuerpo h3 {
+  font-size: 1.04rem;
+}
+.precio-cuerpo p {
+  margin-top: 6px;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.precio-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
 }
 .precio-valor {
   color: var(--ink);
-  font-family: var(--display);
-  font-size: 1.9rem;
-  line-height: 1;
-  text-align: right;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
   white-space: nowrap;
 }
 .precio-valor small {
+  display: block;
   color: var(--muted);
-  font-family: var(--ui);
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+@media (hover: hover) {
+  .precio-fila:hover {
+    box-shadow: var(--sh);
+    transform: translateY(-3px);
+  }
 }
 .chips-grandes {
   display: flex;
@@ -202,25 +255,24 @@ h1 {
   gap: 8px;
 }
 .chips-grandes li {
-  padding: 12px 22px;
-  border: 1px solid var(--line);
+  padding: 10px 20px;
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 500;
 }
 .chips-marcas li {
-  padding: 16px 28px;
-  font-family: var(--display);
-  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
-  font-weight: 400;
+  padding: 14px 26px;
+  font-size: clamp(1.02rem, 1.5vw, 1.25rem);
+  font-weight: 600;
   line-height: 1.1;
 }
 .lp-rel-titulo {
   margin-bottom: 16px;
   color: var(--ink);
-  font-family: var(--display);
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 /* ---------- Tableta ---------- */
@@ -275,13 +327,31 @@ h1 {
   .lp-bloques li {
     grid-template-columns: 42px 1fr;
   }
+  /* En móvil, foto a la izquierda: se ve todo de un vistazo sin hacer la página eterna. */
   .precio-fila {
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
   }
-  .precio-fila > div {
-    grid-column: 1 / -1;
+  .precio-foto {
+    aspect-ratio: auto;
+    min-height: 100%;
   }
-  .precio-valor {
-    text-align: left;
+  .precio-foto img {
+    position: absolute;
+    inset: 0;
+  }
+  .precio-foto app-icono-mueble {
+    left: 8px;
+    bottom: 8px;
+    --icono: 32px;
+  }
+  .precio-cuerpo {
+    padding: 14px;
+  }
+  .precio-cuerpo p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }

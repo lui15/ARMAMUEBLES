@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RevealDirective } from '../compartido/animaciones';
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
+import { ICONO_CATEGORIA, IconoMueble } from '../compartido/icono-mueble';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
 import {
   CATEGORIAS,
@@ -28,7 +29,7 @@ import {
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink, RevealDirective, CatalogoServicios, TarjetaServicio, ProcesoPasos, FaqLista, CtaFinal],
+  imports: [RouterLink, RevealDirective, IconoMueble, CatalogoServicios, TarjetaServicio, ProcesoPasos, FaqLista, CtaFinal],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,7 +39,8 @@ export class LandingPage {
 
   readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
   readonly migas = migasDe(this.pagina);
-  readonly desde = precioDesde(this.pagina);
+  readonly desde = this.pagina.destacado?.precio ?? precioDesde(this.pagina);
+  readonly iconoCategoria = ICONO_CATEGORIA;
   readonly servicios = serviciosPorIds(this.pagina.ids ?? []);
   readonly relacionadas = this.pagina.relacionadas.map((path) => buscarPagina(path));
 

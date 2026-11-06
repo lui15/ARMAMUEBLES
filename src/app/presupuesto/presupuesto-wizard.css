@@ -123,7 +123,7 @@
   display: block;
   margin: 4px 0 8px;
   font:
-    800 40px / 1.05 'Manrope',
+    800 40px / 1.05 'Plus Jakarta Sans',
     sans-serif;
   letter-spacing: -0.04em;
   color: var(--green-l);
@@ -624,7 +624,7 @@
 }
 .review .review-price {
   font:
-    800 22px 'Manrope',
+    800 22px 'Plus Jakarta Sans',
     sans-serif;
   color: var(--green-d);
 }

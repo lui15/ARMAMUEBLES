@@ -9,10 +9,7 @@
   align-items: center;
   min-height: min(100svh, 64rem);
   padding-block: calc(var(--hh) + clamp(1rem, 2.5vw, 2rem)) clamp(2.5rem, 5vw, 4.5rem);
-  background:
-    radial-gradient(52% 62% at 88% 22%, rgba(163, 211, 77, 0.26), transparent 70%),
-    radial-gradient(40% 40% at 6% 92%, rgba(184, 148, 90, 0.13), transparent 70%),
-    var(--bg);
+  background: var(--bg);
 }
 .hero-grid {
   display: grid;
@@ -22,9 +19,9 @@
 }
 .hero h1 {
   margin-top: 22px;
-  font-size: clamp(2.9rem, 5vw, 5.3rem);
-  line-height: 0.98;
-  letter-spacing: -0.028em;
+  font-size: clamp(2.3rem, 4.1vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
 }
 .hero h1 em {
   display: block;
@@ -58,14 +55,13 @@
 }
 .slot-marca {
   color: var(--green-d);
-  font-style: italic;
   padding-right: 0.08em;
 }
 .hero-sub {
   margin-top: 18px;
   color: var(--ink);
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  font-weight: 600;
+  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+  font-weight: 500;
   letter-spacing: -0.012em;
 }
 .slot-pieza {
@@ -123,10 +119,8 @@
 .cinta-titulo {
   flex: none;
   color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 .cinta-ventana {
   flex: 1;
@@ -140,9 +134,9 @@
 }
 .cinta-pista span {
   padding-inline: clamp(20px, 3vw, 44px);
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  color: var(--ink-3);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 600;
   line-height: 1.1;
   white-space: nowrap;
 }
@@ -173,9 +167,9 @@
   margin-block: 2px 6px;
   color: var(--ink);
   font-family: var(--display);
-  font-size: clamp(3rem, 6vw, 5.2rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 .confianza-puntos {
@@ -185,7 +179,7 @@
 }
 .confianza-puntos li {
   padding-top: 14px;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--line);
 }
 .confianza-puntos strong {
   display: block;
@@ -218,8 +212,9 @@
 .cifras strong {
   color: var(--ink);
   font-family: var(--display);
-  font-size: clamp(2.5rem, 4.6vw, 4rem);
-  font-weight: 400;
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 .cifras i {
@@ -278,12 +273,13 @@
 .estancia strong {
   display: block;
   font-family: var(--display);
-  font-size: clamp(1.5rem, 2.3vw, 2.2rem);
-  font-weight: 400;
-  line-height: 1.05;
+  font-size: clamp(1.02rem, 1.5vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 .grande .estancia strong {
-  font-size: clamp(2.1rem, 4vw, 3.8rem);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
 }
 .estancia small {
   font-size: 0.82rem;
@@ -325,9 +321,9 @@
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   overflow: hidden;
-  border-radius: clamp(24px, 3vw, 40px);
-  background: var(--forest);
-  color: rgba(255, 255, 255, 0.76);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  color: var(--muted);
 }
 .electro-foto img {
   width: 100%;
@@ -338,16 +334,9 @@
 .electro-copia {
   padding: clamp(2rem, 5vw, 4.75rem);
 }
-.electro .kicker {
-  color: var(--green-l);
-}
 .electro h2 {
-  margin-top: 16px;
-  color: #fff;
-  font-size: clamp(2.05rem, 3.6vw, 3.3rem);
-}
-.electro h2 em {
-  color: var(--green-l);
+  margin-top: 14px;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
 }
 .electro p {
   margin-top: 16px;
@@ -360,9 +349,9 @@
 }
 .electro li {
   padding: 6px 13px;
-  border: 1px solid var(--line-dark);
   border-radius: 999px;
-  color: #fff;
+  background: var(--surface);
+  color: var(--ink);
   font-size: 0.84rem;
 }
 .electro-acciones {
@@ -375,9 +364,9 @@
 .link-claro {
   padding: 3px 0;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid var(--ink-3);
   background: none;
-  color: #fff;
+  color: var(--ink);
   font-size: 0.92rem;
   font-weight: 600;
   text-align: left;
@@ -412,7 +401,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .hero h1 {
-    font-size: clamp(3rem, 9.4vw, 5.6rem);
+    font-size: clamp(2.4rem, 7vw, 4rem);
   }
   .confianza-grid,
   .detalle,
@@ -452,7 +441,7 @@
 /* ---------- Móvil ---------- */
 @media (max-width: 560px) {
   .hero h1 {
-    font-size: clamp(2.7rem, 13.2vw, 3.8rem);
+    font-size: clamp(2rem, 9.8vw, 2.7rem);
   }
   .hero-acciones .btn {
     flex: 1 1 100%;

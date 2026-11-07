@@ -60,7 +60,7 @@ export function crearJsonLd(p: PaginaSeo): object {
       url: SITE_URL + '/',
       telephone: NEGOCIO.telefono,
       image: SITE_URL + '/images/logo.png',
-      logo: SITE_URL + '/images/logo.png',
+      logo: SITE_URL + '/images/icono-180.png',
       priceRange: '€€',
       // TODO: añadir streetAddress y postalCode si el negocio publica una dirección física.
       address: {

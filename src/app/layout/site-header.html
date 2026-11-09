@@ -63,7 +63,7 @@
     </nav>
 
     <div class="header-acciones">
-      <a class="header-tel" [href]="'tel:' + telefono">{{ telefonoVisible }}</a>
+      <a class="header-tel" appTelefono="cabecera">{{ telefonoVisible }}</a>
       <button type="button" class="btn btn-ink btn-sm" (click)="pedirPresupuesto()">
         Pedir presupuesto
       </button>
@@ -114,6 +114,7 @@
 
   <div class="mm-acciones">
     <button type="button" class="btn btn-primary btn-lg" (click)="pedirPresupuesto()">Pedir presupuesto</button>
-    <a class="btn btn-ghost btn-lg" [href]="'tel:' + telefono">Llamar al {{ telefonoVisible }}</a>
+    <a class="btn btn-ghost btn-lg" appTelefono="menu-movil">Llamar al {{ telefonoVisible }}</a>
+    <a class="btn btn-ghost btn-lg" appWhatsapp="menu-movil">Escribir por WhatsApp</a>
   </div>
 </div>

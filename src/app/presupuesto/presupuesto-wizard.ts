@@ -24,6 +24,7 @@ import {
   ZONAS,
   formatearPrecio,
 } from '../datos/catalogo';
+import { AnaliticaService } from '../compartido/analitica.service';
 import { PeticionPresupuesto, PresupuestoService } from './presupuesto.service';
 
 /* =====================================================
@@ -117,6 +118,7 @@ const EMAIL_CONFIGURADO = !Object.values(EMAILJS).some((valor) => valor.startsWi
 })
 export class PresupuestoWizard {
   readonly presupuesto = inject(PresupuestoService);
+  private readonly analitica = inject(AnaliticaService);
   private readonly doc = inject(DOCUMENT);
   private readonly esNavegador = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -274,8 +276,26 @@ export class PresupuestoWizard {
   }
 
   siguiente(): void {
-    if (this.pasoActualValido() && this.paso() < this.pasos.length) {
+    if (!this.pasoActualValido()) {
+      this.analitica.evento('form_error', { campo: this.campoConError() });
+      return;
+    }
+    if (this.paso() < this.pasos.length) {
       this.paso.update((p) => p + 1);
+      this.analitica.evento('form_step', { paso: this.pasos[this.paso() - 1].nombre });
+    }
+  }
+
+  private campoConError(): string {
+    switch (this.paso()) {
+      case 1:
+        return 'mueble';
+      case 3:
+        return 'zona';
+      default:
+        if (!this.nombreValido()) return 'nombre';
+        if (!this.telefonoValido()) return 'telefono';
+        return 'email';
     }
   }
 
@@ -449,6 +469,10 @@ export class PresupuestoWizard {
 
       // Solo se llega aquí cuando Supabase ha confirmado el guardado.
       this.enviado.set(true);
+      this.analitica.evento('generate_lead', {
+        value: this.precioEstimadoMinimo(),
+        currency: 'EUR',
+      });
 
       void this.avisarPorEmail(servicio);
     } catch (error) {
@@ -480,6 +504,7 @@ export class PresupuestoWizard {
     lineas.push(`Detalles: ${this.descripcion().trim() || 'Sin detalles adicionales'}`);
 
     const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lineas.join('\n'))}`;
+    this.analitica.evento('click_whatsapp', { ubicacion: 'formulario' });
     window.open(url, '_blank', 'noopener');
   }
 
@@ -503,6 +528,7 @@ export class PresupuestoWizard {
 
   private aplicarPeticion({ servicio, categoria }: PeticionPresupuesto): void {
     this.ultimoFoco = this.doc.activeElement as HTMLElement | null;
+    this.analitica.evento('form_open');
     this.enviado.set(false);
     this.errorEnvio.set(false);
 

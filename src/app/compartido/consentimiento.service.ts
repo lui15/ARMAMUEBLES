@@ -21,6 +21,8 @@ export class ConsentimientoService {
   private analiticaCargada = false;
 
   readonly avisoVisible = signal(false);
+  /** Hay permiso para medir: solo entonces se envían eventos. */
+  readonly analiticaActiva = signal(false);
   /** El visitante ha vuelto a abrir el aviso para cambiar su decisión. */
   readonly reabierto = signal(false);
 
@@ -62,6 +64,7 @@ export class ConsentimientoService {
     if (!ventana) return;
 
     ventana[`ga-disable-${GA_ID}`] = false;
+    this.analiticaActiva.set(true);
     if (this.analiticaCargada) return;
     this.analiticaCargada = true;
 
@@ -80,6 +83,7 @@ export class ConsentimientoService {
   }
 
   private desactivarAnalitica(): void {
+    this.analiticaActiva.set(false);
     const ventana = this.doc.defaultView as (Window & Record<string, any>) | null;
     if (ventana) ventana[`ga-disable-${GA_ID}`] = true;
 

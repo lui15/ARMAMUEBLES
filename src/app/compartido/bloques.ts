@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
-import { WHATSAPP } from '../datos/catalogo';
+import { WhatsappLink } from './enlaces-contacto';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
 
@@ -88,7 +88,7 @@ export class FaqLista {
 @Component({
   selector: 'app-cta-final',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, WhatsappLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="section-tight" id="presupuesto">
@@ -111,12 +111,7 @@ export class FaqLista {
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </span>
             </button>
-            <a
-              class="btn btn-outline-light btn-lg"
-              [href]="'https://wa.me/' + whatsapp"
-              target="_blank"
-              rel="noopener"
-            >
+            <a class="btn btn-outline-light btn-lg" appWhatsapp="llamada-final">
               Escribir por WhatsApp
             </a>
           </div>
@@ -129,5 +124,4 @@ export class FaqLista {
 export class CtaFinal {
   readonly categoria = input<string | undefined>();
   readonly presupuesto = inject(PresupuestoService);
-  readonly whatsapp = WHATSAPP;
 }

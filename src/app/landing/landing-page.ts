@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RevealDirective } from '../compartido/animaciones';
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
+import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { ICONO_CATEGORIA, IconoMueble } from '../compartido/icono-mueble';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
 import {
@@ -29,7 +30,17 @@ import {
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink, RevealDirective, IconoMueble, CatalogoServicios, TarjetaServicio, ProcesoPasos, FaqLista, CtaFinal],
+  imports: [
+    RouterLink,
+    RevealDirective,
+    IconoMueble,
+    CatalogoServicios,
+    TarjetaServicio,
+    ProcesoPasos,
+    FaqLista,
+    CtaFinal,
+    WhatsappLink,
+  ],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

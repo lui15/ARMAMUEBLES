@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { REDUCIR_MOVIMIENTO } from './compartido/animaciones';
 import { AvisoCookies } from './compartido/aviso-cookies';
+import { TelefonoLink, WhatsappLink } from './compartido/enlaces-contacto';
 import { ConsentimientoService } from './compartido/consentimiento.service';
 import { TELEFONO, WHATSAPP } from './datos/catalogo';
 import { ScrollEstado } from './layout/scroll-estado.service';
@@ -21,7 +22,15 @@ import { PresupuestoWizard } from './presupuesto/presupuesto-wizard';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteHeader, SiteFooter, PresupuestoWizard, AvisoCookies],
+  imports: [
+    RouterOutlet,
+    SiteHeader,
+    SiteFooter,
+    PresupuestoWizard,
+    AvisoCookies,
+    TelefonoLink,
+    WhatsappLink,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

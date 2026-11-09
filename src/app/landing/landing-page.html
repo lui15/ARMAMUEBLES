@@ -97,17 +97,22 @@
     <div class="container">
       <div class="section-heading" appReveal>
         <div>
-          <span class="kicker">Precios de partida</span>
-          <h2>Qué montamos y <em>desde cuánto</em></h2>
+          <span class="kicker">Precios con IVA incluido</span>
+          <h2>Cuánto <em>cuesta</em></h2>
         </div>
-        <p>El precio definitivo se confirma tras revisar las características y dimensiones.</p>
+        <p>{{ notaPrecios }}</p>
       </div>
       <ul class="lp-tarjetas">
         @for (s of servicios; track s.id) {
           <li><app-tarjeta-servicio [servicio]="s" /></li>
         }
       </ul>
-      <p class="lp-ver-todo"><a class="link-flecha" routerLink="/precios">Ver todos los precios</a></p>
+      <p class="lp-ver-todo">
+        <a class="link-flecha" routerLink="/precios">Ver todos los precios</a>
+        @if (guia) {
+          <a class="link-flecha" [routerLink]="'/' + guia.path">{{ guia.etiqueta }}</a>
+        }
+      </p>
     </div>
   </section>
 }
@@ -129,50 +134,7 @@
     </section>
   }
   @case ('precios') {
-    <section class="section section-alt" id="tabla">
-      <div class="container">
-        @for (grupo of gruposPrecios; track grupo.categoria) {
-          <div class="precios-grupo" appReveal>
-            <div class="precios-cabecera">
-              <app-icono-mueble [id]="iconoCategoria[grupo.categoria]" />
-              <h2>{{ grupo.categoria }}</h2>
-            </div>
-            <ul class="precios-rejilla">
-              @for (s of grupo.servicios; track s.id) {
-                <li class="precio-fila">
-                  <div class="precio-foto">
-                    <img
-                      [src]="s.foto"
-                      [alt]="'Montaje: ' + s.nombre"
-                      width="640"
-                      height="480"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <app-icono-mueble [id]="s.id" />
-                  </div>
-                  <div class="precio-cuerpo">
-                    <h3>{{ s.nombre }}</h3>
-                    <p>{{ s.descripcion }}</p>
-                    <div class="precio-pie">
-                      <span class="precio-valor"><small>Desde</small> {{ precio(s.precioDesde) }}</span>
-                      <button
-                        type="button"
-                        class="btn btn-ink btn-sm"
-                        [attr.aria-label]="'Pedir presupuesto: ' + s.nombre"
-                        (click)="presupuesto.abrir(s)"
-                      >
-                        Pedir
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              }
-            </ul>
-          </div>
-        }
-      </div>
-    </section>
+    <app-modulo-precios />
   }
   @case ('zonas') {
     <section class="section section-alt" id="municipios">

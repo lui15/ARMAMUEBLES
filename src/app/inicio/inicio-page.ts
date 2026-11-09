@@ -19,6 +19,8 @@ import {
   LOGOS_MARCAS,
   MARCAS,
   SERVICIOS,
+  eur,
+  eurMinimo,
   ZONAS,
   servicioPorId,
 } from '../datos/catalogo';
@@ -63,6 +65,7 @@ export class InicioPage {
 
   readonly pagina = buscarPagina('');
   readonly logos = LOGOS_MARCAS;
+  readonly minimo = eurMinimo();
   readonly cifras = {
     servicios: SERVICIOS.length,
     tiendas: MARCAS.length,
@@ -81,12 +84,12 @@ export class InicioPage {
   readonly cinta = [...LOGOS_MARCAS, ...LOGOS_MARCAS];
 
   readonly estancias = [
-    { path: 'montaje-cocinas-madrid', titulo: 'Cocinas', desde: '120 €', foto: './images/cocina-isla.webp', alt: 'Cocina con isla central', clase: 'grande' },
-    { path: 'montaje-armarios-madrid', titulo: 'Armarios y vestidores', desde: '65 €', foto: './images/armario-correderas.webp', alt: 'Armario de puertas correderas', clase: '' },
-    { path: 'montaje-dormitorios-madrid', titulo: 'Dormitorios', desde: '25 €', foto: './images/cama.webp', alt: 'Cama con estructura en un dormitorio', clase: '' },
-    { path: 'montaje-salones-madrid', titulo: 'Salones', desde: '45 €', foto: './images/mueble-tv.webp', alt: 'Mueble de televisión en un salón', clase: '' },
-    { path: 'montaje-mesas-escritorios-madrid', titulo: 'Mesas y escritorios', desde: '35 €', foto: './images/escritorio.webp', alt: 'Escritorio de trabajo', clase: '' },
-    { path: 'montaje-muebles-bano-madrid', titulo: 'Baños', desde: '45 €', foto: './images/muebles-bano.webp', alt: 'Mueble de baño con cajones', clase: '' },
+    { path: 'montaje-cocinas-madrid', titulo: 'Cocinas', desde: eur(1), foto: './images/cocina-isla.webp', alt: 'Cocina con isla central', clase: 'grande' },
+    { path: 'montaje-armarios-madrid', titulo: 'Armarios y vestidores', desde: eur(5), foto: './images/armario-correderas.webp', alt: 'Armario de puertas correderas', clase: '' },
+    { path: 'montaje-dormitorios-madrid', titulo: 'Dormitorios', desde: eur(8), foto: './images/cama.webp', alt: 'Cama con estructura en un dormitorio', clase: '' },
+    { path: 'montaje-salones-madrid', titulo: 'Salones', desde: eur(11), foto: './images/mueble-tv.webp', alt: 'Mueble de televisión en un salón', clase: '' },
+    { path: 'montaje-mesas-escritorios-madrid', titulo: 'Mesas y escritorios', desde: eur(13), foto: './images/escritorio.webp', alt: 'Escritorio de trabajo', clase: '' },
+    { path: 'montaje-muebles-bano-madrid', titulo: 'Baños', desde: eur(18), foto: './images/muebles-bano.webp', alt: 'Mueble de baño con cajones', clase: '' },
   ];
 
   readonly paginasZona = PAGINAS.filter((p) => p.tipo === 'zona');

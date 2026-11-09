@@ -33,3 +33,40 @@ export const PRECIOS_EXTRA: PrecioExtra[] = [
 
 /** Armario PAX con puertas correderas (no está en el catálogo como servicio propio). */
 export const PRECIO_PAX_CORREDERAS = 150;
+
+/* ---------- Página de precios ---------- */
+
+/** Grupos de la tabla de /precios. Los precios salen siempre del catálogo. */
+export const GRUPOS_PRECIOS: { nombre: string; icono: number; ids: number[] }[] = [
+  { nombre: 'Cocinas', icono: 2, ids: [1, 2, 3, 4] },
+  { nombre: 'Armarios', icono: 5, ids: [5, 6, 7] },
+  { nombre: 'Dormitorio', icono: 9, ids: [8, 9, 10] },
+  { nombre: 'Salón', icono: 11, ids: [11, 12] },
+  { nombre: 'Comedor y escritorio', icono: 13, ids: [13, 14] },
+  { nombre: 'Estanterías y almacenaje', icono: 15, ids: [15, 16, 17] },
+  { nombre: 'Baño', icono: 18, ids: [18] },
+  { nombre: 'Electrodomésticos', icono: 19, ids: [19] },
+  { nombre: 'Varios muebles', icono: 20, ids: [20] },
+];
+
+/** Lo que hace subir o bajar el precio. */
+export const FACTORES_PRECIO: { titulo: string; texto: string }[] = [
+  { titulo: 'Tamaño', texto: 'Un mueble grande lleva más piezas y más tiempo que uno pequeño.' },
+  {
+    titulo: 'Puertas y cajones',
+    texto: 'Cada puerta y cada cajón se monta y se ajusta: cuantos más haya, más trabajo.',
+  },
+  { titulo: 'Hasta el techo', texto: 'Los armarios hasta el techo necesitan más ajuste y más manos.' },
+  {
+    titulo: 'Fijarlo a la pared',
+    texto: 'La fijación antivuelco va incluida, pero depende del tipo de pared.',
+  },
+  {
+    titulo: 'Planta sin ascensor',
+    texto: 'Subir piezas pesadas por la escalera lleva más tiempo y esfuerzo.',
+  },
+  {
+    titulo: 'Desmontar antes',
+    texto: 'Si hay que desmontar un mueble viejo, se suma un 50–60 % de su precio de montaje.',
+  },
+];

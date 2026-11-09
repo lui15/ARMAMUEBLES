@@ -1,3 +1,4 @@
+import { eur, eurMinimo } from '../datos/catalogo';
 import { PRECIOS_TEXTO, PaginaSeo, TIENDAS_TEXTO } from './pagina-seo';
 
 export const PAGINAS_ZONAS: PaginaSeo[] = [
@@ -8,7 +9,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     padre: 'zonas',
     title: 'Montador de Muebles en Barajas, Madrid | ArmaMuebles',
     description:
-      'Montador de muebles en Barajas (Madrid): cocinas, armarios, camas y estanterías montados en tu casa. Montajes desde 25 €. Pide presupuesto sin compromiso.',
+      `Montador de muebles en Barajas (Madrid): cocinas, armarios, camas y estanterías montados en tu casa. Montajes desde ${eurMinimo()}. Pide presupuesto sin compromiso.`,
     etiqueta: 'Montador de muebles en Barajas',
     zona: 'Barajas',
     h1: { antes: 'Montador de', resaltado: 'muebles en Barajas', despues: '(Madrid)' },
@@ -21,7 +22,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'En el formulario de presupuesto, selecciona «Madrid capital» como zona e indica tu barrio en los detalles de la solicitud.',
     ],
     puntos: [
-      'Montajes desde 25 €',
+      `Montajes desde ${eurMinimo()}`,
       'Cocinas con electrodomésticos colocados',
       'Armarios, camas y estanterías',
       'Coordinamos día y hora contigo',
@@ -74,7 +75,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     padre: 'zonas',
     title: 'Montador de Muebles en San Blas, Madrid | ArmaMuebles',
     description:
-      'Montador de muebles en San Blas-Canillejas (Madrid): cocinas, armarios, dormitorios y salones a domicilio. Desde 25 €. Pide presupuesto sin compromiso.',
+      `Montador de muebles en San Blas-Canillejas (Madrid): cocinas, armarios, dormitorios y salones a domicilio. Desde ${eurMinimo()}. Pide presupuesto sin compromiso.`,
     etiqueta: 'Montador de muebles en San Blas',
     zona: 'San Blas-Canillejas',
     h1: { antes: 'Montador de', resaltado: 'muebles en San Blas', despues: '(Madrid)' },
@@ -87,8 +88,8 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'Para pedir presupuesto, selecciona «Madrid capital» en el paso de zona del formulario y, si quieres, añade tu barrio en los detalles.',
     ],
     puntos: [
-      'Cocinas desde 120 €',
-      'Armarios desde 65 €',
+      `Cocinas desde ${eur(1)}`,
+      `Armarios desde ${eur(5)}`,
       'Varios muebles en una visita',
       'Presupuesto orientativo sin compromiso',
     ],
@@ -96,7 +97,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         titulo: 'Cocinas y armarios en San Blas',
         texto:
-          'Montamos cocinas completas desde 120 € con los electrodomésticos colocados, y armarios abatibles (desde 65 €) o correderos (desde 90 €).',
+          `Montamos cocinas completas desde ${eur(1)} con los electrodomésticos colocados, y armarios abatibles (desde ${eur(5)}) o correderos (desde ${eur(6)}).`,
       },
       {
         titulo: 'Dormitorios, salón y despacho',
@@ -113,7 +114,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta montar una cocina o un armario en San Blas?',
         respuesta:
-          'Una cocina empieza en 120 € con la colocación de electrodomésticos incluida. Un armario de puertas abatibles empieza en 65 € y uno de puertas correderas en 90 €. El precio definitivo se confirma tras revisar las características y dimensiones.',
+          `Una cocina empieza en ${eur(1)} con la colocación de electrodomésticos incluida. Un armario de puertas abatibles empieza en ${eur(5)} y uno de puertas correderas en ${eur(6)}. El precio definitivo se confirma tras revisar las características y dimensiones.`,
       },
       {
         pregunta: '¿En qué barrios de San Blas trabajáis?',
@@ -123,7 +124,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         pregunta: '¿Podéis montar varios muebles en la misma visita?',
         respuesta:
-          'Sí. Si tienes varios muebles por montar, elige «Montaje de varios muebles» en el formulario (desde 40 €) e indica cuáles son en los detalles de la solicitud.',
+          `Sí. Si tienes varios muebles por montar, elige «Montaje de varios muebles» en el formulario (desde ${eur(20)}) e indica cuáles son en los detalles de la solicitud.`,
       },
       {
         pregunta: '¿Cómo pido presupuesto?',

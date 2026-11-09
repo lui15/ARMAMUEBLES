@@ -1,0 +1,301 @@
+:host {
+  display: block;
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+/* ---------- Cabecera y buscador ---------- */
+.mp-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+}
+.mp-buscar {
+  position: relative;
+  flex: 1 1 18rem;
+  max-width: 26rem;
+}
+.mp-buscar svg {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform: translateY(-50%);
+}
+.mp-buscar input {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px 12px 46px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+.mp-buscar input:focus {
+  border-color: var(--green-d);
+  outline: 3px solid rgba(121, 176, 32, 0.25);
+  outline-offset: 0;
+}
+.mp-contador {
+  flex-basis: 100%;
+  min-height: 1.2em;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Grupos ---------- */
+.mp-grupo {
+  margin-top: 28px;
+}
+.mp-grupo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+.mp-grupo-titulo app-icono-mueble {
+  --icono: 40px;
+}
+
+/* Tabla en el ordenador */
+.mp-tabla {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.mp-tabla thead th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: left;
+}
+.mp-tabla tbody tr + tr > * {
+  border-top: 1px solid var(--line);
+}
+.mp-tabla td,
+.mp-tabla tbody th {
+  padding: 12px 16px;
+  vertical-align: middle;
+  text-align: left;
+}
+.mp-foto {
+  width: 96px;
+}
+.mp-foto img {
+  width: 80px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.mp-nombre {
+  font-size: 1rem;
+  font-weight: 650;
+}
+.mp-incluye {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.mp-precio {
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.mp-precio small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+.mp-accion {
+  width: 1%;
+  text-align: right;
+}
+.mp-accion .btn {
+  min-height: 44px;
+}
+
+.mp-vacio {
+  margin-top: 28px;
+  padding: 24px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  text-align: center;
+}
+.mp-vacio .btn {
+  margin-top: 12px;
+}
+.mp-nota {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Otros precios y factores ---------- */
+.mp-dos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 56px;
+}
+.mp-extra {
+  width: 100%;
+  margin-top: 16px;
+  border-collapse: collapse;
+}
+.mp-extra th,
+.mp-extra td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.mp-extra th {
+  padding-right: 16px;
+  font-weight: 600;
+}
+.mp-extra th small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 400;
+}
+.mp-extra td {
+  color: var(--green-d);
+  font-weight: 700;
+  text-align: right;
+}
+.mp-factores {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+}
+.mp-factores li {
+  display: grid;
+  gap: 2px;
+  padding-left: 16px;
+  border-left: 3px solid var(--green);
+}
+.mp-factores span {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+/* ---------- Ejemplos ---------- */
+.mp-ejemplos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+}
+.mp-ejemplos li {
+  display: grid;
+  gap: 6px;
+  padding: 20px;
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+}
+.mp-ejemplos span {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.mp-ejemplos b {
+  color: var(--green-d);
+  font-size: 1.25rem;
+}
+
+/* ---------- Móvil: cada fila es una tarjeta ---------- */
+@media (max-width: 760px) {
+  .mp-buscar {
+    max-width: none;
+  }
+  .mp-tabla,
+  .mp-tabla tbody,
+  .mp-tabla tr,
+  .mp-tabla td,
+  .mp-tabla tbody th {
+    display: block;
+  }
+  .mp-tabla {
+    border: 0;
+    background: none;
+  }
+  .mp-tabla thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .mp-tabla tbody {
+    display: grid;
+    gap: 10px;
+  }
+  .mp-tabla tbody tr {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'foto nombre nombre'
+      'foto precio accion';
+    align-items: center;
+    gap: 2px 12px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  .mp-tabla tbody tr + tr > * {
+    border-top: 0;
+  }
+  .mp-tabla td,
+  .mp-tabla tbody th {
+    padding: 0;
+  }
+  .mp-foto {
+    grid-area: foto;
+    width: auto;
+  }
+  .mp-foto img {
+    width: 76px;
+    height: 76px;
+  }
+  .mp-nombre {
+    grid-area: nombre;
+    align-self: end;
+  }
+  .mp-tabla .mp-incluye {
+    display: none;
+  }
+  .mp-precio {
+    grid-area: precio;
+  }
+  .mp-accion {
+    grid-area: accion;
+    width: auto;
+  }
+  .mp-dos,
+  .mp-ejemplos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

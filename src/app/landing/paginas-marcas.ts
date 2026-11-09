@@ -1,14 +1,16 @@
+import { eur, eurMinimo } from '../datos/catalogo';
 import { PRECIOS_TEXTO, PaginaSeo } from './pagina-seo';
 
 export const PAGINAS_MARCAS: PaginaSeo[] = [
   /* ---------------------------- IKEA ---------------------------- */
   {
     path: 'montaje-muebles-ikea-madrid',
+    guia: 'cuanto-cuesta-montar-cocina-ikea',
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
     title: 'Montadores de Muebles IKEA en Madrid | ArmaMuebles',
     description:
-      'Montadores de muebles IKEA en Madrid: armarios, cocinas, camas, cómodas y estanterías montados en tu casa. Montajes desde 25 €. Pide tu presupuesto.',
+      `Montadores de muebles IKEA en Madrid: armarios, cocinas, camas, cómodas y estanterías montados en tu casa. Montajes desde ${eurMinimo()}. Pide tu presupuesto.`,
     etiqueta: 'Montaje de muebles IKEA',
     h1: { antes: 'Montadores de', resaltado: 'muebles IKEA', despues: 'en Madrid' },
     kicker: 'Muebles IKEA',
@@ -20,7 +22,7 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
       'Montamos desde una mesita de noche hasta una cocina completa. Para los armarios modulares PAX tenemos una página propia con más detalle.',
     ],
     puntos: [
-      'Montajes desde 25 €',
+      `Montajes desde ${eurMinimo()}`,
       'Cocinas IKEA con electrodomésticos colocados',
       'Armarios, camas, cómodas y estanterías',
       'A domicilio en Madrid',
@@ -34,7 +36,7 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
       {
         titulo: 'Cocinas de IKEA',
         texto:
-          'Montamos cocinas completas (módulos bajos y altos, columnas, cajoneras y puertas) y colocamos tus electrodomésticos. Desde 120 €.',
+          `Montamos cocinas completas (módulos bajos y altos, columnas, cajoneras y puertas) y colocamos tus electrodomésticos. Desde ${eur(1)}.`,
       },
       {
         titulo: 'Sin complicaciones',
@@ -51,7 +53,7 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
       {
         pregunta: '¿Montáis cocinas de IKEA?',
         respuesta:
-          'Sí, montamos cocinas completas de IKEA y colocamos los electrodomésticos. Una cocina pequeña empieza en 120 €.',
+          `Sí, montamos cocinas completas de IKEA y colocamos los electrodomésticos. Una cocina pequeña empieza en ${eur(1)}.`,
       },
       {
         pregunta: '¿Estáis afiliados a IKEA?',
@@ -91,13 +93,13 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
       'Cocinas con electrodomésticos colocados',
       'Armarios y vestidores',
       'Muebles de baño y almacenamiento',
-      'Montajes desde 25 €',
+      `Montajes desde ${eurMinimo()}`,
     ],
     bloques: [
       {
         titulo: 'Cocinas de Leroy Merlin',
         texto:
-          'Montamos módulos bajos y altos, columnas, cajoneras y puertas, y colocamos tus electrodomésticos. Desde 120 €.',
+          `Montamos módulos bajos y altos, columnas, cajoneras y puertas, y colocamos tus electrodomésticos. Desde ${eur(1)}.`,
       },
       {
         titulo: 'Armarios, baño y almacenamiento',
@@ -119,7 +121,7 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta montar un mueble de Leroy Merlin?',
         respuesta:
-          'Una cocina empieza en 120 € con la colocación de electrodomésticos incluida, un armario de puertas abatibles en 65 € y un mueble de baño en 45 €. El precio definitivo se confirma tras revisar las características y dimensiones.',
+          `Una cocina empieza en ${eur(1)} con la colocación de electrodomésticos incluida, un armario de puertas abatibles en ${eur(5)} y un mueble de baño en ${eur(18)}. El precio definitivo se confirma tras revisar las características y dimensiones.`,
       },
       {
         pregunta: '¿Colocáis los electrodomésticos de la cocina?',

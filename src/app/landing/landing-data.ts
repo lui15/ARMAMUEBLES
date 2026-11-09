@@ -1,5 +1,6 @@
 import { serviciosPorIds } from '../datos/catalogo';
 import { NEGOCIO, SITE_URL } from '../seo.service';
+import { PAGINAS_GUIAS } from './paginas-guias';
 import { PAGINAS_HUB } from './paginas-hub';
 import { PAGINAS_MARCAS } from './paginas-marcas';
 import { PAGINAS_SERVICIOS } from './paginas-servicios';
@@ -36,6 +37,7 @@ export const PAGINAS: PaginaSeo[] = [
   ...PAGINAS_SERVICIOS,
   ...PAGINAS_MARCAS,
   ...PAGINAS_ZONAS,
+  ...PAGINAS_GUIAS,
 ];
 
 export function buscarPagina(slug: unknown): PaginaSeo {
@@ -107,10 +109,14 @@ export function crearJsonLd(p: PaginaSeo): object {
       ...(desde !== null
         ? {
             offers: {
-              '@type': 'AggregateOffer',
+              '@type': 'Offer',
               priceCurrency: 'EUR',
-              lowPrice: desde,
-              offerCount: servicios.length,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                minPrice: desde,
+                priceCurrency: 'EUR',
+                valueAddedTaxIncluded: true,
+              },
             },
           }
         : {}),

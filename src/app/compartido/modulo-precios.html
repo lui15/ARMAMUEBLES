@@ -1,0 +1,128 @@
+<!-- ===== Buscador y tabla ===== -->
+<section class="section section-alt" id="tabla" aria-labelledby="tabla-titulo">
+  <div class="container">
+    <div class="mp-cabecera">
+      <h2 id="tabla-titulo">Precios por mueble</h2>
+      <div class="mp-buscar">
+        <label for="mp-buscar" class="sr-only">Busca tu mueble</label>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+        <input
+          id="mp-buscar"
+          type="search"
+          enterkeyhint="search"
+          placeholder="Escribe tu mueble…"
+          [value]="busqueda()"
+          (input)="busqueda.set($any($event.target).value)"
+        />
+      </div>
+      <p class="mp-contador" aria-live="polite">
+        @if (busqueda().trim()) {
+          {{ resultados() }} {{ resultados() === 1 ? 'resultado' : 'resultados' }}
+        }
+      </p>
+    </div>
+
+    @for (g of gruposVisibles(); track g.nombre) {
+      <div class="mp-grupo">
+        <h3 class="mp-grupo-titulo">
+          <app-icono-mueble [id]="g.icono" />
+          {{ g.nombre }}
+        </h3>
+        <table class="mp-tabla">
+          <thead>
+            <tr>
+              <th scope="col"><span class="sr-only">Foto</span></th>
+              <th scope="col">Mueble</th>
+              <th scope="col">Qué incluye</th>
+              <th scope="col">Precio</th>
+              <th scope="col"><span class="sr-only">Pedir</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (s of g.servicios; track s.id) {
+              <tr>
+                <td class="mp-foto">
+                  <img [src]="s.foto" alt="" width="640" height="480" loading="lazy" decoding="async" />
+                </td>
+                <th scope="row" class="mp-nombre">{{ s.nombre }}</th>
+                <td class="mp-incluye">{{ s.resumen.join(' · ') }}</td>
+                <td class="mp-precio"><small>desde</small> {{ precio(s.precioDesde) }}</td>
+                <td class="mp-accion">
+                  <button
+                    type="button"
+                    class="btn btn-ink btn-sm"
+                    [attr.aria-label]="'Pedir precio: ' + s.nombre"
+                    (click)="presupuesto.abrir(s)"
+                  >
+                    Pedir
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @empty {
+      <div class="mp-vacio">
+        <p>No lo tenemos en la lista, pero seguro que lo montamos.</p>
+        <button type="button" class="btn btn-primary" (click)="presupuesto.abrirCon({ tipos: [{ tipo: 'otro' }] })">
+          Pídenos precio
+        </button>
+      </div>
+    }
+    <p class="mp-nota">{{ nota }}</p>
+  </div>
+</section>
+
+<!-- ===== Otros precios ===== -->
+<section class="section" aria-labelledby="extra-titulo">
+  <div class="container mp-dos">
+    <div>
+      <h2 id="extra-titulo">Otros precios que conviene saber</h2>
+      <table class="mp-extra">
+        <tbody>
+          @for (e of extras; track e.concepto) {
+            <tr>
+              <th scope="row">
+                {{ e.concepto }}
+                @if (e.detalle) {
+                  <small>{{ e.detalle }}</small>
+                }
+              </th>
+              <td>{{ e.precio }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h2>De qué depende el precio</h2>
+      <ul class="mp-factores">
+        @for (f of factores; track f.titulo) {
+          <li>
+            <strong>{{ f.titulo }}</strong>
+            <span>{{ f.texto }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Ejemplos ===== -->
+<section class="section-tight" aria-labelledby="ejemplos-titulo">
+  <div class="container">
+    <h2 id="ejemplos-titulo">Tres ejemplos reales</h2>
+    <ul class="mp-ejemplos">
+      @for (e of ejemplos; track e.titulo) {
+        <li>
+          <strong>{{ e.titulo }}</strong>
+          <span>{{ e.partes }}</span>
+          <b>desde {{ precio(e.total) }}</b>
+        </li>
+      }
+    </ul>
+    <p class="mp-nota">{{ nota }}</p>
+  </div>
+</section>

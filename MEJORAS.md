@@ -40,3 +40,37 @@ Recorrido a 375 px (móvil) y 1280 px (ordenador) de la portada, `/precios`, `/m
 
 ## Rendimiento
 - La escena animada de la cocina es un SVG grande dentro de la primera pantalla. Hay que medir si retrasa el LCP en el móvil.
+
+---
+
+# Estado tras las mejoras (rama `mejora-maximo-nivel`)
+
+Resuelto todo lo anterior, salvo lo indicado como pendiente al final. Verificación del 9 de noviembre de 2026 en Chrome, con Supabase, EmailJS y Google bloqueados en las pruebas.
+
+| Comprobación | Resultado |
+|---|---|
+| `npm run build` | Sin errores ni avisos. 26 rutas prerenderizadas |
+| HTML prerenderizado (25 URL del sitemap) | Un H1 por página, title < 60, description 140–155, sin duplicados, FAQ del schema = FAQ visibles |
+| `PENDIENTE`, `TODO`, `Lorem`, `XXX` en `src/` y `dist/` | Ninguno |
+| Schema | JSON-LD válido (se analiza en cada URL); sin `Review` ni `AggregateRating` |
+| Formulario a 375 y 414 px | 99/99 |
+| Eventos de Analytics | 9/9 en enlaces y todos los del formulario; ninguno con las cookies rechazadas |
+| Precios, opiniones, logos, cookies | 32/32 · 25/25 · 15/15 · 42/42 |
+| Regresión general (navegación, 404, anchos de 360 a 2560 px) | 45/45 |
+| Tests unitarios | 2/2 |
+
+## Lighthouse en el móvil
+
+Medido en local, con Brotli como el CDN de Hostinger. Varía entre ejecuciones:
+
+| Página | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
+|---|---|---|---|---|
+| Portada | 89–99 (3 ejecuciones: 99, 89, 89) | 100 | 100 | 100 |
+| `/precios` | 93 (3 ejecuciones) | 100 | 100 | 100 |
+
+LCP de laboratorio: portada 1,8–3,3 s; `/precios` 2,8–2,9 s. CLS: 0,005 o menos. TBT: 20–60 ms.
+
+## Pendiente
+- **EmailJS sin configurar:** el servicio, la plantilla y la clave pública siguen con valores `TU_...`, así que no se envía ningún aviso por correo.
+- **Mínimo de 40 €:** la portada anuncia "desde 25 €" (la mesita del catálogo), pero el servicio mínimo es de 40 €. Se avisa en el formulario y en `/precios`.
+- **Sin probar:** Safari, Firefox y móviles reales. Tampoco se ha pasado la herramienta de resultados enriquecidos de Google, que necesita la web publicada.

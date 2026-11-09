@@ -13,6 +13,7 @@ import { CountDirective, REDUCIR_MOVIMIENTO, RevealDirective } from '../comparti
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
 import { IconoMueble } from '../compartido/icono-mueble';
+import { Opiniones } from '../compartido/opiniones';
 import {
   ELECTRODOMESTICOS,
   ID_SOLO_ELECTRO,
@@ -50,6 +51,7 @@ const PIEZAS = [
     CountDirective,
     IconoMueble,
     KitchenScene,
+    Opiniones,
     CatalogoServicios,
     ProcesoPasos,
     FaqLista,

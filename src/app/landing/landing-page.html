@@ -136,6 +136,9 @@
   @case ('precios') {
     <app-modulo-precios />
   }
+  @case ('opiniones') {
+    <app-opiniones formato="todas" />
+  }
   @case ('zonas') {
     <section class="section section-alt" id="municipios">
       <div class="container">
@@ -175,6 +178,10 @@
 }
 
 <app-proceso-pasos />
+
+@if (pagina.modulo !== 'opiniones') {
+  <app-opiniones [path]="pagina.path" />
+}
 
 <app-faq-lista [titulo]="'Dudas sobre ' + pagina.etiqueta.toLowerCase()" [faqs]="pagina.faqs" />
 

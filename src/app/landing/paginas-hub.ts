@@ -1,6 +1,9 @@
+import { NOTA_OPINIONES, resumenOpiniones } from '../datos/opiniones';
 import { SERVICIO_MINIMO } from '../datos/precios-extra';
 import { eur, eurMinimo } from '../datos/catalogo';
 import { COMO_PEDIR_TEXTO, PRECIOS_TEXTO, PaginaSeo, TIENDAS_TEXTO, ZONAS_TEXTO } from './pagina-seo';
+
+const RESUMEN = resumenOpiniones();
 
 export const PAGINAS_HUB: PaginaSeo[] = [
   /* ---------------------------- INICIO ---------------------------- */
@@ -218,6 +221,63 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       'montaje-cocinas-madrid',
       'montaje-armarios-madrid',
     ],
+  },
+
+  /* ---------------------------- OPINIONES ---------------------------- */
+  {
+    path: 'opiniones',
+    tipo: 'hub',
+    padre: '',
+    title: 'Opiniones de clientes de ArmaMuebles · Montaje en Madrid',
+    description: `${RESUMEN.media} de 5 en ${RESUMEN.total} opiniones de clientes que contrataron el montaje de muebles en Madrid: armarios, salones, dormitorios y más. Publicadas sin editar.`,
+    etiqueta: 'Opiniones',
+    h1: { antes: 'Opiniones de', resaltado: 'nuestros clientes', despues: 'en Madrid' },
+    kicker: 'Opiniones',
+    h2: 'Cómo publicamos las opiniones',
+    intro: `${RESUMEN.media} de 5 con ${RESUMEN.total} opiniones de clientes. Las publicamos completas, sin editar.`,
+    parrafos: [
+      'Cada opinión la envió un cliente que contrató el montaje con nosotros. La publicamos tal cual nos la dio: con su texto completo, sus estrellas y su nombre con la inicial del apellido.',
+      'Puedes filtrarlas por tipo de mueble para leer las de lo que necesitas montar.',
+    ],
+    puntos: [
+      `${RESUMEN.media} de 5`,
+      `${RESUMEN.total} opiniones de clientes`,
+      'Publicadas sin editar',
+      'Precio cerrado antes de ir',
+    ],
+    bloques: [
+      { titulo: 'Sin editar', texto: NOTA_OPINIONES },
+      {
+        titulo: 'Tu opinión también cuenta',
+        texto: 'Si ya montaste con nosotros, cuéntanos qué tal fue por WhatsApp.',
+      },
+    ],
+    faqs: [
+      {
+        pregunta: '¿Las opiniones son reales?',
+        respuesta: NOTA_OPINIONES,
+      },
+      {
+        pregunta: '¿Puedo dejar mi opinión?',
+        respuesta: 'Sí. Si contrataste el montaje con nosotros, cuéntanos qué tal fue por WhatsApp.',
+      },
+      {
+        pregunta: '¿Por qué hay una opinión de 4 estrellas?',
+        respuesta: 'Porque publicamos todas las opiniones que nos envían los clientes, completas y sin editar.',
+      },
+      {
+        pregunta: '¿Cuánto cuesta el montaje?',
+        respuesta: `Desde ${eurMinimo()} una mesita de noche, desde ${eur(5)} un armario y desde ${eur(1)} una cocina. Tienes todos los precios en la página de precios.`,
+      },
+    ],
+    servicio: {
+      nombre: 'Montaje de muebles a domicilio',
+      descripcion: 'Montaje de muebles y cocinas a domicilio en Madrid.',
+    },
+    imagen: './images/varios-muebles.webp',
+    imagenAlt: 'Salón con varios muebles montados',
+    modulo: 'opiniones',
+    relacionadas: ['precios', 'servicios', 'como-trabajamos'],
   },
 
   /* ---------------------------- ZONAS ---------------------------- */

@@ -1,6 +1,6 @@
 import { eur, eurMinimo } from '../datos/catalogo';
 export type TipoPagina = 'inicio' | 'hub' | 'servicio' | 'marca' | 'zona' | 'guia';
-export type ModuloPagina = 'catalogo' | 'precios' | 'zonas' | 'tiendas';
+export type ModuloPagina = 'catalogo' | 'precios' | 'zonas' | 'tiendas' | 'opiniones';
 
 export interface Faq {
   pregunta: string;

@@ -5,6 +5,7 @@ import { RevealDirective } from '../compartido/animaciones';
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
 import { ModuloPrecios } from '../compartido/modulo-precios';
+import { Opiniones } from '../compartido/opiniones';
 import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
 import {
@@ -40,6 +41,7 @@ import {
     CtaFinal,
     WhatsappLink,
     ModuloPrecios,
+    Opiniones,
   ],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css',

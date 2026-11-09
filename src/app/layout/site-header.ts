@@ -43,6 +43,7 @@ export class SiteHeader {
     { ruta: '/precios', texto: 'Precios' },
     { ruta: '/zonas', texto: 'Zonas' },
     { ruta: '/como-trabajamos', texto: 'Cómo trabajamos' },
+    { ruta: '/opiniones', texto: 'Opiniones' },
     { ruta: '/preguntas-frecuentes', texto: 'Preguntas' },
   ];
 

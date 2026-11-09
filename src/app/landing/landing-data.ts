@@ -5,8 +5,30 @@ import { PAGINAS_MARCAS } from './paginas-marcas';
 import { PAGINAS_SERVICIOS } from './paginas-servicios';
 import { PAGINAS_ZONAS } from './paginas-zonas';
 import { PaginaSeo } from './pagina-seo';
+import type { Prefill } from '../presupuesto/tipos-mueble';
 
 export type { PaginaSeo } from './pagina-seo';
+
+/** Formulario ya rellenado según la página: mueble, tienda o zona. */
+const PREFILL: Record<string, Prefill> = {
+  'montaje-cocinas-madrid': { tipos: [{ tipo: 'cocina' }] },
+  'montaje-armarios-madrid': { tipos: [{ tipo: 'armario' }] },
+  'montaje-armarios-pax': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
+  'montaje-dormitorios-madrid': { tipos: [{ tipo: 'dormitorio' }] },
+  'montaje-salones-madrid': { tipos: [{ tipo: 'salon' }] },
+  'montaje-mesas-escritorios-madrid': { tipos: [{ tipo: 'mesa' }] },
+  'montaje-estanterias-madrid': { tipos: [{ tipo: 'estanteria' }] },
+  'montaje-muebles-bano-madrid': { tipos: [{ tipo: 'bano' }] },
+  'colocacion-electrodomesticos-madrid': { tipos: [{ tipo: 'electro' }] },
+  'montaje-muebles-ikea-madrid': { tienda: 'IKEA' },
+  'montaje-muebles-leroy-merlin': { tienda: 'Leroy Merlin' },
+  'montador-muebles-barajas': { zona: 'Barajas' },
+  'montador-muebles-san-blas': { zona: 'San Blas-Canillejas' },
+  'cuanto-cuesta-montar-armario-pax': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
+  'cuanto-cuesta-montar-cocina-ikea': { tipos: [{ tipo: 'cocina' }], tienda: 'IKEA' },
+};
+
+export const prefillDe = (p: PaginaSeo): Prefill => PREFILL[p.path] ?? {};
 
 /** Fuente única de todas las URL. Añadir una página es añadir un objeto en su archivo. */
 export const PAGINAS: PaginaSeo[] = [

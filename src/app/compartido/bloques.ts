@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
 import { WhatsappLink } from './enlaces-contacto';
+import type { Prefill } from '../presupuesto/tipos-mueble';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
 
@@ -104,7 +105,7 @@ export class FaqLista {
             <button
               type="button"
               class="btn btn-primary btn-lg"
-              (click)="presupuesto.abrir(undefined, categoria())"
+              (click)="presupuesto.abrirCon(prefill())"
             >
               Empezar mi presupuesto
               <span class="arrow">
@@ -122,6 +123,6 @@ export class FaqLista {
   `,
 })
 export class CtaFinal {
-  readonly categoria = input<string | undefined>();
+  readonly prefill = input<Prefill>({});
   readonly presupuesto = inject(PresupuestoService);
 }

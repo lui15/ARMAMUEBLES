@@ -15,17 +15,21 @@ import {
 } from '@angular/core';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import {
-  CATEGORIAS,
-  ID_SOLO_ELECTRO,
-  SERVICIOS,
-  Servicio,
-  WHATSAPP,
-  ZONAS,
-  formatearPrecio,
-} from '../datos/catalogo';
 import { AnaliticaService } from '../compartido/analitica.service';
+import { WhatsappLink } from '../compartido/enlaces-contacto';
+import { IconoMueble } from '../compartido/icono-mueble';
+import { ZONAS, formatearPrecio } from '../datos/catalogo';
+import { NOTA_PRECIOS, SERVICIO_MINIMO } from '../datos/precios-extra';
 import { PeticionPresupuesto, PresupuestoService } from './presupuesto.service';
+import {
+  ElementoSeleccion,
+  TIPOS,
+  TipoId,
+  TipoMueble,
+  estimar,
+  precioDesdeTipo,
+  tipoPorId,
+} from './tipos-mueble';
 
 /* =====================================================
    CONFIGURACIÓN · CENTRAL DE SOLICITUDES (Supabase)
@@ -109,9 +113,43 @@ const EMAIL_CONFIGURADO = !Object.values(EMAILJS).some((valor) => valor.startsWi
    FORMULARIO POR PASOS
 ===================================================== */
 
+/** Progreso guardado en la pestaña: si se recarga la página, el formulario sigue donde estaba. */
+const CLAVE_PROGRESO = 'armamuebles-presupuesto';
+
+type Campo = 'zona' | 'fecha' | 'nombre' | 'telefono' | 'email' | 'privacidad';
+
+const CAMPOS_PASO: Record<number, Campo[]> = {
+  1: [],
+  2: [],
+  3: ['zona', 'fecha'],
+  4: ['nombre', 'telefono', 'email', 'privacidad'],
+};
+
+const TIENDAS = ['IKEA', 'Leroy Merlin', 'Conforama', 'Otra'];
+const ACCESOS = ['Bajo o casa', 'Con ascensor', 'Sin ascensor'];
+const CUANDO = ['Lo antes posible', 'Esta semana', 'Tengo fecha'];
+const EN_CASA = ['Sí', 'Llegan antes de esa fecha'];
+
+/** Teléfono español de 9 cifras, o internacional con prefijo. Devuelve el número listo o null. */
+export function normalizarTelefono(texto: string): string | null {
+  const limpio = texto.trim();
+  if (!limpio || !/^[+\d\s().-]*$/.test(limpio)) return null;
+  let cifras = limpio.replace(/\D/g, '');
+  const internacional = limpio.startsWith('+') || cifras.startsWith('00');
+  if (cifras.startsWith('00')) cifras = cifras.slice(2);
+
+  if (internacional && !cifras.startsWith('34')) {
+    return cifras.length >= 8 && cifras.length <= 15 ? `+${cifras}` : null;
+  }
+  if (cifras.startsWith('34') && cifras.length === 11) cifras = cifras.slice(2);
+  if (!/^[6789]\d{8}$/.test(cifras)) return null;
+  return `+34 ${cifras.slice(0, 3)} ${cifras.slice(3, 5)} ${cifras.slice(5, 7)} ${cifras.slice(7)}`;
+}
+
 @Component({
   selector: 'app-presupuesto-wizard',
   standalone: true,
+  imports: [IconoMueble, WhatsappLink],
   templateUrl: './presupuesto-wizard.html',
   styleUrl: './presupuesto-wizard.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -123,123 +161,198 @@ export class PresupuestoWizard {
   private readonly esNavegador = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly dialog = viewChild<ElementRef<HTMLElement>>('dialog');
-  readonly categorias = CATEGORIAS;
-  readonly servicios = SERVICIOS;
-  readonly zonas = ZONAS;
-  readonly formatearPrecio = formatearPrecio;
-  readonly pasos = [
-    { num: 1, nombre: 'Mueble' },
-    { num: 2, nombre: 'Detalles' },
-    { num: 3, nombre: 'Zona' },
-    { num: 4, nombre: 'Contacto' },
+  readonly titulo = viewChild<ElementRef<HTMLElement>>('titulo');
+
+  readonly tipos = TIPOS;
+  readonly tiendas = TIENDAS;
+  readonly accesos = ACCESOS;
+  readonly opcionesCuando = CUANDO;
+  readonly opcionesEnCasa = EN_CASA;
+  readonly zonasSugeridas = [
+    ...ZONAS.filter((z) => z !== 'Otra zona de Madrid'),
+    'Barajas',
+    'San Blas-Canillejas',
   ];
+  readonly formatearPrecio = formatearPrecio;
+  readonly notaPrecios = NOTA_PRECIOS;
+  readonly servicioMinimo = SERVICIO_MINIMO;
+  readonly precioDesdeTipo = precioDesdeTipo;
+  readonly pasos = [
+    '¿Qué hay que montar?',
+    'Detalles rápidos',
+    '¿Dónde y cuándo?',
+    '¿A quién enviamos el precio?',
+  ];
+  private readonly nombresEvento = ['muebles', 'detalles', 'donde_cuando', 'contacto'];
+  readonly hoy = new Date().toISOString().slice(0, 10);
 
-  /* ---------- Asistente de presupuesto ---------- */
+  /* ---------- Estado ---------- */
 
+  readonly paso = signal(1);
   readonly enviado = signal(false);
   readonly enviando = signal(false);
   readonly errorEnvio = signal(false);
-  readonly paso = signal(1);
 
-  readonly categoriaForm = signal('Todos');
-  readonly servicioSeleccionado = signal<Servicio | null>(null);
-  readonly cantidad = signal(1);
-  readonly descripcion = signal('');
-  readonly zonaSeleccionada = signal<string[]>([]);
-  readonly busquedaZona = signal('');
+  readonly seleccion = signal<ElementoSeleccion[]>([]);
+  readonly alturaArmario = signal<string | null>(null);
+  readonly tienda = signal<string | null>(null);
+  readonly desmontar = signal<string | null>(null);
+  readonly fijarPared = signal<string | null>(null);
+
+  readonly zona = signal('');
+  readonly acceso = signal<string | null>(null);
+  readonly cuando = signal<string | null>(null);
+  readonly fecha = signal('');
+  readonly mueblesEnCasa = signal<string | null>(null);
+
   readonly nombre = signal('');
   readonly telefono = signal('');
   readonly email = signal('');
+  readonly notas = signal('');
+  readonly privacidad = signal(false);
   readonly honeypot = signal('');
 
-  private ultimoFoco: HTMLElement | null = null;
+  /** Campos que el visitante ya ha dejado: sus errores se muestran. */
+  readonly tocados = signal<Campo[]>([]);
+  /** Pasos en los que se ha pulsado continuar: se muestran todos sus errores. */
+  readonly intentado = signal<number[]>([]);
 
-  /**
-   * Identificador del último envío. Si el guardado se corta por la red y el cliente
-   * reintenta con los mismos datos, se reutiliza el mismo id y no se duplica el registro.
-   */
+  private origen = '';
+  private ultimoFoco: HTMLElement | null = null;
   private ultimoEnvio: { id: string; firma: string } | null = null;
 
-  readonly serviciosForm = computed(() => {
-    const categoria = this.categoriaForm();
-    return categoria === 'Todos'
-      ? SERVICIOS
-      : SERVICIOS.filter((s) => s.categoria === categoria);
-  });
+  /* ---------- Derivados ---------- */
 
-  readonly zonasFiltradas = computed(() => {
-    const termino = this.busquedaZona().toLowerCase().trim();
-    return termino ? ZONAS.filter((z) => z.toLowerCase().includes(termino)) : ZONAS;
-  });
+  readonly estimacion = computed(() => estimar(this.seleccion()));
+  readonly hayArmario = computed(() => this.seleccion().some((e) => e.tipo === 'armario'));
+  readonly hayCocina = computed(() => this.seleccion().some((e) => e.tipo === 'cocina'));
+  readonly incluyeElectro = computed(() =>
+    this.seleccion().some((e) => e.tipo === 'cocina' || e.tipo === 'electro'),
+  );
+  readonly telefonoFinal = computed(() => normalizarTelefono(this.telefono()));
+  readonly totalPiezas = computed(() => this.seleccion().reduce((t, e) => t + e.cantidad, 0));
 
-  readonly incluyeElectro = computed(() => !!this.servicioSeleccionado()?.electro);
-
-  readonly unidad = computed<[string, string]>(() => {
-    const s = this.servicioSeleccionado();
-    if (s?.id === ID_SOLO_ELECTRO) return ['electrodoméstico', 'electrodomésticos'];
-    if (s?.electro) return ['cocina', 'cocinas'];
-    return ['mueble', 'muebles'];
-  });
-
-  readonly precioEstimadoMinimo = computed(() => {
-    const s = this.servicioSeleccionado();
-    return (s ? s.precioDesde : 0) * this.cantidad();
-  });
-
-  readonly telefonoValido = computed(() => {
-    const texto = this.telefono().trim();
-    const digitos = texto.replace(/\D/g, '');
-    return /^[+\d\s().-]+$/.test(texto) && digitos.length >= 9 && digitos.length <= 15;
-  });
-
-  readonly emailValido = computed(() => {
+  readonly errores = computed<Partial<Record<Campo, string>>>(() => {
+    const e: Partial<Record<Campo, string>> = {};
+    if (this.zona().trim().length < 2) e.zona = 'Escribe tu municipio o barrio.';
+    if (this.cuando() === 'Tengo fecha') {
+      if (!this.fecha()) e.fecha = 'Elige la fecha que te viene bien.';
+      else if (this.fecha() < this.hoy) e.fecha = 'Esa fecha ya ha pasado.';
+    }
+    if (this.nombre().trim().length < 2) e.nombre = 'Escribe tu nombre.';
+    if (!this.telefonoFinal()) e.telefono = 'Revisa el teléfono: 9 cifras, por ejemplo 612 345 678.';
     const correo = this.email().trim();
-    return !correo || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo);
+    if (correo && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)) {
+      e.email = 'Revisa el correo: parece que falta algo.';
+    }
+    if (!this.privacidad()) e.privacidad = 'Marca la casilla para que podamos enviarte el precio.';
+    return e;
   });
 
-  readonly nombreValido = computed(() => this.nombre().trim().length >= 2);
+  readonly erroresPaso = computed(() => CAMPOS_PASO[this.paso()].filter((c) => this.errores()[c]));
 
-  readonly paso1Valido = computed(() => !!this.servicioSeleccionado());
-  readonly paso2Valido = computed(() => this.cantidad() >= 1);
-  readonly paso3Valido = computed(() => this.zonaSeleccionada().length > 0);
-  readonly paso4Valido = computed(
-    () => this.nombreValido() && this.telefonoValido() && this.emailValido(),
+  readonly puedeSeguir = computed(() => this.paso() !== 1 || this.seleccion().length > 0);
+
+  readonly mensajeWhatsapp = computed(() => this.resumen('whatsapp'));
+
+  readonly mensajeFoto = computed(
+    () =>
+      `Hola, soy ${this.nombre().trim()}. Acabo de pedir presupuesto (${this.listaMuebles()}). ` +
+      'Os envío una foto del mueble o del albarán.',
   );
 
-  readonly todoValido = computed(
-    () => this.paso1Valido() && this.paso2Valido() && this.paso3Valido() && this.paso4Valido(),
-  );
+  error(campo: Campo): string | null {
+    const mensaje = this.errores()[campo];
+    if (!mensaje) return null;
+    const visible =
+      this.tocados().includes(campo) ||
+      this.intentado().some((p) => CAMPOS_PASO[p].includes(campo));
+    return visible ? mensaje : null;
+  }
 
-  readonly pasoActualValido = computed(() => {
-    switch (this.paso()) {
-      case 1:
-        return this.paso1Valido();
-      case 2:
-        return this.paso2Valido();
-      case 3:
-        return this.paso3Valido();
-      default:
-        return this.paso4Valido();
+  /* ---------- Paso 1: muebles ---------- */
+
+  elemento(tipo: TipoId): ElementoSeleccion | undefined {
+    return this.seleccion().find((e) => e.tipo === tipo);
+  }
+
+  alternarTipo(tipo: TipoMueble): void {
+    this.seleccion.update((s) =>
+      s.some((e) => e.tipo === tipo.id)
+        ? s.filter((e) => e.tipo !== tipo.id)
+        : [...s, { tipo: tipo.id, cantidad: 1, subtipo: null }],
+    );
+  }
+
+  cambiarCantidad(tipo: TipoId, delta: number): void {
+    this.seleccion.update((s) =>
+      s
+        .map((e) => (e.tipo === tipo ? { ...e, cantidad: Math.min(30, e.cantidad + delta) } : e))
+        .filter((e) => e.cantidad > 0),
+    );
+  }
+
+  /* ---------- Paso 2: detalles ---------- */
+
+  subtipoDe(tipo: TipoId): string | null {
+    return this.elemento(tipo)?.subtipo ?? null;
+  }
+
+  elegirSubtipo(tipo: TipoId, subtipo: string): void {
+    this.seleccion.update((s) =>
+      s.map((e) =>
+        e.tipo === tipo ? { ...e, subtipo: e.subtipo === subtipo ? null : subtipo } : e,
+      ),
+    );
+  }
+
+  /** Botón de opción que se puede desmarcar pulsando otra vez. */
+  alternar(senal: { (): string | null; set(v: string | null): void }, valor: string): void {
+    senal.set(senal() === valor ? null : valor);
+  }
+
+  /* ---------- Navegación ---------- */
+
+  siguiente(): void {
+    if (!this.puedeSeguir() || this.enviando()) return;
+    const conError = this.erroresPaso();
+    if (conError.length) {
+      this.intentado.update((p) => [...new Set([...p, this.paso()])]);
+      this.analitica.evento('form_error', { campo: conError[0] });
+      setTimeout(() => this.enfocarCampo(conError[0]), 0);
+      return;
     }
-  });
-
-  readonly pista = computed(() => {
-    switch (this.paso()) {
-      case 1:
-        return this.paso1Valido() ? '' : 'Elige un mueble para continuar.';
-      case 3:
-        return this.paso3Valido() ? '' : 'Selecciona al menos una zona.';
-      case 4:
-        if (!this.nombreValido()) return 'Escribe tu nombre.';
-        if (!this.telefonoValido()) return 'Escribe un teléfono válido.';
-        if (!this.emailValido()) return 'Revisa tu correo electrónico.';
-        return '';
-      default:
-        return '';
+    if (this.paso() < this.pasos.length) {
+      this.paso.update((p) => p + 1);
+      this.alCambiarPaso();
+    } else {
+      void this.enviarSolicitud();
     }
-  });
+  }
 
-  readonly progreso = computed(() => (this.enviado() ? 1 : this.paso() / this.pasos.length));
+  atras(): void {
+    if (this.paso() > 1) {
+      this.paso.update((p) => p - 1);
+      this.alCambiarPaso(false);
+    }
+  }
+
+  private alCambiarPaso(medir = true): void {
+    if (medir) this.analitica.evento('form_step', { paso: this.nombresEvento[this.paso() - 1] });
+    setTimeout(() => {
+      this.dialog()?.nativeElement.querySelector('.wiz-cuerpo')?.scrollTo({ top: 0 });
+      this.titulo()?.nativeElement.focus({ preventScroll: true });
+    }, 0);
+  }
+
+  alSalirDe(campo: Campo): void {
+    if (!this.tocados().includes(campo)) this.tocados.update((t) => [...t, campo]);
+    if (this.errores()[campo]) this.analitica.evento('form_error', { campo });
+  }
+
+  private enfocarCampo(campo: Campo): void {
+    this.dialog()?.nativeElement.querySelector<HTMLElement>(`[data-campo="${campo}"]`)?.focus();
+  }
 
   cerrarFormulario(): void {
     const habiaTerminado = this.enviado();
@@ -253,73 +366,31 @@ export class PresupuestoWizard {
   }
 
   reiniciarFormulario(): void {
+    this.paso.set(1);
     this.enviado.set(false);
     this.enviando.set(false);
     this.errorEnvio.set(false);
-    this.paso.set(1);
-    this.servicioSeleccionado.set(null);
-    this.categoriaForm.set('Todos');
-    this.cantidad.set(1);
-    this.descripcion.set('');
-    this.zonaSeleccionada.set([]);
-    this.busquedaZona.set('');
+    this.seleccion.set([]);
+    this.alturaArmario.set(null);
+    this.tienda.set(null);
+    this.desmontar.set(null);
+    this.fijarPared.set(null);
+    this.zona.set('');
+    this.acceso.set(null);
+    this.cuando.set(null);
+    this.fecha.set('');
+    this.mueblesEnCasa.set(null);
     this.nombre.set('');
     this.telefono.set('');
     this.email.set('');
+    this.notas.set('');
+    this.privacidad.set(false);
     this.honeypot.set('');
+    this.tocados.set([]);
+    this.intentado.set([]);
+    this.origen = '';
     this.ultimoEnvio = null;
-  }
-
-  nuevaSolicitud(): void {
-    this.reiniciarFormulario();
-    setTimeout(() => this.dialog()?.nativeElement.focus(), 0);
-  }
-
-  siguiente(): void {
-    if (!this.pasoActualValido()) {
-      this.analitica.evento('form_error', { campo: this.campoConError() });
-      return;
-    }
-    if (this.paso() < this.pasos.length) {
-      this.paso.update((p) => p + 1);
-      this.analitica.evento('form_step', { paso: this.pasos[this.paso() - 1].nombre });
-    }
-  }
-
-  private campoConError(): string {
-    switch (this.paso()) {
-      case 1:
-        return 'mueble';
-      case 3:
-        return 'zona';
-      default:
-        if (!this.nombreValido()) return 'nombre';
-        if (!this.telefonoValido()) return 'telefono';
-        return 'email';
-    }
-  }
-
-  atras(): void {
-    if (this.paso() > 1) this.paso.update((p) => p - 1);
-  }
-
-  irAPaso(num: number): void {
-    if (num < this.paso()) this.paso.set(num);
-  }
-
-  elegirServicio(servicio: Servicio): void {
-    this.servicioSeleccionado.set(servicio);
-  }
-
-  cambiarCantidad(valor: number | string): void {
-    const numero = Math.round(Number(valor));
-    this.cantidad.set(Math.max(1, Math.min(30, Number.isFinite(numero) ? numero : 1)));
-  }
-
-  alternarZona(zona: string): void {
-    this.zonaSeleccionada.update((zonas) =>
-      zonas.includes(zona) ? zonas.filter((z) => z !== zona) : [...zonas, zona],
-    );
+    this.borrarProgreso();
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -357,26 +428,92 @@ export class PresupuestoWizard {
     }
   }
 
+  /* ---------- Resumen legible ---------- */
+
+  private textoElemento(e: ElementoSeleccion): string {
+    const tipo = tipoPorId(e.tipo);
+    const partes = [`${tipo.nombre} × ${e.cantidad}`];
+    const sub = tipo.subtipos?.find((s) => s.id === e.subtipo);
+    if (sub) partes.push(sub.nombre);
+    if (e.tipo === 'armario' && this.alturaArmario()) partes.push(this.alturaArmario()!);
+    return partes.join(' · ');
+  }
+
+  listaMuebles(): string {
+    return this.seleccion()
+      .map((e) => this.textoElemento(e))
+      .join('; ');
+  }
+
+  private cuandoTexto(): string | null {
+    const c = this.cuando();
+    if (c === 'Tengo fecha' && this.fecha()) {
+      return `${c} (${new Date(this.fecha() + 'T12:00:00').toLocaleDateString('es-ES')})`;
+    }
+    return c;
+  }
+
+  /** Resumen para la columna description, el correo y WhatsApp. Solo con lo que se ha rellenado. */
+  private resumen(destino: 'central' | 'whatsapp'): string {
+    const lineas: string[] = [];
+    const add = (etiqueta: string, valor: string | null | undefined) => {
+      if (valor && valor.trim()) lineas.push(`${etiqueta}: ${valor.trim()}`);
+    };
+    if (destino === 'whatsapp') {
+      lineas.push('¡Hola! Quiero presupuesto para un montaje.', '');
+      add('Nombre', this.nombre());
+      add('Teléfono', this.telefonoFinal() ?? this.telefono());
+    }
+    add('Muebles', this.listaMuebles());
+    add('Tienda', this.tienda());
+    add('Desmontar algo antes', this.desmontar());
+    add('Fijar a la pared', this.fijarPared());
+    add('Zona', this.zona());
+    add('Acceso', this.acceso());
+    add('Cuándo', this.cuandoTexto());
+    add('Muebles en casa', this.mueblesEnCasa());
+    if (this.seleccion().length) {
+      add('Precio estimado', `desde ${formatearPrecio(this.estimacion().total)}`);
+    }
+    add('Algo más', this.notas());
+    return lineas.join('\n');
+  }
+
   /* ---------- Envío a la Central de Solicitudes (Supabase) ---------- */
 
   /** Construye el registro tal y como lo espera la tabla public.requests. */
-  private crearSolicitud(servicio: Servicio): SolicitudCentral {
+  private crearSolicitud(): SolicitudCentral {
+    const utm = this.presupuesto.utm();
+    const details: Record<string, unknown> = {
+      muebles: this.seleccion().map((e) => this.textoElemento(e)),
+      tienda: this.tienda(),
+      desmontar: this.desmontar(),
+      fijarPared: this.fijarPared(),
+      zona: this.zona().trim(),
+      acceso: this.acceso(),
+      cuando: this.cuando(),
+      fecha: this.cuando() === 'Tengo fecha' ? this.fecha() : null,
+      mueblesEnCasa: this.mueblesEnCasa(),
+      precioEstimado: `desde ${formatearPrecio(this.estimacion().total)}`,
+      incluyeElectrodomesticos: this.incluyeElectro(),
+      paginaOrigen: this.origen || null,
+      // Separados (no un objeto) para que el panel los muestre como texto.
+      utm_source: utm['utm_source'] ?? null,
+      utm_medium: utm['utm_medium'] ?? null,
+      utm_campaign: utm['utm_campaign'] ?? null,
+      privacidadAceptada: this.privacidad(),
+    };
+
     return {
       source: FUENTE_CENTRAL,
       name: this.nombre().trim(),
-      phone: this.telefono().trim(),
+      phone: this.telefonoFinal() ?? this.telefono().trim(),
       email: this.email().trim() || null,
-      service: servicio.nombre,
-      // Los detalles escritos por el cliente se guardan aquí.
-      description: this.descripcion().trim() || null,
-      details: {
-        tipo_mueble: servicio.nombre,
-        categoria: servicio.categoria,
-        cantidad: this.cantidad(),
-        zonas: [...this.zonaSeleccionada()],
-        precio_orientativo_desde: formatearPrecio(this.precioEstimadoMinimo()),
-        incluye_electrodomesticos: !!servicio.electro,
-      },
+      service: this.seleccion()
+        .map((e) => tipoPorId(e.tipo).nombre)
+        .join(', '),
+      description: this.resumen('central'),
+      details,
     };
   }
 
@@ -409,24 +546,27 @@ export class PresupuestoWizard {
 
   /* ---------- Aviso por email (EmailJS) · opcional ---------- */
 
-  private datosEmail(servicio: Servicio): Record<string, string> {
+  /** Mismos parámetros de plantilla que antes; "detalles" lleva ahora el resumen completo. */
+  private datosEmail(): Record<string, string> {
     return {
       nombre: this.nombre().trim(),
-      telefono: this.telefono().trim(),
+      telefono: this.telefonoFinal() ?? this.telefono().trim(),
       correo: this.email().trim() || 'No indicado',
-      mueble: servicio.nombre,
-      categoria: servicio.categoria,
-      cantidad: String(this.cantidad()),
-      zonas: this.zonaSeleccionada().join(', '),
-      precio: formatearPrecio(this.precioEstimadoMinimo()),
-      electro: servicio.electro ? 'Sí, incluye colocación de electrodomésticos' : 'No aplica',
-      detalles: this.descripcion().trim() || 'Sin detalles adicionales',
+      mueble: this.listaMuebles(),
+      categoria: this.seleccion()
+        .map((e) => tipoPorId(e.tipo).nombre)
+        .join(', '),
+      cantidad: String(this.totalPiezas()),
+      zonas: this.zona().trim(),
+      precio: formatearPrecio(this.estimacion().total),
+      electro: this.incluyeElectro() ? 'Sí, incluye colocación de electrodomésticos' : 'No aplica',
+      detalles: this.resumen('central'),
       fecha: new Date().toLocaleString('es-ES'),
     };
   }
 
   /** Aviso adicional: si falla, la solicitud ya está guardada y el cliente no lo nota. */
-  private async avisarPorEmail(servicio: Servicio): Promise<void> {
+  private async avisarPorEmail(): Promise<void> {
     if (!EMAIL_CONFIGURADO) return;
 
     try {
@@ -437,7 +577,7 @@ export class PresupuestoWizard {
           service_id: EMAILJS.serviceId,
           template_id: EMAILJS.templateId,
           user_id: EMAILJS.publicKey,
-          template_params: this.datosEmail(servicio),
+          template_params: this.datosEmail(),
         }),
       });
 
@@ -450,10 +590,8 @@ export class PresupuestoWizard {
   /* ---------- Envío del formulario ---------- */
 
   async enviarSolicitud(): Promise<void> {
-    const servicio = this.servicioSeleccionado();
-
-    // Evita envíos dobles mientras se está procesando.
-    if (!this.todoValido() || !servicio || this.enviando()) return;
+    if (this.enviando() || !this.seleccion().length) return;
+    if (Object.keys(this.errores()).length) return;
 
     // Campo trampa: si lo rellena un robot, se simula el éxito sin enviar nada.
     if (this.honeypot().trim()) {
@@ -465,16 +603,18 @@ export class PresupuestoWizard {
     this.enviando.set(true);
 
     try {
-      await this.guardarEnCentral(this.crearSolicitud(servicio));
+      await this.guardarEnCentral(this.crearSolicitud());
 
       // Solo se llega aquí cuando Supabase ha confirmado el guardado.
       this.enviado.set(true);
       this.analitica.evento('generate_lead', {
-        value: this.precioEstimadoMinimo(),
+        value: this.estimacion().total,
         currency: 'EUR',
       });
+      this.borrarProgreso();
+      setTimeout(() => this.titulo()?.nativeElement.focus({ preventScroll: true }), 0);
 
-      void this.avisarPorEmail(servicio);
+      void this.avisarPorEmail();
     } catch (error) {
       console.error('No se pudo guardar la solicitud en la Central', error);
       this.errorEnvio.set(true);
@@ -483,36 +623,115 @@ export class PresupuestoWizard {
     }
   }
 
-  /** Alternativa: abre WhatsApp con la solicitud ya escrita (se ofrece si falla el envío). */
-  enviarWhatsApp(): void {
-    const servicio = this.servicioSeleccionado();
-    if (!this.todoValido() || !servicio) return;
+  /* ---------- Progreso en sessionStorage ---------- */
 
-    const lineas = [
-      '¡Hola! Quiero solicitar un presupuesto para un montaje de muebles.',
-      '',
-      `Nombre: ${this.nombre().trim()}`,
-      `Teléfono: ${this.telefono().trim()}`,
-      `Correo: ${this.email().trim() || 'No indicado'}`,
-      `Mueble: ${servicio.nombre}`,
-      `Cantidad: ${this.cantidad()}`,
-      `Zonas: ${this.zonaSeleccionada().join(', ')}`,
-      `Precio orientativo desde: ${formatearPrecio(this.precioEstimadoMinimo())}`,
-    ];
+  private guardarProgreso(): void {
+    if (!this.esNavegador || this.enviado()) return;
+    try {
+      this.doc.defaultView?.sessionStorage.setItem(
+        CLAVE_PROGRESO,
+        JSON.stringify({
+          paso: this.paso(),
+          seleccion: this.seleccion(),
+          alturaArmario: this.alturaArmario(),
+          tienda: this.tienda(),
+          desmontar: this.desmontar(),
+          fijarPared: this.fijarPared(),
+          zona: this.zona(),
+          acceso: this.acceso(),
+          cuando: this.cuando(),
+          fecha: this.fecha(),
+          mueblesEnCasa: this.mueblesEnCasa(),
+          nombre: this.nombre(),
+          telefono: this.telefono(),
+          email: this.email(),
+          notas: this.notas(),
+          origen: this.origen,
+        }),
+      );
+    } catch {
+      // Sin almacenamiento: el formulario funciona igual, pero no recuerda el progreso.
+    }
+  }
 
-    if (servicio.electro) lineas.push('Incluye colocación de electrodomésticos.');
-    lineas.push(`Detalles: ${this.descripcion().trim() || 'Sin detalles adicionales'}`);
+  private restaurarProgreso(): void {
+    try {
+      const d = JSON.parse(this.doc.defaultView?.sessionStorage.getItem(CLAVE_PROGRESO) ?? 'null');
+      if (!d || typeof d !== 'object') return;
+      const validos: ElementoSeleccion[] = Array.isArray(d.seleccion)
+        ? d.seleccion
+            .filter(
+              (e: ElementoSeleccion) =>
+                TIPOS.some((t) => t.id === e?.tipo) &&
+                Number.isInteger(e.cantidad) &&
+                e.cantidad > 0 &&
+                e.cantidad <= 30,
+            )
+            .map((e: ElementoSeleccion) => ({
+              tipo: e.tipo,
+              cantidad: e.cantidad,
+              subtipo: tipoPorId(e.tipo).subtipos?.some((s) => s.id === e.subtipo) ? e.subtipo : null,
+            }))
+        : [];
+      const texto = (v: unknown) => (typeof v === 'string' ? v.slice(0, 1000) : '');
+      const opcion = (v: unknown) => (typeof v === 'string' ? v.slice(0, 100) : null);
+      this.seleccion.set(validos);
+      this.alturaArmario.set(opcion(d.alturaArmario));
+      this.tienda.set(opcion(d.tienda));
+      this.desmontar.set(opcion(d.desmontar));
+      this.fijarPared.set(opcion(d.fijarPared));
+      this.zona.set(texto(d.zona));
+      this.acceso.set(opcion(d.acceso));
+      this.cuando.set(opcion(d.cuando));
+      this.fecha.set(texto(d.fecha));
+      this.mueblesEnCasa.set(opcion(d.mueblesEnCasa));
+      this.nombre.set(texto(d.nombre));
+      this.telefono.set(texto(d.telefono));
+      this.email.set(texto(d.email));
+      this.notas.set(texto(d.notas));
+      this.origen = texto(d.origen);
+      const paso = Number(d.paso);
+      this.paso.set(validos.length && paso >= 1 && paso <= 4 ? paso : 1);
+    } catch {
+      // Dato dañado o sin almacenamiento: se empieza de cero.
+    }
+  }
 
-    const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lineas.join('\n'))}`;
-    this.analitica.evento('click_whatsapp', { ubicacion: 'formulario' });
-    window.open(url, '_blank', 'noopener');
+  private borrarProgreso(): void {
+    try {
+      this.doc.defaultView?.sessionStorage.removeItem(CLAVE_PROGRESO);
+    } catch {
+      // Nada que borrar.
+    }
   }
 
   constructor() {
+    if (this.esNavegador) this.restaurarProgreso();
+
     // Atiende cada petición de abrir el formulario, venga de donde venga.
     effect(() => {
       const peticion = this.presupuesto.peticion();
       if (peticion) untracked(() => this.aplicarPeticion(peticion));
+    });
+
+    // Guarda el progreso con cada cambio.
+    effect(() => {
+      this.paso();
+      this.seleccion();
+      this.alturaArmario();
+      this.tienda();
+      this.desmontar();
+      this.fijarPared();
+      this.zona();
+      this.acceso();
+      this.cuando();
+      this.fecha();
+      this.mueblesEnCasa();
+      this.nombre();
+      this.telefono();
+      this.email();
+      this.notas();
+      untracked(() => this.guardarProgreso());
     });
 
     // Bloquea el scroll de la página mientras el formulario está al frente (solo en el navegador).
@@ -526,21 +745,30 @@ export class PresupuestoWizard {
     });
   }
 
-  private aplicarPeticion({ servicio, categoria }: PeticionPresupuesto): void {
+  private aplicarPeticion({ prefill, origen }: PeticionPresupuesto): void {
     this.ultimoFoco = this.doc.activeElement as HTMLElement | null;
     this.analitica.evento('form_open');
-    this.enviado.set(false);
-    this.errorEnvio.set(false);
 
-    if (servicio) {
-      this.servicioSeleccionado.set(servicio);
-      this.categoriaForm.set('Todos');
-      this.paso.set(2);
-    } else if (categoria) {
-      this.categoriaForm.set(categoria);
-      this.paso.set(1);
+    if (this.enviado()) this.reiniciarFormulario();
+    this.errorEnvio.set(false);
+    if (!this.origen) this.origen = origen;
+
+    if (prefill.tienda) this.tienda.set(prefill.tienda);
+    if (prefill.zona && !this.zona().trim()) this.zona.set(prefill.zona);
+    if (prefill.tipos?.length) {
+      this.seleccion.update((s) => {
+        const nueva = s.map((e) => ({ ...e }));
+        for (const { tipo, subtipo } of prefill.tipos!) {
+          const actual = nueva.find((e) => e.tipo === tipo);
+          if (!actual) nueva.push({ tipo, cantidad: 1, subtipo: subtipo ?? null });
+          else if (subtipo) actual.subtipo = subtipo;
+        }
+        return nueva;
+      });
+      // Con el mueble ya elegido, se empieza por los detalles.
+      if (this.paso() === 1) this.paso.set(2);
     }
 
-    setTimeout(() => this.dialog()?.nativeElement.focus(), 60);
+    setTimeout(() => this.titulo()?.nativeElement.focus({ preventScroll: true }), 60);
   }
 }

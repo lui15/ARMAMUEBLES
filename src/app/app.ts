@@ -44,7 +44,11 @@ export class App {
 
   constructor() {
     const consentimiento = inject(ConsentimientoService);
-    afterNextRender(() => consentimiento.iniciar());
+    const presupuesto = inject(PresupuestoService);
+    afterNextRender(() => {
+      consentimiento.iniciar();
+      presupuesto.capturarUtm();
+    });
   }
 
   /**

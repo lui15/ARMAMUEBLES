@@ -22,6 +22,7 @@ import {
   buscarPagina,
   crearJsonLd,
   migasDe,
+  prefillDe,
   precioDesde,
   urlDePagina,
 } from './landing-data';
@@ -50,6 +51,7 @@ export class LandingPage {
 
   readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
   readonly migas = migasDe(this.pagina);
+  readonly prefill = prefillDe(this.pagina);
   readonly desde = this.pagina.destacado?.precio ?? precioDesde(this.pagina);
   readonly iconoCategoria = ICONO_CATEGORIA;
   readonly servicios = serviciosPorIds(this.pagina.ids ?? []);

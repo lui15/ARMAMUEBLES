@@ -1,0 +1,166 @@
+:host {
+  display: block;
+}
+.op-alt {
+  background: var(--bg-2);
+}
+.op-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 32px;
+}
+.op-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.op-resumen strong {
+  color: var(--ink);
+}
+
+/* Filtro */
+.op-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.op-filtros button {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.op-filtros button small {
+  color: var(--muted);
+  font-weight: 500;
+}
+.op-filtros button[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+.op-filtros button[aria-pressed='true'] small {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Lista y carrusel */
+.op-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 16px;
+  margin-top: 28px;
+  padding: 0;
+  list-style: none;
+}
+/* Carrusel. Sin JavaScript o con "reducir movimiento" se desliza a mano;
+   en el navegador pasa solo, sin fin, como un anuncio. */
+.op-ventana {
+  margin: 28px calc(var(--gutter) * -1) 0;
+  padding: 4px 0 12px var(--gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: var(--gutter);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+.op-cinta {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.op-cinta li {
+  flex: 0 0 min(80vw, 22rem);
+  /* Margen (no gap) para que las dos mitades midan exactamente lo mismo. */
+  margin-right: 14px;
+  scroll-snap-align: start;
+}
+.op-en-movimiento {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+.op-en-movimiento .op-cinta {
+  animation: op-pasar var(--duracion, 60s) linear infinite;
+  will-change: transform;
+}
+/* Fuera de pantalla se detiene; con ratón (no en táctil), al pasar por encima para leer. */
+.op-en-movimiento:not(.op-visible) .op-cinta {
+  animation-play-state: paused;
+}
+@media (hover: hover) {
+  .op-en-movimiento:hover .op-cinta {
+    animation-play-state: paused;
+  }
+}
+@keyframes op-pasar {
+  to {
+    transform: translateX(calc(var(--vuelta, 0px) * -1));
+  }
+}
+.op-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.op-tarjeta blockquote {
+  flex: 1;
+  margin: 0;
+}
+.op-tarjeta blockquote p {
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.op-tarjeta figcaption {
+  display: grid;
+  gap: 2px;
+  font-size: 0.92rem;
+}
+.op-tarjeta figcaption span,
+.op-tarjeta time {
+  color: var(--muted);
+}
+
+.op-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 20px;
+}
+.op-nota {
+  max-width: 46rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.op-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+.op-enlaces .link-flecha {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

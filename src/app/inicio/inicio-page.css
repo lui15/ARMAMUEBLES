@@ -72,6 +72,13 @@
   font-weight: 700;
   letter-spacing: -0.02em;
 }
+.hero-cerrado {
+  margin-top: 14px;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
 .hero-sub {
   margin-top: 18px;
   color: var(--ink);
@@ -147,15 +154,34 @@
   font-weight: 500;
 }
 .cinta-ventana {
+  position: relative;
   flex: 1;
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.cinta-ventana::before,
+.cinta-ventana::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 8%;
+  pointer-events: none;
+}
+.cinta-ventana::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--surface), transparent);
+}
+.cinta-ventana::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--surface), transparent);
 }
 .cinta-pista {
   display: flex;
   align-items: center;
   width: max-content;
   animation: cinta 36s linear infinite;
+  will-change: transform;
 }
 .cinta-marca {
   display: flex;

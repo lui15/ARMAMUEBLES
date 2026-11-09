@@ -17,7 +17,7 @@
   --forest: #12211c;
   --forest-2: #1b2f28;
   --green: #79b020;
-  --green-d: #4c7a0e;
+  --green-d: #456f0c;
   --green-l: #a3d34d;
   --lime: #eaf2d6;
   --bg: #fbfbf8;
@@ -344,6 +344,7 @@ section[tabindex='-1']:focus-visible {
 .link-flecha {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 8px;
   color: var(--green-d);
   font-weight: 700;
@@ -383,6 +384,15 @@ section[tabindex='-1']:focus-visible {
   animation: rise 1.05s var(--ease) both;
   animation-delay: calc(var(--i, 0) * 85ms + 60ms);
 }
+/* Los textos que suelen ser el LCP no esperan a la animación. */
+.hero h1.rise,
+.hero .hero-cerrado.rise,
+.hero .hero-texto.rise,
+.lp-hero h1.rise,
+.lp-hero .lp-intro.rise,
+.lp-hero .lp-hero-foto.rise {
+  animation: none;
+}
 @keyframes rise {
   from {
     opacity: 0;
@@ -393,7 +403,7 @@ section[tabindex='-1']:focus-visible {
 /* ---------- Bloques: proceso ---------- */
 .proceso-lista {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 .proceso-paso {
@@ -420,7 +430,7 @@ section[tabindex='-1']:focus-visible {
 }
 @media (max-width: 960px) {
   .proceso-lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @media (max-width: 560px) {

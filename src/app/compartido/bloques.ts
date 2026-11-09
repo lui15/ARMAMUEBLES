@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
-import { WHATSAPP } from '../datos/catalogo';
+import { WhatsappLink } from './enlaces-contacto';
+import type { Prefill } from '../presupuesto/tipos-mueble';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
 
-/* Bloques reutilizables. Sus estilos están en src/styles.css. */
+/* Bloques reutilizables (pasos, preguntas y llamada final). Sus estilos están en src/styles.css. */
 
 @Component({
   selector: 'app-proceso-pasos',
@@ -17,9 +18,9 @@ import { RevealDirective } from './animaciones';
         <div class="section-heading" appReveal>
           <div>
             <span class="kicker">Así de fácil</span>
-            <h2>Tu montaje en <em>cuatro pasos</em></h2>
+            <h2>Cómo funciona, <em>en 3 pasos</em></h2>
           </div>
-          <p>Nos cuentas qué necesitas y nosotros nos encargamos del resto.</p>
+          <p>Pedir presupuesto es sin compromiso: no te obliga a contratar.</p>
         </div>
 
         <ol class="proceso-lista">
@@ -38,20 +39,16 @@ import { RevealDirective } from './animaciones';
 export class ProcesoPasos {
   readonly pasos = [
     {
-      titulo: 'Cuéntanos qué necesitas',
-      texto: 'Elige el mueble, la cantidad y la zona en un formulario de cuatro pasos.',
+      titulo: 'Nos cuentas o nos mandas una foto',
+      texto: 'Elige tus muebles en el formulario o mándanos una foto del mueble o del albarán por WhatsApp.',
     },
     {
-      titulo: 'Recibe tu presupuesto',
-      texto: 'Revisamos los detalles y te damos una propuesta personalizada por teléfono o WhatsApp.',
+      titulo: 'Te damos un precio cerrado',
+      texto: 'Antes de ir, para que sepas exactamente lo que vas a pagar.',
     },
     {
-      titulo: 'Vamos a tu domicilio',
-      texto: 'Coordinamos contigo el día y la hora del montaje.',
-    },
-    {
-      titulo: 'Disfruta de tu mueble',
-      texto: 'Revisamos el resultado y dejamos todo correctamente montado.',
+      titulo: 'Montamos y nos llevamos los cartones',
+      texto: 'Llevamos las herramientas, lo dejamos nivelado y anclado a la pared cuando el mueble lo requiere, y al terminar nos llevamos cartones y plásticos.',
     },
   ];
 }
@@ -88,7 +85,7 @@ export class FaqLista {
 @Component({
   selector: 'app-cta-final',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, WhatsappLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="section-tight" id="presupuesto">
@@ -104,19 +101,14 @@ export class FaqLista {
             <button
               type="button"
               class="btn btn-primary btn-lg"
-              (click)="presupuesto.abrir(undefined, categoria())"
+              (click)="presupuesto.abrirCon(prefill())"
             >
               Empezar mi presupuesto
               <span class="arrow">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </span>
             </button>
-            <a
-              class="btn btn-outline-light btn-lg"
-              [href]="'https://wa.me/' + whatsapp"
-              target="_blank"
-              rel="noopener"
-            >
+            <a class="btn btn-outline-light btn-lg" appWhatsapp="llamada-final">
               Escribir por WhatsApp
             </a>
           </div>
@@ -127,7 +119,6 @@ export class FaqLista {
   `,
 })
 export class CtaFinal {
-  readonly categoria = input<string | undefined>();
+  readonly prefill = input<Prefill>({});
   readonly presupuesto = inject(PresupuestoService);
-  readonly whatsapp = WHATSAPP;
 }

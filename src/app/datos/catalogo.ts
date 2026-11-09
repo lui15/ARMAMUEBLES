@@ -402,3 +402,10 @@ export const servicioPorId = (id: number): Servicio | undefined =>
 
 export const serviciosPorIds = (ids: readonly number[]): Servicio[] =>
   ids.map(servicioPorId).filter((s): s is Servicio => !!s);
+
+/** Precio "desde" de un servicio, ya con formato (por ejemplo, "120 €"). Para usar en los textos. */
+export const eur = (id: number): string => formatearPrecio(servicioPorId(id)?.precioDesde ?? 0);
+
+/** Precio del montaje más económico del catálogo, con formato. */
+export const eurMinimo = (): string =>
+  formatearPrecio(Math.min(...SERVICIOS.map((s) => s.precioDesde)));

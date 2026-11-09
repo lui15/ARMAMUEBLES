@@ -1,448 +1,501 @@
-<!-- ================= FORMULARIO POR PASOS ================= -->
+<!-- ================= FORMULARIO DE PRESUPUESTO (presupuesto-wizard.ts) ================= -->
 @if (presupuesto.abierto()) {
   <div class="wizard" (click)="alPulsarFondo($event)" role="presentation">
-    <div
-      class="wizard-dialog"
+    <section
+      class="wiz"
       #dialog
       role="dialog"
       aria-modal="true"
-      aria-labelledby="wiz-title"
+      aria-labelledby="wiz-titulo"
       tabindex="-1"
     >
-      <!-- Resumen en vivo -->
-      <aside class="wizard-side" aria-label="Resumen de tu solicitud">
-        <span class="side-kicker">Tu solicitud</span>
-
-        @if (servicioSeleccionado(); as s) {
-          <div class="side-card">
-            <img
-              [src]="s.foto"
-              [alt]="s.nombre"
-              width="260"
-              height="170"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="side-card-body">
-              <strong>{{ s.nombre }}</strong>
-              <span>{{ cantidad() }} {{ cantidad() === 1 ? unidad()[0] : unidad()[1] }}</span>
-            </div>
-          </div>
-
-          @if (incluyeElectro()) {
-            <p class="side-note">
-              <span aria-hidden="true">✓</span> Colocación de electrodomésticos incluida
-            </p>
-          }
-        } @else {
-          <div class="side-empty">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 10 12 4l8 6v10H4zM9 20v-6h6v6" />
-            </svg>
-            <p>Elige un mueble y aquí verás el resumen.</p>
-          </div>
-        }
-
-        @if (zonaSeleccionada().length) {
-          <p class="side-line">
-            <small>Zonas</small>
-            {{
-              zonaSeleccionada().length === 1
-                ? zonaSeleccionada()[0]
-                : zonaSeleccionada().length + ' zonas seleccionadas'
-            }}
-          </p>
-        }
-
-        <div class="side-price">
-          <small>Precio orientativo desde</small>
-          <strong>{{
-            servicioSeleccionado() ? formatearPrecio(precioEstimadoMinimo()) : '—'
-          }}</strong>
-          <span
-            >El precio definitivo se confirma tras revisar las características y dimensiones.</span
-          >
-        </div>
-      </aside>
-
-      <!-- Contenido -->
-      <div class="wizard-main">
-        <header class="wizard-head">
-          <div>
-            <h2 id="wiz-title">{{ enviado() ? 'Solicitud enviada' : 'Pide tu presupuesto' }}</h2>
-            @if (!enviado()) {
-              <p>Paso {{ paso() }} de {{ pasos.length }}</p>
+      <!-- Cabecera: progreso y cierre -->
+      <header class="wiz-cab">
+        <div class="wiz-cab-fila">
+          <p class="wiz-progreso-texto">
+            @if (enviado()) {
+              Solicitud enviada
+            } @else {
+              Paso {{ paso() }} de {{ pasos.length }}
             }
-          </div>
-          <button
-            type="button"
-            class="wizard-close"
-            (click)="cerrarFormulario()"
-            aria-label="Cerrar formulario"
-          >
+          </p>
+          <button type="button" class="wiz-cerrar" (click)="cerrarFormulario()" aria-label="Cerrar">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
           </button>
-        </header>
-
-        @if (!enviado()) {
-          <ol class="stepper" aria-label="Progreso">
-            @for (p of pasos; track p.num) {
-              <li [class.active]="paso() === p.num" [class.done]="paso() > p.num">
-                <button
-                  type="button"
-                  [disabled]="p.num >= paso()"
-                  [attr.aria-current]="paso() === p.num ? 'step' : null"
-                  (click)="irAPaso(p.num)"
-                >
-                  <span class="step-dot">
-                    @if (paso() > p.num) {
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10" /></svg>
-                    } @else {
-                      <span>{{ p.num }}</span>
-                    }
-                  </span>
-                  <span class="step-name">{{ p.nombre }}</span>
-                </button>
-              </li>
-            }
-          </ol>
-        }
-
-        <div class="wizard-bar" aria-hidden="true">
-          <i [style.transform]="'scaleX(' + progreso() + ')'"></i>
         </div>
+        <div class="wiz-barra" aria-hidden="true">
+          <span [style.width.%]="enviado() ? 100 : (paso() / pasos.length) * 100"></span>
+        </div>
+      </header>
 
-        <div class="wizard-body" aria-live="polite">
-          @if (enviado()) {
-            <section class="step success">
-              <svg class="success-check" viewBox="0 0 80 80" aria-hidden="true">
-                <circle cx="40" cy="40" r="34" />
-                <path d="m26 41 10 10 19-22" />
+      <div class="wiz-cuerpo">
+        @if (enviado()) {
+          <!-- ===== Éxito ===== -->
+          <div class="wiz-exito">
+            <span class="wiz-exito-icono" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10" /></svg>
+            </span>
+            <h2 id="wiz-titulo" #titulo tabindex="-1">¡Gracias, {{ nombre().trim() }}!</h2>
+            <p class="wiz-lead">
+              Te enviamos el precio cerrado por WhatsApp al
+              <strong>{{ telefonoFinal() ?? telefono() }}</strong>.
+            </p>
+
+            <a class="btn btn-primary wiz-foto" appWhatsapp="formulario-foto" [mensaje]="mensajeFoto()">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 8h3l2-3h6l2 3h3v11H4z" />
+                <circle cx="12" cy="13" r="3.5" />
               </svg>
-              <h3>¡Solicitud enviada!</h3>
+              Envíanos una foto del mueble o del albarán
+            </a>
+            <p class="wiz-nota">Con la foto te damos el precio exacto más rápido.</p>
+
+            <aside class="wiz-cruzada" aria-label="Otros servicios de confianza">
               <p>
-                Hemos recibido tu solicitud por email. Te contactaremos lo antes posible para
-                preparar tu presupuesto.
+                ¿Te mudas?
+                <a href="https://mudanzas360.es" target="_blank" rel="noopener">Mudanzas360</a>
               </p>
-              <div class="success-actions">
-                <button type="button" class="btn btn-primary" (click)="nuevaSolicitud()">
-                  Hacer otra solicitud
-                </button>
-                <button type="button" class="btn btn-ghost" (click)="cerrarFormulario()">
-                  Cerrar
-                </button>
-              </div>
-            </section>
-          } @else {
-            @switch (paso()) {
-              @case (1) {
-                <section class="step" aria-labelledby="s1">
-                  <h3 id="s1">¿Qué quieres que montemos?</h3>
-                  <p class="step-help">Elige una opción. Podrás cambiarla antes de enviar.</p>
+              <p>
+                ¿Vas a reformar?
+                <a href="https://obralocalmadrid.es" target="_blank" rel="noopener">ObraLocal Madrid</a>
+              </p>
+            </aside>
+          </div>
+        } @else {
+          <h2 class="wiz-titulo" id="wiz-titulo" #titulo tabindex="-1">{{ pasos[paso() - 1] }}</h2>
 
-                  <div class="chips" role="group" aria-label="Categorías">
-                    @for (categoria of categorias; track categoria) {
-                      <button
-                        type="button"
-                        class="chip"
-                        [class.active]="categoriaForm() === categoria"
-                        [attr.aria-pressed]="categoriaForm() === categoria"
-                        (click)="categoriaForm.set(categoria)"
-                      >
-                        {{ categoria }}
-                      </button>
-                    }
-                  </div>
-
-                  <div class="pick-grid">
-                    @for (s of serviciosForm(); track s.id) {
-                      <button
-                        type="button"
-                        class="pick"
-                        [class.selected]="servicioSeleccionado()?.id === s.id"
-                        [attr.aria-pressed]="servicioSeleccionado()?.id === s.id"
-                        (click)="elegirServicio(s)"
-                      >
-                        <img
-                          [src]="s.miniatura"
-                          alt=""
-                          width="260"
-                          height="170"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <span class="pick-name">{{ s.nombre }}</span>
-                        <span class="pick-price">Desde {{ formatearPrecio(s.precioDesde) }}</span>
-                        @if (s.electro) {
-                          <span class="pick-badge">Electrodomésticos incluidos</span>
+          @switch (paso()) {
+            <!-- ===== Paso 1: qué hay que montar ===== -->
+            @case (1) {
+              <p class="wiz-ayuda">Elige todo lo que necesites e indica cuántos.</p>
+              <ul class="wiz-tipos" role="list">
+                @for (t of tipos; track t.id) {
+                  @let el = elemento(t.id);
+                  <li class="wiz-tipo" [class.on]="!!el">
+                    <button
+                      type="button"
+                      class="wiz-tipo-elegir"
+                      [attr.aria-pressed]="!!el"
+                      (click)="alternarTipo(t)"
+                    >
+                      <app-icono-mueble [id]="t.icono" />
+                      <span class="wiz-tipo-nombre">{{ t.nombre }}</span>
+                      <small>
+                        @if (precioDesdeTipo(t); as p) {
+                          desde {{ formatearPrecio(p) }}
+                        } @else {
+                          Cuéntanos qué es
                         }
-                        <span class="pick-check" aria-hidden="true">
-                          <svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10" /></svg>
-                        </span>
+                      </small>
+                    </button>
+                    @if (el) {
+                      <div class="wiz-contador" role="group" [attr.aria-label]="'Cantidad de ' + t.nombre">
+                        <button
+                          type="button"
+                          (click)="cambiarCantidad(t.id, -1)"
+                          [attr.aria-label]="el.cantidad === 1 ? 'Quitar ' + t.nombre : 'Uno menos'"
+                        >
+                          –
+                        </button>
+                        <span aria-live="polite">{{ el.cantidad }}</span>
+                        <button
+                          type="button"
+                          (click)="cambiarCantidad(t.id, 1)"
+                          [disabled]="el.cantidad >= 30"
+                          aria-label="Uno más"
+                        >
+                          +
+                        </button>
+                      </div>
+                    }
+                  </li>
+                }
+              </ul>
+            }
+
+            <!-- ===== Paso 2: detalles ===== -->
+            @case (2) {
+              <p class="wiz-ayuda">Todo es opcional, pero nos ayuda a afinar el precio.</p>
+
+              @if (hayArmario()) {
+                <fieldset class="wiz-grupo">
+                  <legend>Armario: ¿de qué tipo?</legend>
+                  <div class="wiz-opciones">
+                    @for (s of tipos[0].subtipos; track s.id) {
+                      <button
+                        type="button"
+                        class="wiz-opcion"
+                        [attr.aria-pressed]="subtipoDe('armario') === s.id"
+                        (click)="elegirSubtipo('armario', s.id)"
+                      >
+                        {{ s.nombre }}
                       </button>
                     }
                   </div>
-                </section>
+                </fieldset>
+                <fieldset class="wiz-grupo">
+                  <legend>Armario: ¿qué altura?</legend>
+                  <div class="wiz-opciones">
+                    @for (a of ['Normal', 'Hasta el techo']; track a) {
+                      <button
+                        type="button"
+                        class="wiz-opcion"
+                        [attr.aria-pressed]="alturaArmario() === a"
+                        (click)="alternar(alturaArmario, a)"
+                      >
+                        {{ a }}
+                      </button>
+                    }
+                  </div>
+                </fieldset>
               }
 
-              @case (2) {
-                <section class="step" aria-labelledby="s2">
-                  <h3 id="s2">Cuántos son y qué detalles hay</h3>
-                  <p class="step-help">Así preparamos un presupuesto más ajustado.</p>
-
-                  <div class="field">
-                    <label id="qlabel">Cantidad de {{ unidad()[1] }}</label>
-                    <div class="qty" role="group" aria-labelledby="qlabel">
+              @if (hayCocina()) {
+                <fieldset class="wiz-grupo">
+                  <legend>Cocina: ¿de qué tamaño?</legend>
+                  <div class="wiz-opciones">
+                    @for (s of tipos[1].subtipos; track s.id) {
                       <button
                         type="button"
-                        aria-label="Quitar uno"
-                        [disabled]="cantidad() <= 1"
-                        (click)="cambiarCantidad(cantidad() - 1)"
+                        class="wiz-opcion"
+                        [attr.aria-pressed]="subtipoDe('cocina') === s.id"
+                        (click)="elegirSubtipo('cocina', s.id)"
                       >
-                        −
+                        {{ s.nombre }}
                       </button>
-                      <input
-                        type="number"
-                        inputmode="numeric"
-                        min="1"
-                        max="30"
-                        aria-label="Cantidad"
-                        [value]="cantidad()"
-                        (change)="cambiarCantidad($any($event.target).value)"
-                      />
-                      <button
-                        type="button"
-                        aria-label="Añadir uno"
-                        [disabled]="cantidad() >= 30"
-                        (click)="cambiarCantidad(cantidad() + 1)"
-                      >
-                        +
-                      </button>
-                    </div>
+                    }
                   </div>
+                </fieldset>
+              }
 
-                  @if (incluyeElectro()) {
-                    <div class="callout">
-                      <span aria-hidden="true">✓</span>
-                      <p>
-                        <strong>Electrodomésticos incluidos.</strong> Colocamos horno, placa,
-                        campana, microondas, lavavajillas, frigorífico y otros, según la
-                        instalación.
-                      </p>
-                    </div>
+              <fieldset class="wiz-grupo">
+                <legend>¿De qué tienda?</legend>
+                <div class="wiz-opciones">
+                  @for (t of tiendas; track t) {
+                    <button
+                      type="button"
+                      class="wiz-opcion"
+                      [attr.aria-pressed]="tienda() === t"
+                      (click)="alternar(tienda, t)"
+                    >
+                      {{ t }}
+                    </button>
                   }
+                </div>
+              </fieldset>
 
-                  <div class="field">
-                    <label for="desc">Cuéntanos algún detalle <small>(opcional)</small></label>
-                    <textarea
-                      id="desc"
-                      rows="5"
-                      [value]="descripcion()"
-                      (input)="descripcion.set($any($event.target).value)"
-                      placeholder="Ejemplo: cocina de IKEA con 8 módulos, necesito también colocar horno y lavavajillas..."
-                    ></textarea>
-                  </div>
-                </section>
-              }
-
-              @case (3) {
-                <section class="step" aria-labelledby="s3">
-                  <h3 id="s3">¿Dónde necesitas el servicio?</h3>
-                  <p class="step-help">Puedes elegir varias zonas.</p>
-
-                  <label class="search-box search-box-wide">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <circle cx="11" cy="11" r="6.5" />
-                      <path d="m16 16 4 4" />
-                    </svg>
-                    <span class="sr-only">Buscar zona</span>
-                    <input
-                      type="search"
-                      placeholder="Buscar tu zona..."
-                      [value]="busquedaZona()"
-                      (input)="busquedaZona.set($any($event.target).value)"
-                    />
-                  </label>
-
-                  <div class="zones-grid">
-                    @for (zona of zonasFiltradas(); track zona) {
-                      <button
-                        type="button"
-                        class="zone"
-                        [class.selected]="zonaSeleccionada().includes(zona)"
-                        [attr.aria-pressed]="zonaSeleccionada().includes(zona)"
-                        (click)="alternarZona(zona)"
-                      >
-                        <span class="zone-check" aria-hidden="true">
-                          <svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10" /></svg>
-                        </span>
-                        {{ zona }}
-                      </button>
-                    } @empty {
-                      <p class="zones-empty">
-                        No hay zonas con ese nombre. Prueba con «Otra zona de Madrid».
-                      </p>
-                    }
-                  </div>
-
-                  @if (zonaSeleccionada().length) {
-                    <p class="selected-zones">
-                      {{ zonaSeleccionada().length }} zona(s) seleccionada(s)
-                    </p>
+              <fieldset class="wiz-grupo">
+                <legend>¿Hay que desmontar algo antes?</legend>
+                <div class="wiz-opciones">
+                  @for (v of ['Sí', 'No']; track v) {
+                    <button
+                      type="button"
+                      class="wiz-opcion"
+                      [attr.aria-pressed]="desmontar() === v"
+                      (click)="alternar(desmontar, v)"
+                    >
+                      {{ v }}
+                    </button>
                   }
-                </section>
-              }
+                </div>
+              </fieldset>
 
-              @case (4) {
-                <section class="step" aria-labelledby="s4">
-                  <h3 id="s4">¿Cómo te contactamos?</h3>
-                  <p class="step-help">Solo usaremos tus datos para preparar tu presupuesto.</p>
+              <fieldset class="wiz-grupo">
+                <legend>¿Hay que fijarlo a la pared?</legend>
+                <div class="wiz-opciones">
+                  @for (v of ['Sí', 'No', 'No sé']; track v) {
+                    <button
+                      type="button"
+                      class="wiz-opcion"
+                      [attr.aria-pressed]="fijarPared() === v"
+                      (click)="alternar(fijarPared, v)"
+                    >
+                      {{ v }}
+                    </button>
+                  }
+                </div>
+              </fieldset>
 
-                  <div class="form-two">
-                    <div class="field">
-                      <label for="nombre">Nombre <b>*</b></label>
-                      <input
-                        id="nombre"
-                        type="text"
-                        autocomplete="name"
-                        placeholder="Tu nombre"
-                        [value]="nombre()"
-                        (input)="nombre.set($any($event.target).value)"
-                      />
-                    </div>
+              <!-- Precio en vivo -->
+              <div class="wiz-precio" aria-live="polite">
+                <p class="wiz-precio-total">
+                  Tu montaje, desde <strong>{{ formatearPrecio(estimacion().total) }}</strong>
+                </p>
+                <ul>
+                  @for (l of estimacion().lineas; track l.nombre) {
+                    <li>
+                      <span>{{ l.nombre }} × {{ l.cantidad }}</span>
+                      <span>{{ l.importe === null ? 'a valorar' : formatearPrecio(l.importe) }}</span>
+                    </li>
+                  }
+                </ul>
+                @if (estimacion().minimoAplicado) {
+                  <p class="wiz-nota">Servicio mínimo: {{ formatearPrecio(servicioMinimo) }}, con el desplazamiento en Madrid capital.</p>
+                }
+                @if (desmontar() === 'Sí') {
+                  <p class="wiz-nota">El desmontaje se suma aparte: un 50–60 % del precio de montaje.</p>
+                }
+                <p class="wiz-nota">{{ notaPrecios }}</p>
+              </div>
+            }
 
-                    <div class="field">
-                      <label for="telefono">Teléfono <b>*</b></label>
-                      <input
-                        id="telefono"
-                        type="tel"
-                        autocomplete="tel"
-                        inputmode="tel"
-                        placeholder="Tu teléfono"
-                        [class.invalid]="telefono() && !telefonoValido()"
-                        [value]="telefono()"
-                        (input)="telefono.set($any($event.target).value)"
-                      />
-                      @if (telefono() && !telefonoValido()) {
-                        <span class="field-error">Escribe un teléfono con al menos 9 dígitos.</span>
-                      }
-                    </div>
-                  </div>
+            <!-- ===== Paso 3: dónde y cuándo ===== -->
+            @case (3) {
+              <div class="wiz-campo">
+                <label for="wiz-zona">Municipio o barrio</label>
+                <input
+                  id="wiz-zona"
+                  data-campo="zona"
+                  type="text"
+                  list="wiz-zonas"
+                  autocomplete="address-level2"
+                  enterkeyhint="next"
+                  placeholder="Por ejemplo, Alcorcón"
+                  [value]="zona()"
+                  (input)="zona.set($any($event.target).value)"
+                  (blur)="alSalirDe('zona')"
+                  [attr.aria-invalid]="!!error('zona')"
+                  [attr.aria-describedby]="error('zona') ? 'err-zona' : null"
+                />
+                <datalist id="wiz-zonas">
+                  @for (z of zonasSugeridas; track z) {
+                    <option [value]="z"></option>
+                  }
+                </datalist>
+                @if (error('zona'); as e) {
+                  <p class="wiz-error" id="err-zona">{{ e }}</p>
+                }
+              </div>
 
-                  <div class="field">
-                    <label for="email">Correo electrónico <small>(opcional)</small></label>
+              <fieldset class="wiz-grupo">
+                <legend>Planta y ascensor</legend>
+                <div class="wiz-opciones">
+                  @for (a of accesos; track a) {
+                    <button
+                      type="button"
+                      class="wiz-opcion"
+                      [attr.aria-pressed]="acceso() === a"
+                      (click)="alternar(acceso, a)"
+                    >
+                      {{ a }}
+                    </button>
+                  }
+                </div>
+              </fieldset>
+
+              <fieldset class="wiz-grupo">
+                <legend>¿Cuándo?</legend>
+                <div class="wiz-opciones">
+                  @for (c of opcionesCuando; track c) {
+                    <button
+                      type="button"
+                      class="wiz-opcion"
+                      [attr.aria-pressed]="cuando() === c"
+                      (click)="alternar(cuando, c)"
+                    >
+                      {{ c }}
+                    </button>
+                  }
+                </div>
+                @if (cuando() === 'Tengo fecha') {
+                  <div class="wiz-campo wiz-campo-fecha">
+                    <label for="wiz-fecha">Fecha</label>
                     <input
-                      id="email"
-                      type="email"
-                      autocomplete="email"
-                      placeholder="tucorreo@ejemplo.com"
-                      [class.invalid]="email() && !emailValido()"
-                      [value]="email()"
-                      (input)="email.set($any($event.target).value)"
+                      id="wiz-fecha"
+                      data-campo="fecha"
+                      type="date"
+                      [min]="hoy"
+                      [value]="fecha()"
+                      (input)="fecha.set($any($event.target).value)"
+                      (blur)="alSalirDe('fecha')"
+                      [attr.aria-invalid]="!!error('fecha')"
+                      [attr.aria-describedby]="error('fecha') ? 'err-fecha' : null"
                     />
-                    @if (email() && !emailValido()) {
-                      <span class="field-error">Revisa que el correo esté bien escrito.</span>
+                    @if (error('fecha'); as e) {
+                      <p class="wiz-error" id="err-fecha">{{ e }}</p>
                     }
                   </div>
+                }
+              </fieldset>
 
-                  <!-- Campo trampa anti-spam: los usuarios no lo ven -->
-                  <div class="hp" aria-hidden="true">
-                    <label>
-                      No rellenar
-                      <input
-                        type="text"
-                        tabindex="-1"
-                        autocomplete="off"
-                        [value]="honeypot()"
-                        (input)="honeypot.set($any($event.target).value)"
-                      />
-                    </label>
-                  </div>
+              <fieldset class="wiz-grupo">
+                <legend>¿Los muebles ya están en casa?</legend>
+                <div class="wiz-opciones">
+                  @for (v of opcionesEnCasa; track v) {
+                    <button
+                      type="button"
+                      class="wiz-opcion"
+                      [attr.aria-pressed]="mueblesEnCasa() === v"
+                      (click)="alternar(mueblesEnCasa, v)"
+                    >
+                      {{ v }}
+                    </button>
+                  }
+                </div>
+              </fieldset>
+            }
 
-                  <dl class="review">
-                    <div>
-                      <dt>Mueble</dt>
-                      <dd>{{ servicioSeleccionado()?.nombre }} × {{ cantidad() }}</dd>
-                    </div>
-                    <div>
-                      <dt>Zonas</dt>
-                      <dd>{{ zonaSeleccionada().join(', ') }}</dd>
-                    </div>
-                    <div>
-                      <dt>Precio orientativo desde</dt>
-                      <dd class="review-price">{{ formatearPrecio(precioEstimadoMinimo()) }}</dd>
-                    </div>
-                  </dl>
+            <!-- ===== Paso 4: contacto ===== -->
+            @case (4) {
+              <div class="wiz-campo">
+                <label for="wiz-nombre">Nombre</label>
+                <input
+                  id="wiz-nombre"
+                  data-campo="nombre"
+                  type="text"
+                  autocomplete="given-name"
+                  enterkeyhint="next"
+                  [value]="nombre()"
+                  (input)="nombre.set($any($event.target).value)"
+                  (blur)="alSalirDe('nombre')"
+                  [attr.aria-invalid]="!!error('nombre')"
+                  [attr.aria-describedby]="error('nombre') ? 'err-nombre' : null"
+                />
+                @if (error('nombre'); as e) {
+                  <p class="wiz-error" id="err-nombre">{{ e }}</p>
+                }
+              </div>
 
-                  <p class="privacy-note">
-                    Al enviar, recibiremos tu solicitud por email y nos pondremos en contacto
-                    contigo para preparar tu presupuesto. Más información en la
-                    <a href="/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.
+              <div class="wiz-campo">
+                <label for="wiz-tel">Teléfono (para enviarte el precio por WhatsApp)</label>
+                <div class="wiz-tel">
+                  <span aria-hidden="true">+34</span>
+                  <input
+                    id="wiz-tel"
+                    data-campo="telefono"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    enterkeyhint="next"
+                    placeholder="612 345 678"
+                    [value]="telefono()"
+                    (input)="telefono.set($any($event.target).value)"
+                    (blur)="alSalirDe('telefono')"
+                    [attr.aria-invalid]="!!error('telefono')"
+                    [attr.aria-describedby]="error('telefono') ? 'err-telefono' : null"
+                  />
+                </div>
+                @if (error('telefono'); as e) {
+                  <p class="wiz-error" id="err-telefono">{{ e }}</p>
+                }
+              </div>
+
+              <div class="wiz-campo">
+                <label for="wiz-email">Correo <small>(opcional)</small></label>
+                <input
+                  id="wiz-email"
+                  data-campo="email"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  [value]="email()"
+                  (input)="email.set($any($event.target).value)"
+                  (blur)="alSalirDe('email')"
+                  [attr.aria-invalid]="!!error('email')"
+                  [attr.aria-describedby]="error('email') ? 'err-email' : null"
+                />
+                @if (error('email'); as e) {
+                  <p class="wiz-error" id="err-email">{{ e }}</p>
+                }
+              </div>
+
+              <div class="wiz-campo">
+                <label for="wiz-notas">Algo más <small>(opcional)</small></label>
+                <textarea
+                  id="wiz-notas"
+                  rows="3"
+                  maxlength="1000"
+                  placeholder="Medidas, número de puertas, si es hasta el techo…"
+                  [value]="notas()"
+                  (input)="notas.set($any($event.target).value)"
+                ></textarea>
+              </div>
+
+              <!-- Campo trampa para robots: oculto a las personas -->
+              <div class="hp" aria-hidden="true">
+                <label for="wiz-web">No rellenar</label>
+                <input
+                  id="wiz-web"
+                  type="text"
+                  tabindex="-1"
+                  autocomplete="off"
+                  [value]="honeypot()"
+                  (input)="honeypot.set($any($event.target).value)"
+                />
+              </div>
+
+              <label class="wiz-check">
+                <input
+                  type="checkbox"
+                  data-campo="privacidad"
+                  [checked]="privacidad()"
+                  (change)="privacidad.set($any($event.target).checked); alSalirDe('privacidad')"
+                  [attr.aria-invalid]="!!error('privacidad')"
+                  [attr.aria-describedby]="error('privacidad') ? 'err-privacidad' : null"
+                />
+                <span>
+                  He leído la
+                  <a href="/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>
+                  y acepto que me contactéis para darme el precio.
+                </span>
+              </label>
+              @if (error('privacidad'); as e) {
+                <p class="wiz-error" id="err-privacidad">{{ e }}</p>
+              }
+
+              @if (errorEnvio()) {
+                <div class="wiz-fallo" role="alert">
+                  <p>
+                    <strong>No hemos podido enviar tu solicitud.</strong>
+                    No se pierde: envíala por WhatsApp con todo ya escrito.
                   </p>
-
-                  @if (errorEnvio()) {
-                    <div class="alert" role="alert">
-                      <span
-                        >No hemos podido enviar tu solicitud. Inténtalo de nuevo o envíala por
-                        WhatsApp.</span
-                      >
-                      <button type="button" class="link-btn" (click)="enviarWhatsApp()">
-                        Enviar por WhatsApp
-                      </button>
-                    </div>
-                  }
-                </section>
+                  <a class="btn btn-primary" appWhatsapp="formulario-error" [mensaje]="mensajeWhatsapp()">
+                    Envíala por WhatsApp
+                  </a>
+                </div>
               }
             }
           }
-        </div>
 
-        @if (!enviado()) {
-          <footer class="wizard-foot">
-            <button
-              type="button"
-              class="btn btn-ghost"
-              [class.invisible]="paso() === 1"
-              (click)="atras()"
-            >
-              <svg class="back-ico" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M15 6 9 12l6 6" />
-              </svg>
-              Atrás
-            </button>
-
-            <p class="foot-hint" aria-live="polite">{{ pista() }}</p>
-
-            @if (paso() < pasos.length) {
-              <button
-                type="button"
-                class="btn btn-primary"
-                [disabled]="!pasoActualValido()"
-                (click)="siguiente()"
-              >
-                Siguiente
-                <span class="arrow">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
-                </span>
-              </button>
-            } @else {
-              <button
-                type="button"
-                class="btn btn-primary"
-                [disabled]="!todoValido() || enviando()"
-                (click)="enviarSolicitud()"
-              >
-                {{ enviando() ? 'Enviando…' : 'Enviar solicitud' }}
-                <span class="arrow">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" />
-                  </svg>
-                </span>
-              </button>
-            }
-          </footer>
+          <p class="wiz-wa">
+            ¿Prefieres escribirnos?
+            <a appWhatsapp="formulario" [mensaje]="mensajeWhatsapp()">Abrir WhatsApp</a>
+          </p>
         }
       </div>
-    </div>
+
+      <!-- Pie fijo: precio y botones -->
+      <footer class="wiz-pie">
+        @if (enviado()) {
+          <button type="button" class="btn btn-ink wiz-principal" (click)="cerrarFormulario()">
+            Cerrar
+          </button>
+        } @else {
+          @if (seleccion().length && paso() !== 2) {
+            <p class="wiz-pie-precio">
+              Desde <strong>{{ formatearPrecio(estimacion().total) }}</strong>
+              <small>· {{ totalPiezas() }} {{ totalPiezas() === 1 ? 'mueble' : 'muebles' }}</small>
+            </p>
+          }
+          <div class="wiz-pie-botones">
+            @if (paso() > 1) {
+              <button type="button" class="btn btn-ghost wiz-atras" (click)="atras()">Atrás</button>
+            }
+            <button
+              type="button"
+              class="btn btn-primary wiz-principal"
+              [disabled]="!puedeSeguir() || enviando()"
+              (click)="siguiente()"
+            >
+              @if (paso() < pasos.length) {
+                Siguiente
+              } @else {
+                {{ enviando() ? 'Enviando…' : errorEnvio() ? 'Reintentar' : 'Recibir mi precio' }}
+              }
+            </button>
+          </div>
+        }
+      </footer>
+    </section>
   </div>
 }

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
+import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
 import { TELEFONO, TELEFONO_VISIBLE } from '../datos/catalogo';
 import { PAGINAS } from '../landing/landing-data';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
@@ -19,7 +20,7 @@ import { ScrollEstado } from './scroll-estado.service';
 @Component({
   selector: 'app-site-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, TelefonoLink, WhatsappLink],
   templateUrl: './site-header.html',
   styleUrl: './site-header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,6 +43,7 @@ export class SiteHeader {
     { ruta: '/precios', texto: 'Precios' },
     { ruta: '/zonas', texto: 'Zonas' },
     { ruta: '/como-trabajamos', texto: 'Cómo trabajamos' },
+    { ruta: '/opiniones', texto: 'Opiniones' },
     { ruta: '/preguntas-frecuentes', texto: 'Preguntas' },
   ];
 

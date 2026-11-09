@@ -48,6 +48,8 @@ const MS_FINAL = 5200;
   templateUrl: './kitchen-scene.html',
   styleUrl: './kitchen-scene.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // Sin esta clase (en el HTML prerenderizado, fuera de pantalla o en pausa) los bucles se detienen.
+  host: { '[class.en-marcha]': 'enPantalla() && reproduciendo()' },
 })
 export class KitchenScene {
   private readonly destroyRef = inject(DestroyRef);
@@ -82,7 +84,7 @@ export class KitchenScene {
   });
 
   private temporizador?: ReturnType<typeof setTimeout>;
-  private enPantalla = true;
+  readonly enPantalla = signal(false);
 
   constructor() {
     afterNextRender(() => {
@@ -102,7 +104,7 @@ export class KitchenScene {
   /** No consume recursos mientras la escena está fuera de pantalla. */
   private vigilarVisibilidad(): void {
     if (typeof IntersectionObserver === 'undefined') return;
-    const io = new IntersectionObserver(([e]) => (this.enPantalla = e.isIntersecting), {
+    const io = new IntersectionObserver(([e]) => this.enPantalla.set(e.isIntersecting), {
       threshold: 0.1,
     });
     io.observe(this.host);
@@ -144,7 +146,7 @@ export class KitchenScene {
     if (!this.esNavegador || REDUCIR_MOVIMIENTO || !this.reproduciendo()) return;
 
     this.temporizador = setTimeout(() => {
-      if (this.enPantalla && !document.hidden) {
+      if (this.enPantalla() && !document.hidden) {
         this.etapa.update((e) => (e + 1) % ETAPAS.length);
       }
       this.programar();

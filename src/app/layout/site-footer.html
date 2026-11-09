@@ -4,8 +4,8 @@
       <a class="pie-wordmark" routerLink="/">Arma<em>Muebles</em></a>
       <div class="pie-contacto">
         <p>Montaje de muebles y cocinas a domicilio en Madrid.</p>
-        <a [href]="'tel:' + telefono">{{ telefonoVisible }}</a>
-        <a [href]="'https://wa.me/' + whatsapp" target="_blank" rel="noopener">Contactar por WhatsApp</a>
+        <a appTelefono="pie">{{ telefonoVisible }}</a>
+        <a appWhatsapp="pie">Contactar por WhatsApp</a>
       </div>
     </div>
 

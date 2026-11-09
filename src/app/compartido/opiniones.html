@@ -1,0 +1,95 @@
+<section class="section op" [class.op-alt]="formato() !== 'todas'" aria-labelledby="op-titulo">
+  <div class="container">
+    <div class="op-cabecera">
+      <div>
+        @if (formato() !== 'todas') {
+          <span class="kicker">Opiniones de clientes</span>
+          <h2 id="op-titulo">Lo que dicen <em>quienes ya montaron</em></h2>
+        } @else {
+          <h2 id="op-titulo">Todas las opiniones</h2>
+        }
+      </div>
+      <p class="op-resumen">
+        <span aria-hidden="true"><app-estrellas [valor]="5" /></span>
+        <span><strong>{{ resumen.media }} de 5</strong> · {{ resumen.total }} opiniones de clientes</span>
+      </p>
+    </div>
+
+    @if (formato() === 'todas') {
+      <div class="op-filtros" role="group" aria-label="Filtrar opiniones">
+        <button type="button" [attr.aria-pressed]="filtro() === null" (click)="filtro.set(null)">
+          Todas <small>{{ resumen.total }}</small>
+        </button>
+        @for (f of filtros; track f) {
+          <button type="button" [attr.aria-pressed]="filtro() === f" (click)="filtro.set(f)">
+            {{ f }} <small>{{ cuantas(f) }}</small>
+          </button>
+        }
+      </div>
+    }
+
+    <ng-template #tarjeta let-o>
+      <figure class="op-tarjeta">
+        <app-estrellas [valor]="o.estrellas" />
+        <blockquote>
+          <p>«{{ o.texto }}»</p>
+        </blockquote>
+        <figcaption>
+          <strong>{{ nombre(o.nombre) }}</strong>
+          <span>{{ o.servicio }}</span>
+          @if (o.fecha) {
+            <time>{{ o.fecha }}</time>
+          }
+        </figcaption>
+      </figure>
+    </ng-template>
+
+    @if (formato() === 'carrusel') {
+      <!-- Pasa sola sin fin: la segunda vuelta es una copia oculta a los lectores de pantalla. -->
+      <div
+        #ventana
+        class="op-ventana"
+        [class.op-en-movimiento]="enMovimiento()"
+        [class.op-visible]="visible()"
+      >
+        <ul class="op-cinta" role="list" [style.--duracion.s]="duracion()" [style.--vuelta.px]="vuelta()">
+          @for (o of lista(); track o.nombre) {
+            <li><ng-container *ngTemplateOutlet="tarjeta; context: { $implicit: o }" /></li>
+          }
+          @if (enMovimiento()) {
+            @for (o of lista(); track o.nombre) {
+              <li aria-hidden="true" inert>
+                <ng-container *ngTemplateOutlet="tarjeta; context: { $implicit: o }" />
+              </li>
+            }
+          }
+        </ul>
+      </div>
+    } @else {
+      <ul class="op-lista" role="list">
+        @for (o of lista(); track o.nombre) {
+          <li><ng-container *ngTemplateOutlet="tarjeta; context: { $implicit: o }" /></li>
+        }
+      </ul>
+    }
+
+    <div class="op-pie">
+      <p class="op-nota">{{ nota }}</p>
+      <div class="op-enlaces">
+        @if (formato() !== 'todas') {
+          <a class="link-flecha" routerLink="/opiniones">Ver todas las opiniones</a>
+        }
+        @if (google.verOpiniones) {
+          <a class="btn btn-ghost btn-sm" [href]="google.verOpiniones" target="_blank" rel="noopener">
+            Ver opiniones en Google
+          </a>
+        }
+        @if (google.escribirOpinion) {
+          <a class="btn btn-ghost btn-sm" [href]="google.escribirOpinion" target="_blank" rel="noopener">
+            Escribir mi opinión
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</section>

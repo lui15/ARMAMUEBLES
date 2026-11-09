@@ -1,13 +1,18 @@
+import { NOTA_OPINIONES, resumenOpiniones } from '../datos/opiniones';
+import { SERVICIO_MINIMO } from '../datos/precios-extra';
+import { eur, eurMinimo } from '../datos/catalogo';
 import { COMO_PEDIR_TEXTO, PRECIOS_TEXTO, PaginaSeo, TIENDAS_TEXTO, ZONAS_TEXTO } from './pagina-seo';
+
+const RESUMEN = resumenOpiniones();
 
 export const PAGINAS_HUB: PaginaSeo[] = [
   /* ---------------------------- INICIO ---------------------------- */
   {
     path: '',
     tipo: 'inicio',
-    title: 'Montaje de Muebles y Cocinas en Madrid | ArmaMuebles',
+    title: `Montaje de muebles en Madrid desde ${eurMinimo()} | ArmaMuebles`,
     description:
-      'Montaje de muebles y cocinas a domicilio en Madrid: cocinas con electrodomésticos, armarios y dormitorios. Desde 25 €. Presupuesto sin compromiso.',
+      `Montamos tus muebles y cocinas en Madrid desde ${eurMinimo()}, con precio cerrado antes de ir. Llevamos las herramientas y nos llevamos los cartones al terminar.`,
     etiqueta: 'Inicio',
     h1: { antes: 'Montamos tu', resaltado: 'cocina completa', despues: '' },
     kicker: 'Montaje de muebles y cocinas',
@@ -19,7 +24,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       'Pedir presupuesto no te compromete a nada: nos cuentas qué quieres montar y dónde, revisamos los detalles y te damos una propuesta personalizada por teléfono o WhatsApp.',
     ],
     puntos: [
-      'Montajes desde 25 €',
+      `Montajes desde ${eurMinimo()}`,
       'Cocinas con colocación de electrodomésticos',
       'Armarios, dormitorios, salones y mesas',
       'Presupuesto orientativo sin compromiso',
@@ -28,12 +33,12 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       {
         titulo: 'Cocinas con electrodomésticos incluidos',
         texto:
-          'Montamos cocinas pequeñas, medianas, grandes y con isla desde 120 €. La colocación de horno, placa, campana, microondas, lavavajillas y frigorífico va incluida en el montaje.',
+          `Montamos cocinas pequeñas, medianas, grandes y con isla desde ${eur(1)}. La colocación de horno, placa, campana, microondas, lavavajillas y frigorífico va incluida en el montaje.`,
       },
       {
         titulo: 'Armarios y dormitorios',
         texto:
-          'Armarios de puertas abatibles desde 65 € y de puertas correderas desde 90 €, vestidores, camas, cómodas y mesitas de noche, con puertas y guías bien ajustadas.',
+          `Armarios de puertas abatibles desde ${eur(5)} y de puertas correderas desde ${eur(6)}, vestidores, camas, cómodas y mesitas de noche, con puertas y guías bien ajustadas.`,
       },
       {
         titulo: 'Salón, mesas y almacenamiento',
@@ -65,9 +70,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'servicios',
     tipo: 'hub',
     padre: '',
-    title: 'Servicios de Montaje de Muebles en Madrid | ArmaMuebles',
+    title: `Servicios de montaje de muebles en Madrid desde ${eurMinimo()}`,
     description:
-      'Todos nuestros servicios de montaje de muebles en Madrid: cocinas, armarios, dormitorios, salones, baños y mesas. Consulta precios y pide presupuesto.',
+      `Todos nuestros montajes en Madrid: cocinas, armarios, dormitorios, salones, baños y más, desde ${eurMinimo()}. Precio cerrado antes de ir y sin compromiso.`,
     etiqueta: 'Todos los servicios',
     h1: { antes: 'Servicios de', resaltado: 'montaje de muebles', despues: 'en Madrid' },
     kicker: 'Qué podemos montar',
@@ -80,9 +85,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     ],
     puntos: [
       '20 servicios con precio de partida',
-      'Cocinas desde 120 €',
-      'Armarios desde 65 €',
-      'Muebles sueltos desde 25 €',
+      `Cocinas desde ${eur(1)}`,
+      `Armarios desde ${eur(5)}`,
+      `Muebles sueltos desde ${eurMinimo()}`,
     ],
     bloques: [
       {
@@ -115,7 +120,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       {
         pregunta: '¿Podéis montar varios muebles en la misma visita?',
         respuesta:
-          'Sí. Tenemos un servicio específico de montaje de varios muebles, desde 40 €. Indica cuáles son en los detalles de la solicitud.',
+          `Sí. Tenemos un servicio específico de montaje de varios muebles, desde ${eur(20)}. Indica cuáles son en los detalles de la solicitud.`,
       },
       {
         pregunta: '¿Y si mi mueble no aparece en el catálogo?',
@@ -140,70 +145,139 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'precios',
     tipo: 'hub',
     padre: '',
-    title: 'Precios de Montaje de Muebles en Madrid | ArmaMuebles',
-    description:
-      'Cuánto cuesta montar tu cocina en Madrid: cocina pequeña desde 120 €, armarios desde 65 €, camas, mesas y más. Consulta la tabla y pide presupuesto.',
+    title: `Precios de montaje de muebles en Madrid desde ${eurMinimo()}`,
+    description: `¿Cuánto cuesta montar muebles en Madrid? Mesita desde ${eur(8)}, armario desde ${eur(5)} y cocina desde ${eur(1)}. Busca tu mueble y recibe un precio cerrado.`,
     etiqueta: 'Precios',
-    h1: { antes: 'Precios de', resaltado: 'montaje de muebles', despues: 'en Madrid' },
-    kicker: 'Precios orientativos',
-    h2: 'Cuánto cuesta montar cada mueble',
-    intro:
-      'Todos nuestros precios de partida, en una sola página. Son orientativos: el precio definitivo se confirma tras revisar las características y dimensiones de lo que quieres montar.',
+    h1: { antes: '¿Cuánto cuesta', resaltado: 'montar muebles', despues: 'en Madrid?' },
+    kicker: 'Precios con IVA incluido',
+    h2: 'Cómo calculamos tu precio',
+    intro: `Desde ${eur(8)} una mesita de noche y desde ${eur(5)} un armario. Una cocina, desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     parrafos: [
-      'El precio de un montaje depende sobre todo del tipo de mueble y de su tamaño. Por eso publicamos un precio «desde» para cada servicio y, cuando nos envías tu solicitud, revisamos los detalles para darte una propuesta personalizada.',
-      'En el formulario verás una estimación mínima que se actualiza según el servicio y la cantidad que elijas. No te compromete a nada: es una referencia para que decidas con información.',
+      'Cada mueble tiene un precio «desde» que verás abajo. Para darte el precio cerrado nos basta con lo que nos cuentas en el formulario o con una foto del mueble o del albarán.',
+      `El servicio mínimo es de ${SERVICIO_MINIMO} € e incluye el desplazamiento en Madrid capital. Si vives en un municipio del área metropolitana, el desplazamiento cuesta entre 0 y 15 € según la distancia.`,
     ],
     puntos: [
-      'Cocina pequeña desde 120 €',
-      'Armarios desde 65 €',
-      'Solo electrodomésticos desde 35 €',
-      'Presupuesto sin compromiso',
+      `Mesita de noche desde ${eur(8)}`,
+      `Armario desde ${eur(5)}`,
+      `Cocina desde ${eur(1)}`,
+      'Precio cerrado antes de ir',
     ],
     bloques: [
       {
-        titulo: 'Las cocinas incluyen electrodomésticos',
-        texto:
-          'En todos los tamaños de cocina, el precio de partida ya incluye la colocación de tus electrodomésticos.',
+        titulo: 'Las cocinas incluyen los electrodomésticos',
+        texto: 'En todos los tamaños de cocina, el precio ya incluye la colocación de tus electrodomésticos.',
       },
       {
         titulo: 'Qué significa «desde»',
-        texto:
-          'Es el precio de partida del servicio. El importe final depende de las características y dimensiones, y se confirma tras revisarlas.',
+        texto: 'Es el precio de partida. El precio cerrado depende del tamaño, las puertas y cajones, la altura y el acceso, y te lo damos antes de ir.',
       },
       {
         titulo: 'Varios muebles a la vez',
-        texto:
-          'Si tienes varios muebles por montar, indícalo en la solicitud. Disponemos de un servicio de montaje de varios muebles en una misma visita, desde 40 €.',
+        texto: `Si tienes varios muebles por montar, elígelos todos en el formulario. El montaje de varios muebles en una misma visita parte de ${eur(20)}.`,
       },
     ],
     faqs: [
       {
-        pregunta: '¿Cuánto cuesta montar una cocina?',
-        respuesta:
-          'Una cocina pequeña empieza en 120 €, una mediana en 220 €, una grande en 350 € y una con isla en 450 €, con la colocación de electrodomésticos incluida.',
-      },
-      { pregunta: '¿Cuánto cuesta montar un mueble?', respuesta: PRECIOS_TEXTO },
-      {
-        pregunta: '¿Cuál es el montaje más económico?',
-        respuesta:
-          'El montaje de una mesita de noche, desde 25 €. Mesas, escritorios, estanterías, zapateros y muebles auxiliares parten de 35 €.',
+        pregunta: '¿Lleváis las herramientas?',
+        respuesta: 'Sí. Llevamos las herramientas: tú no tienes que preparar nada.',
       },
       {
-        pregunta: '¿Pedir presupuesto me compromete a algo?',
-        respuesta:
-          'No. La solicitud es sin compromiso: nos cuentas qué necesitas y te damos una propuesta personalizada por teléfono o WhatsApp.',
+        pregunta: '¿Os lleváis los cartones?',
+        respuesta: 'Sí. Al terminar nos llevamos los cartones y los plásticos.',
+      },
+      {
+        pregunta: '¿El precio que me dais es cerrado?',
+        respuesta: 'Sí. Te damos un precio cerrado antes de ir, a partir de lo que nos cuentas o de una foto del mueble o del albarán.',
+      },
+      {
+        pregunta: '¿Qué pasa si falta una pieza?',
+        respuesta: 'Cuéntanoslo al pedir presupuesto o mándanos una foto del albarán. Lo vemos contigo antes de ir y te decimos cómo afecta al montaje y al precio.',
+      },
+      { pregunta: '¿Montáis muebles que no sean de IKEA?', respuesta: TIENDAS_TEXTO },
+      {
+        pregunta: '¿Cuánto cuesta el desplazamiento?',
+        respuesta: `En Madrid capital va incluido en el servicio mínimo de ${SERVICIO_MINIMO} €. En los municipios del área metropolitana cuesta entre 0 y 15 € según la distancia.`,
+      },
+      {
+        pregunta: '¿Fijáis los muebles a la pared?',
+        respuesta: 'Sí. Cuando el mueble lo requiere, lo dejamos bien anclado a la pared. La fijación antivuelco va incluida en el montaje.',
+      },
+      {
+        pregunta: '¿Pedir presupuesto me obliga a contratar?',
+        respuesta: 'No. Pedir presupuesto es sin compromiso y no te obliga a contratar.',
       },
     ],
     servicio: {
       nombre: 'Tarifas de montaje de muebles',
-      descripcion: 'Precios de partida orientativos para el montaje de muebles y cocinas en Madrid.',
+      descripcion: 'Precios de partida, con IVA incluido, para el montaje de muebles y cocinas en Madrid.',
     },
     imagen: './images/cocina-pequena.webp',
     imagenAlt: 'Cocina pequeña montada, con los electrodomésticos colocados',
     ids: [1, 2, 3, 4, 19, 5, 6, 7, 11, 12, 8, 9, 10, 15, 16, 17, 18, 13, 14, 20],
-    destacado: { texto: 'Cocina pequeña, desde', precio: 120 },
     modulo: 'precios',
-    relacionadas: ['servicios', 'montaje-cocinas-madrid', 'preguntas-frecuentes'],
+    relacionadas: [
+      'cuanto-cuesta-montar-cocina-ikea',
+      'cuanto-cuesta-montar-armario-pax',
+      'montaje-cocinas-madrid',
+      'montaje-armarios-madrid',
+    ],
+  },
+
+  /* ---------------------------- OPINIONES ---------------------------- */
+  {
+    path: 'opiniones',
+    tipo: 'hub',
+    padre: '',
+    title: 'Opiniones de clientes de ArmaMuebles · Montaje en Madrid',
+    description: `${RESUMEN.media} de 5 en ${RESUMEN.total} opiniones de clientes que contrataron el montaje de muebles en Madrid: armarios, salones, dormitorios y más. Publicadas sin editar.`,
+    etiqueta: 'Opiniones',
+    h1: { antes: 'Opiniones de', resaltado: 'nuestros clientes', despues: 'en Madrid' },
+    kicker: 'Opiniones',
+    h2: 'Cómo publicamos las opiniones',
+    intro: `${RESUMEN.media} de 5 con ${RESUMEN.total} opiniones de clientes. Las publicamos completas, sin editar.`,
+    parrafos: [
+      'Cada opinión la envió un cliente que contrató el montaje con nosotros. La publicamos tal cual nos la dio: con su texto completo, sus estrellas y su nombre con la inicial del apellido.',
+      'Puedes filtrarlas por tipo de mueble para leer las de lo que necesitas montar.',
+    ],
+    puntos: [
+      `${RESUMEN.media} de 5`,
+      `${RESUMEN.total} opiniones de clientes`,
+      'Publicadas sin editar',
+      'Precio cerrado antes de ir',
+    ],
+    bloques: [
+      { titulo: 'Sin editar', texto: NOTA_OPINIONES },
+      {
+        titulo: 'Tu opinión también cuenta',
+        texto: 'Si ya montaste con nosotros, cuéntanos qué tal fue por WhatsApp.',
+      },
+    ],
+    faqs: [
+      {
+        pregunta: '¿Las opiniones son reales?',
+        respuesta: NOTA_OPINIONES,
+      },
+      {
+        pregunta: '¿Puedo dejar mi opinión?',
+        respuesta: 'Sí. Si contrataste el montaje con nosotros, cuéntanos qué tal fue por WhatsApp.',
+      },
+      {
+        pregunta: '¿Por qué hay una opinión de 4 estrellas?',
+        respuesta: 'Porque publicamos todas las opiniones que nos envían los clientes, completas y sin editar.',
+      },
+      {
+        pregunta: '¿Cuánto cuesta el montaje?',
+        respuesta: `Desde ${eurMinimo()} una mesita de noche, desde ${eur(5)} un armario y desde ${eur(1)} una cocina. Tienes todos los precios en la página de precios.`,
+      },
+    ],
+    servicio: {
+      nombre: 'Montaje de muebles a domicilio',
+      descripcion: 'Montaje de muebles y cocinas a domicilio en Madrid.',
+    },
+    imagen: './images/varios-muebles.webp',
+    imagenAlt: 'Salón con varios muebles montados',
+    modulo: 'opiniones',
+    relacionadas: ['precios', 'servicios', 'como-trabajamos'],
   },
 
   /* ---------------------------- ZONAS ---------------------------- */
@@ -211,9 +285,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'zonas',
     tipo: 'hub',
     padre: '',
-    title: 'Zonas de Montaje de Muebles en Madrid | ArmaMuebles',
+    title: `Montador de muebles en Madrid y alrededores desde ${eurMinimo()}`,
     description:
-      'Zonas donde montamos muebles a domicilio: Madrid capital y municipios como Alcorcón, Móstoles, Getafe o Las Rozas. Consulta la tuya y pide presupuesto.',
+      `Montamos muebles en Madrid capital y en municipios como Alcorcón, Getafe o Móstoles, desde ${eurMinimo()}. Precio cerrado antes de ir. Mira si llegamos a tu zona.`,
     etiqueta: 'Zonas de servicio',
     h1: { antes: 'Zonas donde', resaltado: 'montamos tus muebles', despues: 'en Madrid' },
     kicker: 'Dónde trabajamos',
@@ -277,9 +351,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'como-trabajamos',
     tipo: 'hub',
     padre: '',
-    title: 'Cómo Trabajamos: Montaje de Muebles Madrid | ArmaMuebles',
+    title: `Cómo montamos tus muebles en Madrid, desde ${eurMinimo()}`,
     description:
-      'Cómo funciona nuestro servicio de montaje de muebles en Madrid: pides presupuesto, lo revisamos, vamos a tu casa y dejamos todo montado y nivelado.',
+      `Así montamos tus muebles en Madrid: nos cuentas o nos mandas una foto, te damos un precio cerrado y montamos llevándonos los cartones. Desde ${eurMinimo()}.`,
     etiqueta: 'Cómo trabajamos',
     h1: { antes: 'Así funciona', resaltado: 'tu montaje', despues: 'con ArmaMuebles' },
     kicker: 'Cómo trabajamos',
@@ -344,9 +418,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'preguntas-frecuentes',
     tipo: 'hub',
     padre: '',
-    title: 'Preguntas Frecuentes sobre Montaje de Muebles | ArmaMuebles',
+    title: `Preguntas sobre montaje de muebles en Madrid desde ${eurMinimo()}`,
     description:
-      'Resolvemos tus dudas sobre el montaje de muebles en Madrid: precios, qué incluye, tiendas, zonas y cómo pedir presupuesto. Consulta las respuestas.',
+      `Resolvemos tus dudas sobre el montaje de muebles en Madrid: precios desde ${eurMinimo()}, herramientas, cartones, fijación a la pared y cómo pedir presupuesto.`,
     etiqueta: 'Preguntas frecuentes',
     h1: { antes: 'Preguntas', resaltado: 'frecuentes', despues: 'sobre el montaje de muebles' },
     kicker: 'Resolvemos tus dudas',
@@ -379,17 +453,17 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta montar una cocina?',
         respuesta:
-          'Una cocina pequeña empieza en 120 €, una mediana en 220 €, una grande en 350 € y una con isla en 450 €, con la colocación de electrodomésticos incluida.',
+          `Una cocina pequeña empieza en ${eur(1)}, una mediana en ${eur(2)}, una grande en ${eur(3)} y una con isla en ${eur(4)}, con la colocación de electrodomésticos incluida.`,
       },
       {
         pregunta: '¿Cuánto cuesta montar un armario?',
         respuesta:
-          'Un armario de puertas abatibles empieza en 65 €, uno de puertas correderas en 90 € y un vestidor en 120 €.',
+          `Un armario de puertas abatibles empieza en ${eur(5)}, uno de puertas correderas en ${eur(6)} y un vestidor en ${eur(7)}.`,
       },
       {
         pregunta: '¿La colocación de electrodomésticos está incluida?',
         respuesta:
-          'En todas las cocinas, sí. Si ya tienes la cocina montada, también colocamos solo los electrodomésticos, desde 35 €.',
+          `En todas las cocinas, sí. Si ya tienes la cocina montada, también colocamos solo los electrodomésticos, desde ${eur(19)}.`,
       },
       { pregunta: '¿De qué tiendas montáis muebles?', respuesta: TIENDAS_TEXTO },
       {
@@ -424,9 +498,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'montaje-muebles-por-tienda',
     tipo: 'hub',
     padre: '',
-    title: 'Montaje de Muebles por Tienda en Madrid | ArmaMuebles',
+    title: `Montamos muebles de IKEA y más tiendas en Madrid desde ${eurMinimo()}`,
     description:
-      'Montamos muebles comprados en IKEA, Leroy Merlin, Obramat, Conforama, Bricomart y Brico Depot en Madrid. Servicio independiente. Pide tu presupuesto.',
+      `Montamos muebles de IKEA, Leroy Merlin, Conforama, Obramat y otras tiendas en Madrid, desde ${eurMinimo()}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje por tienda',
     h1: { antes: 'Montaje de', resaltado: 'muebles de tu tienda', despues: 'favorita en Madrid' },
     kicker: 'Compra donde prefieras',

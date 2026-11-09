@@ -32,8 +32,7 @@
   min-width: 0;
   padding: 9px 16px;
   border-radius: 999px;
-  background: rgba(255, 254, 250, 0.9);
-  backdrop-filter: blur(8px);
+  background: rgba(255, 254, 250, 0.96);
   box-shadow: var(--sh-sm);
   color: var(--ink);
   font-size: 0.82rem;
@@ -65,8 +64,8 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border: 0;
   border-radius: 50%;
   background: rgba(255, 254, 250, 0.9);
@@ -250,6 +249,14 @@
     opacity: 0;
     transform: scale(0.2) rotate(60deg);
   }
+}
+
+/* Los bucles no gastan batería ni procesador mientras la escena no está en marcha. */
+:host(:not(.en-marcha)) .punto,
+:host(:not(.en-marcha)) .vibra,
+:host(:not(.en-marcha)) .broca,
+:host(:not(.en-marcha)) .chispa {
+  animation-play-state: paused;
 }
 
 /* ---------- Taladro ---------- */

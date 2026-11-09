@@ -27,7 +27,15 @@
   opacity: 0.5;
 }
 .migas a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
+}
+.migas [aria-current] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .migas a:hover {
   color: var(--green-d);
@@ -354,4 +362,22 @@ h1 {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
+}
+
+/* ---------- Venta cruzada ---------- */
+.lp-cruzada {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  padding: 20px 24px;
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+  color: var(--muted);
+}
+.lp-cruzada a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--green-d);
+  font-weight: 650;
 }

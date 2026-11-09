@@ -13,12 +13,17 @@ import { CountDirective, REDUCIR_MOVIMIENTO, RevealDirective } from '../comparti
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
 import { IconoMueble } from '../compartido/icono-mueble';
+import { Opiniones } from '../compartido/opiniones';
+import { srcsetDe } from '../compartido/imagenes';
+import { WhatsappLink } from '../compartido/enlaces-contacto';
 import {
   ELECTRODOMESTICOS,
   ID_SOLO_ELECTRO,
   LOGOS_MARCAS,
   MARCAS,
   SERVICIOS,
+  eur,
+  eurMinimo,
   ZONAS,
   servicioPorId,
 } from '../datos/catalogo';
@@ -48,6 +53,8 @@ const PIEZAS = [
     CountDirective,
     IconoMueble,
     KitchenScene,
+    Opiniones,
+    WhatsappLink,
     CatalogoServicios,
     ProcesoPasos,
     FaqLista,
@@ -62,15 +69,14 @@ export class InicioPage {
   readonly presupuesto = inject(PresupuestoService);
 
   readonly pagina = buscarPagina('');
-  readonly logos = LOGOS_MARCAS;
+  readonly minimo = eurMinimo();
+  readonly srcset = srcsetDe;
   readonly cifras = {
     servicios: SERVICIOS.length,
     tiendas: MARCAS.length,
     municipios: ZONAS.filter((z) => z !== 'Madrid capital' && z !== 'Otra zona de Madrid').length,
     desde: Math.min(...SERVICIOS.map((s) => s.precioDesde)),
   };
-  readonly marca = signal(0);
-  readonly marcaPrev = signal(-1);
   readonly piezas = PIEZAS;
   readonly pieza = signal(0);
   readonly piezaPrev = signal(-1);
@@ -81,12 +87,12 @@ export class InicioPage {
   readonly cinta = [...LOGOS_MARCAS, ...LOGOS_MARCAS];
 
   readonly estancias = [
-    { path: 'montaje-cocinas-madrid', titulo: 'Cocinas', desde: '120 €', foto: './images/cocina-isla.webp', alt: 'Cocina con isla central', clase: 'grande' },
-    { path: 'montaje-armarios-madrid', titulo: 'Armarios y vestidores', desde: '65 €', foto: './images/armario-correderas.webp', alt: 'Armario de puertas correderas', clase: '' },
-    { path: 'montaje-dormitorios-madrid', titulo: 'Dormitorios', desde: '25 €', foto: './images/cama.webp', alt: 'Cama con estructura en un dormitorio', clase: '' },
-    { path: 'montaje-salones-madrid', titulo: 'Salones', desde: '45 €', foto: './images/mueble-tv.webp', alt: 'Mueble de televisión en un salón', clase: '' },
-    { path: 'montaje-mesas-escritorios-madrid', titulo: 'Mesas y escritorios', desde: '35 €', foto: './images/escritorio.webp', alt: 'Escritorio de trabajo', clase: '' },
-    { path: 'montaje-muebles-bano-madrid', titulo: 'Baños', desde: '45 €', foto: './images/muebles-bano.webp', alt: 'Mueble de baño con cajones', clase: '' },
+    { path: 'montaje-cocinas-madrid', titulo: 'Cocinas', desde: eur(1), foto: './images/cocina-isla.webp', alt: 'Cocina con isla central', clase: 'grande' },
+    { path: 'montaje-armarios-madrid', titulo: 'Armarios y vestidores', desde: eur(5), foto: './images/armario-correderas.webp', alt: 'Armario de puertas correderas', clase: '' },
+    { path: 'montaje-dormitorios-madrid', titulo: 'Dormitorios', desde: eur(8), foto: './images/cama.webp', alt: 'Cama con estructura en un dormitorio', clase: '' },
+    { path: 'montaje-salones-madrid', titulo: 'Salones', desde: eur(11), foto: './images/mueble-tv.webp', alt: 'Mueble de televisión en un salón', clase: '' },
+    { path: 'montaje-mesas-escritorios-madrid', titulo: 'Mesas y escritorios', desde: eur(13), foto: './images/escritorio.webp', alt: 'Escritorio de trabajo', clase: '' },
+    { path: 'montaje-muebles-bano-madrid', titulo: 'Baños', desde: eur(18), foto: './images/muebles-bano.webp', alt: 'Mueble de baño con cajones', clase: '' },
   ];
 
   readonly paginasZona = PAGINAS.filter((p) => p.tipo === 'zona');
@@ -120,7 +126,6 @@ export class InicioPage {
       this.destroyRef.onDestroy(() => clearInterval(id));
     };
 
-    girar(this.marca, this.marcaPrev, LOGOS_MARCAS.length, 2400);
     girar(this.pieza, this.piezaPrev, PIEZAS.length, 2900);
   }
 }

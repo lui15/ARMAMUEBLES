@@ -1,3 +1,4 @@
+<!-- Plantilla común de todas las páginas de contenido (landing-page.ts). -->
 <!-- ================= CABECERA DE LA PÁGINA ================= -->
 <section class="lp-hero">
   <div class="container lp-hero-grid">
@@ -26,19 +27,14 @@
         <button
           type="button"
           class="btn btn-primary btn-lg"
-          (click)="presupuesto.abrir(undefined, pagina.categoria)"
+          (click)="presupuesto.abrirCon(prefill)"
         >
-          Pedir presupuesto
+          Precio en 1 minuto
           <span class="arrow">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
           </span>
         </button>
-        <a
-          class="btn btn-ghost btn-lg"
-          [href]="'https://wa.me/' + whatsapp"
-          target="_blank"
-          rel="noopener"
-        >
+        <a class="btn btn-ghost btn-lg" appWhatsapp="landing">
           WhatsApp
         </a>
       </div>
@@ -47,6 +43,8 @@
     <figure class="lp-hero-foto rise" style="--i: 2">
       <img
         [src]="pagina.imagen"
+        [attr.srcset]="srcset(pagina.imagen)"
+        sizes="(max-width: 860px) calc(100vw - 40px), 45vw"
         [alt]="pagina.imagenAlt"
         width="1000"
         height="1000"
@@ -71,48 +69,28 @@
   </div>
 </section>
 
-<!-- ================= DESARROLLO ================= -->
-<section class="section" id="detalle">
-  <div class="container lp-detalle">
-    <div class="lp-detalle-titulo" appReveal>
-      <h2>{{ pagina.h2 }}</h2>
-    </div>
-    <div class="lp-detalle-texto">
-      @for (parrafo of pagina.parrafos; track parrafo) {
-        <p appReveal>{{ parrafo }}</p>
-      }
-      <ol class="lp-bloques">
-        @for (bloque of pagina.bloques; track bloque.titulo; let i = $index) {
-          <li appReveal [appRevealDelay]="i * 70">
-            <span aria-hidden="true">{{ i + 1 }}</span>
-            <div>
-              <h3>{{ bloque.titulo }}</h3>
-              <p>{{ bloque.texto }}</p>
-            </div>
-          </li>
-        }
-      </ol>
-    </div>
-  </div>
-</section>
-
 <!-- ================= SERVICIOS Y PRECIOS DE LA PÁGINA ================= -->
 @if (muestraTarjetas) {
   <section class="section section-alt" id="precios">
     <div class="container">
       <div class="section-heading" appReveal>
         <div>
-          <span class="kicker">Precios de partida</span>
-          <h2>Qué montamos y <em>desde cuánto</em></h2>
+          <span class="kicker">Precios con IVA incluido</span>
+          <h2>Cuánto <em>cuesta</em></h2>
         </div>
-        <p>El precio definitivo se confirma tras revisar las características y dimensiones.</p>
+        <p>{{ notaPrecios }}</p>
       </div>
       <ul class="lp-tarjetas">
         @for (s of servicios; track s.id) {
           <li><app-tarjeta-servicio [servicio]="s" /></li>
         }
       </ul>
-      <p class="lp-ver-todo"><a class="link-flecha" routerLink="/precios">Ver todos los precios</a></p>
+      <p class="lp-ver-todo">
+        <a class="link-flecha" routerLink="/precios">Ver todos los precios</a>
+        @if (guia) {
+          <a class="link-flecha" [routerLink]="'/' + guia.path">{{ guia.etiqueta }}</a>
+        }
+      </p>
     </div>
   </section>
 }
@@ -134,50 +112,10 @@
     </section>
   }
   @case ('precios') {
-    <section class="section section-alt" id="tabla">
-      <div class="container">
-        @for (grupo of gruposPrecios; track grupo.categoria) {
-          <div class="precios-grupo" appReveal>
-            <div class="precios-cabecera">
-              <app-icono-mueble [id]="iconoCategoria[grupo.categoria]" />
-              <h2>{{ grupo.categoria }}</h2>
-            </div>
-            <ul class="precios-rejilla">
-              @for (s of grupo.servicios; track s.id) {
-                <li class="precio-fila">
-                  <div class="precio-foto">
-                    <img
-                      [src]="s.foto"
-                      [alt]="'Montaje: ' + s.nombre"
-                      width="640"
-                      height="480"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <app-icono-mueble [id]="s.id" />
-                  </div>
-                  <div class="precio-cuerpo">
-                    <h3>{{ s.nombre }}</h3>
-                    <p>{{ s.descripcion }}</p>
-                    <div class="precio-pie">
-                      <span class="precio-valor"><small>Desde</small> {{ precio(s.precioDesde) }}</span>
-                      <button
-                        type="button"
-                        class="btn btn-ink btn-sm"
-                        [attr.aria-label]="'Pedir presupuesto: ' + s.nombre"
-                        (click)="presupuesto.abrir(s)"
-                      >
-                        Pedir
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              }
-            </ul>
-          </div>
-        }
-      </div>
-    </section>
+    <app-modulo-precios />
+  }
+  @case ('opiniones') {
+    <app-opiniones formato="todas" />
   }
   @case ('zonas') {
     <section class="section section-alt" id="municipios">
@@ -217,9 +155,56 @@
   }
 }
 
-<app-proceso-pasos />
+@defer (hydrate on viewport) {
+  <app-proceso-pasos />
+}
 
-<app-faq-lista [titulo]="'Dudas sobre ' + pagina.etiqueta.toLowerCase()" [faqs]="pagina.faqs" />
+@if (pagina.modulo !== 'opiniones') {
+  @defer (hydrate on viewport) {
+    <app-opiniones [path]="pagina.path" />
+  }
+}
+
+<!-- ================= DESARROLLO ================= -->
+<section class="section" id="detalle">
+  <div class="container lp-detalle">
+    <div class="lp-detalle-titulo" appReveal>
+      <h2>{{ pagina.h2 }}</h2>
+    </div>
+    <div class="lp-detalle-texto">
+      @for (parrafo of pagina.parrafos; track parrafo) {
+        <p appReveal>{{ parrafo }}</p>
+      }
+      <ol class="lp-bloques">
+        @for (bloque of pagina.bloques; track bloque.titulo; let i = $index) {
+          <li appReveal [appRevealDelay]="i * 70">
+            <span aria-hidden="true">{{ i + 1 }}</span>
+            <div>
+              <h3>{{ bloque.titulo }}</h3>
+              <p>{{ bloque.texto }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+@if (pagina.path === 'como-trabajamos') {
+  <!-- ================= VENTA CRUZADA ================= -->
+  <section class="section-tight" aria-label="Otros servicios de confianza">
+    <div class="container">
+      <div class="lp-cruzada">
+        <p>¿Te mudas? <a href="https://mudanzas360.es" target="_blank" rel="noopener">Mudanzas360</a></p>
+        <p>¿Vas a reformar? <a href="https://obralocalmadrid.es" target="_blank" rel="noopener">ObraLocal Madrid</a></p>
+      </div>
+    </div>
+  </section>
+}
+
+@defer (hydrate on viewport) {
+  <app-faq-lista [titulo]="'Dudas sobre ' + pagina.etiqueta.toLowerCase()" [faqs]="pagina.faqs" />
+}
 
 <!-- ================= ENLAZADO INTERNO ================= -->
 <section class="section-tight" aria-label="Páginas relacionadas">
@@ -233,4 +218,6 @@
   </div>
 </section>
 
-<app-cta-final [categoria]="pagina.categoria" />
+@defer (hydrate on viewport) {
+  <app-cta-final [prefill]="prefill" />
+}

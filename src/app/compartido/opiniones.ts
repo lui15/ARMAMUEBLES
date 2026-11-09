@@ -10,6 +10,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { REDUCIR_MOVIMIENTO } from './animaciones';
@@ -63,13 +64,13 @@ export class Estrellas {
 /**
  * Opiniones de clientes. Tres formatos:
  * - "pagina": las de una página (o dos generales si no tiene propias).
- * - "carrusel": todas, en un carrusel táctil con scroll-snap (portada).
+ * - "carrusel": todas, pasando solas en movimiento continuo, como un anuncio (portada).
  * - "todas": todas con filtro (/opiniones).
  */
 @Component({
   selector: 'app-opiniones',
   standalone: true,
-  imports: [Estrellas, RouterLink],
+  imports: [Estrellas, RouterLink, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './opiniones.html',
   styleUrl: './opiniones.css',
@@ -85,87 +86,61 @@ export class Opiniones {
   readonly filtros = FILTROS_OPINIONES;
   readonly filtro = signal<FiltroOpinion | null>(null);
 
-  /* ---------- Carrusel automático ---------- */
+  /* ---------- Carrusel en movimiento continuo, como un anuncio ---------- */
 
-  /** Cada cuánto pasa a la siguiente opinión. */
-  private static readonly INTERVALO_MS = 5000;
-  /** Tras tocar o deslizar con el dedo, cuánto espera antes de seguir solo. */
-  private static readonly ESPERA_TRAS_TOQUE_MS = 8000;
+  /** Velocidad del desplazamiento, en píxeles por segundo. */
+  private static readonly VELOCIDAD = 40;
 
-  private readonly carrusel = viewChild<ElementRef<HTMLElement>>('carrusel');
-  /** Pausado por el visitante con el botón. */
-  readonly pausado = signal(REDUCIR_MOVIMIENTO);
-  /** Hay movimiento automático: se oculta el botón si el sistema pide reducir movimiento. */
-  readonly automatico = !REDUCIR_MOVIMIENTO;
-  private interaccion = false;
-  private visible = false;
-  private reanudar?: ReturnType<typeof setTimeout>;
+  private readonly ventana = viewChild<ElementRef<HTMLElement>>('ventana');
+  /**
+   * En el HTML prerenderizado (y con "reducir movimiento") el carrusel se desliza a mano.
+   * En el navegador se duplica la lista y pasa sola, sin fin.
+   */
+  readonly enMovimiento = signal(false);
+  /** Solo se mueve mientras se ve: fuera de pantalla no gasta batería. */
+  readonly visible = signal(false);
+  /** Duración de una vuelta, calculada para que la velocidad sea la misma en cualquier pantalla. */
+  readonly duracion = signal(60);
+  /** Distancia de una vuelta: lo que ocupan las opiniones originales, en píxeles. */
+  readonly vuelta = signal(0);
 
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      const lista = this.carrusel()?.nativeElement;
-      if (this.formato() !== 'carrusel' || !lista || REDUCIR_MOVIMIENTO) return;
+      const ventana = this.ventana()?.nativeElement;
+      if (this.formato() !== 'carrusel' || !ventana || REDUCIR_MOVIMIENTO) return;
 
-      // Solo avanza mientras se ve en pantalla.
+      this.enMovimiento.set(true);
+
       if (typeof IntersectionObserver !== 'undefined') {
-        const io = new IntersectionObserver(([e]) => (this.visible = e.isIntersecting), { threshold: 0.4 });
-        io.observe(lista);
+        const io = new IntersectionObserver(([e]) => this.visible.set(e.isIntersecting));
+        io.observe(ventana);
         destroyRef.onDestroy(() => io.disconnect());
       } else {
-        this.visible = true;
+        this.visible.set(true);
       }
 
-      // Se detiene mientras el visitante lo usa: ratón encima, foco o dedo.
-      const parar = () => {
-        this.interaccion = true;
-        clearTimeout(this.reanudar);
+      // Una vuelta es lo que ocupan las opiniones originales: al llegar ahí, la copia está
+      // exactamente donde empezó la original y el salto no se nota. Se recalcula si cambia el ancho.
+      const medir = () => {
+        const originales = [...ventana.querySelectorAll<HTMLElement>('.op-cinta > li')].slice(
+          0,
+          this.lista().length,
+        );
+        const distancia = originales.reduce(
+          (total, li) => total + li.getBoundingClientRect().width + parseFloat(getComputedStyle(li).marginRight),
+          0,
+        );
+        if (distancia > 0) {
+          this.vuelta.set(Math.round(distancia));
+          this.duracion.set(Math.max(20, distancia / Opiniones.VELOCIDAD));
+        }
       };
-      const seguir = (espera = 0) => {
-        clearTimeout(this.reanudar);
-        this.reanudar = setTimeout(() => (this.interaccion = false), espera);
-      };
-      const alSalirRaton = () => seguir();
-      const alSoltar = () => seguir(Opiniones.ESPERA_TRAS_TOQUE_MS);
-      const alSalirFoco = (e: FocusEvent) => {
-        if (!lista.contains(e.relatedTarget as Node)) seguir();
-      };
-      lista.addEventListener('pointerenter', parar);
-      lista.addEventListener('pointerleave', alSalirRaton);
-      lista.addEventListener('touchstart', parar, { passive: true });
-      lista.addEventListener('touchend', alSoltar, { passive: true });
-      lista.addEventListener('focusin', parar);
-      lista.addEventListener('focusout', alSalirFoco);
-
-      const id = setInterval(() => {
-        if (this.pausado() || this.interaccion || !this.visible || document.hidden) return;
-        this.avanzar(lista);
-      }, Opiniones.INTERVALO_MS);
-
-      destroyRef.onDestroy(() => {
-        clearInterval(id);
-        clearTimeout(this.reanudar);
-        lista.removeEventListener('pointerenter', parar);
-        lista.removeEventListener('pointerleave', alSalirRaton);
-        lista.removeEventListener('touchstart', parar);
-        lista.removeEventListener('touchend', alSoltar);
-        lista.removeEventListener('focusin', parar);
-        lista.removeEventListener('focusout', alSalirFoco);
-      });
+      setTimeout(medir, 0);
+      const ventanaGlobal = ventana.ownerDocument.defaultView;
+      ventanaGlobal?.addEventListener('resize', medir, { passive: true });
+      destroyRef.onDestroy(() => ventanaGlobal?.removeEventListener('resize', medir));
     });
-  }
-
-  /** Pasa a la siguiente tarjeta; al llegar al final, vuelve a la primera. */
-  private avanzar(lista: HTMLElement): void {
-    const tarjeta = lista.querySelector('li');
-    if (!tarjeta) return;
-    const paso = tarjeta.getBoundingClientRect().width + parseFloat(getComputedStyle(lista).columnGap || '0');
-    const alFinal = lista.scrollLeft + lista.clientWidth >= lista.scrollWidth - 4;
-    lista.scrollTo({ left: alFinal ? 0 : lista.scrollLeft + paso, behavior: 'smooth' });
-  }
-
-  alternarPausa(): void {
-    this.pausado.update((v) => !v);
   }
 
   readonly lista = computed<Opinion[]>(() => {

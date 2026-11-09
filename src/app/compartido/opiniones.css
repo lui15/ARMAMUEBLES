@@ -64,20 +64,51 @@
   padding: 0;
   list-style: none;
 }
-.op-carrusel {
-  display: flex;
-  gap: 14px;
-  margin-inline: calc(var(--gutter) * -1);
-  padding: 4px var(--gutter) 12px;
+/* Carrusel. Sin JavaScript o con "reducir movimiento" se desliza a mano;
+   en el navegador pasa solo, sin fin, como un anuncio. */
+.op-ventana {
+  margin: 28px calc(var(--gutter) * -1) 0;
+  padding: 4px 0 12px var(--gutter);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-padding-inline: var(--gutter);
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
 }
-.op-carrusel li {
-  flex: 0 0 min(84%, 22rem);
+.op-cinta {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.op-cinta li {
+  flex: 0 0 min(80vw, 22rem);
+  /* Margen (no gap) para que las dos mitades midan exactamente lo mismo. */
+  margin-right: 14px;
   scroll-snap-align: start;
+}
+.op-en-movimiento {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+.op-en-movimiento .op-cinta {
+  animation: op-pasar var(--duracion, 60s) linear infinite;
+  will-change: transform;
+}
+/* Fuera de pantalla se detiene; con ratón (no en táctil), al pasar por encima para leer. */
+.op-en-movimiento:not(.op-visible) .op-cinta {
+  animation-play-state: paused;
+}
+@media (hover: hover) {
+  .op-en-movimiento:hover .op-cinta {
+    animation-play-state: paused;
+  }
+}
+@keyframes op-pasar {
+  to {
+    transform: translateX(calc(var(--vuelta, 0px) * -1));
+  }
 }
 .op-tarjeta {
   display: flex;
@@ -128,34 +159,8 @@
   align-items: center;
   gap: 10px 18px;
 }
-.op-pausa {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 16px;
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--ink);
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-.op-pausa svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-}
 .op-enlaces .link-flecha {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .op-carrusel {
-    scroll-behavior: smooth;
-  }
 }

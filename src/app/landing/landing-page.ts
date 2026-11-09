@@ -28,7 +28,10 @@ import {
   urlDePagina,
 } from './landing-data';
 
-/** Plantilla de todas las URL de contenido. Cada una se define con un objeto de datos. */
+/**
+ * Plantilla de todas las URL de contenido. Cada una se define con un objeto de datos.
+ * Expone a la plantilla: prefill (formulario ya rellenado), guia, notaPrecios y srcset.
+ */
 @Component({
   selector: 'app-landing',
   standalone: true,

@@ -5,7 +5,7 @@ import type { Prefill } from '../presupuesto/tipos-mueble';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
 
-/* Bloques reutilizables. Sus estilos están en src/styles.css. */
+/* Bloques reutilizables (pasos, preguntas y llamada final). Sus estilos están en src/styles.css. */
 
 @Component({
   selector: 'app-proceso-pasos',

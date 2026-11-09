@@ -28,46 +28,54 @@
       </div>
     }
 
-    <ul
-      #carrusel
-      class="op-lista"
-      [class.op-carrusel]="formato() === 'carrusel'"
-      role="list"
-      [attr.aria-live]="formato() === 'carrusel' && !pausado() ? 'off' : null"
-    >
-      @for (o of lista(); track o.nombre) {
-        <li>
-          <figure class="op-tarjeta">
-            <app-estrellas [valor]="o.estrellas" />
-            <blockquote>
-              <p>«{{ o.texto }}»</p>
-            </blockquote>
-            <figcaption>
-              <strong>{{ nombre(o.nombre) }}</strong>
-              <span>{{ o.servicio }}</span>
-              @if (o.fecha) {
-                <time>{{ o.fecha }}</time>
-              }
-            </figcaption>
-          </figure>
-        </li>
-      }
-    </ul>
+    <ng-template #tarjeta let-o>
+      <figure class="op-tarjeta">
+        <app-estrellas [valor]="o.estrellas" />
+        <blockquote>
+          <p>«{{ o.texto }}»</p>
+        </blockquote>
+        <figcaption>
+          <strong>{{ nombre(o.nombre) }}</strong>
+          <span>{{ o.servicio }}</span>
+          @if (o.fecha) {
+            <time>{{ o.fecha }}</time>
+          }
+        </figcaption>
+      </figure>
+    </ng-template>
+
+    @if (formato() === 'carrusel') {
+      <!-- Pasa sola sin fin: la segunda vuelta es una copia oculta a los lectores de pantalla. -->
+      <div
+        #ventana
+        class="op-ventana"
+        [class.op-en-movimiento]="enMovimiento()"
+        [class.op-visible]="visible()"
+      >
+        <ul class="op-cinta" role="list" [style.--duracion.s]="duracion()" [style.--vuelta.px]="vuelta()">
+          @for (o of lista(); track o.nombre) {
+            <li><ng-container *ngTemplateOutlet="tarjeta; context: { $implicit: o }" /></li>
+          }
+          @if (enMovimiento()) {
+            @for (o of lista(); track o.nombre) {
+              <li aria-hidden="true" inert>
+                <ng-container *ngTemplateOutlet="tarjeta; context: { $implicit: o }" />
+              </li>
+            }
+          }
+        </ul>
+      </div>
+    } @else {
+      <ul class="op-lista" role="list">
+        @for (o of lista(); track o.nombre) {
+          <li><ng-container *ngTemplateOutlet="tarjeta; context: { $implicit: o }" /></li>
+        }
+      </ul>
+    }
 
     <div class="op-pie">
       <p class="op-nota">{{ nota }}</p>
       <div class="op-enlaces">
-        @if (formato() === 'carrusel' && automatico) {
-          <button type="button" class="op-pausa" (click)="alternarPausa()" [attr.aria-pressed]="pausado()">
-            @if (pausado()) {
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-              Seguir pasando
-            } @else {
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z" /></svg>
-              Pausar opiniones
-            }
-          </button>
-        }
         @if (formato() !== 'todas') {
           <a class="link-flecha" routerLink="/opiniones">Ver todas las opiniones</a>
         }

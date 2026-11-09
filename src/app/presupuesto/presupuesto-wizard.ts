@@ -146,6 +146,7 @@ export function normalizarTelefono(texto: string): string | null {
   return `+34 ${cifras.slice(0, 3)} ${cifras.slice(3, 5)} ${cifras.slice(5, 7)} ${cifras.slice(7)}`;
 }
 
+/** Formulario de presupuesto en cuatro pasos. Usa IconoMueble y WhatsappLink en su plantilla. */
 @Component({
   selector: 'app-presupuesto-wizard',
   standalone: true,

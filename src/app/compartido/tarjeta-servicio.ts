@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core
 
 import { Servicio, formatearPrecio } from '../datos/catalogo';
 import { IconoMueble } from './icono-mueble';
+import { srcsetDe } from './imagenes';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 
 @Component({
@@ -14,6 +15,8 @@ import { PresupuestoService } from '../presupuesto/presupuesto.service';
       <div class="tarjeta-foto">
         <img
           [src]="servicio().foto"
+          [attr.srcset]="srcset(servicio().foto)"
+          sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 1080px) 45vw, 30vw"
           [alt]="'Montaje: ' + servicio().nombre"
           width="640"
           height="480"
@@ -173,4 +176,5 @@ export class TarjetaServicio {
   readonly servicio = input.required<Servicio>();
   readonly presupuesto = inject(PresupuestoService);
   readonly precio = formatearPrecio;
+  readonly srcset = srcsetDe;
 }

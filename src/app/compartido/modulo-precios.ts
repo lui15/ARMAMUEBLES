@@ -9,6 +9,7 @@ import {
 } from '../datos/precios-extra';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { IconoMueble } from './icono-mueble';
+import { fotoPequena } from './imagenes';
 
 /** Quita tildes y mayúsculas para buscar "comoda" y encontrar "Cómoda". */
 const normalizar = (texto: string): string =>
@@ -68,6 +69,7 @@ function crearEjemplos(): { titulo: string; partes: string; total: number }[] {
 export class ModuloPrecios {
   readonly presupuesto = inject(PresupuestoService);
   readonly precio = formatearPrecio;
+  readonly pequena = fotoPequena;
   readonly extras = PRECIOS_EXTRA;
   readonly factores = FACTORES_PRECIO;
   readonly nota = NOTA_PRECIOS;

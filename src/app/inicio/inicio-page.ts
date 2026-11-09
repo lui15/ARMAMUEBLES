@@ -14,6 +14,8 @@ import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
 import { IconoMueble } from '../compartido/icono-mueble';
 import { Opiniones } from '../compartido/opiniones';
+import { srcsetDe } from '../compartido/imagenes';
+import { WhatsappLink } from '../compartido/enlaces-contacto';
 import {
   ELECTRODOMESTICOS,
   ID_SOLO_ELECTRO,
@@ -52,6 +54,7 @@ const PIEZAS = [
     IconoMueble,
     KitchenScene,
     Opiniones,
+    WhatsappLink,
     CatalogoServicios,
     ProcesoPasos,
     FaqLista,
@@ -66,16 +69,14 @@ export class InicioPage {
   readonly presupuesto = inject(PresupuestoService);
 
   readonly pagina = buscarPagina('');
-  readonly logos = LOGOS_MARCAS;
   readonly minimo = eurMinimo();
+  readonly srcset = srcsetDe;
   readonly cifras = {
     servicios: SERVICIOS.length,
     tiendas: MARCAS.length,
     municipios: ZONAS.filter((z) => z !== 'Madrid capital' && z !== 'Otra zona de Madrid').length,
     desde: Math.min(...SERVICIOS.map((s) => s.precioDesde)),
   };
-  readonly marca = signal(0);
-  readonly marcaPrev = signal(-1);
   readonly piezas = PIEZAS;
   readonly pieza = signal(0);
   readonly piezaPrev = signal(-1);
@@ -125,7 +126,6 @@ export class InicioPage {
       this.destroyRef.onDestroy(() => clearInterval(id));
     };
 
-    girar(this.marca, this.marcaPrev, LOGOS_MARCAS.length, 2400);
     girar(this.pieza, this.piezaPrev, PIEZAS.length, 2900);
   }
 }

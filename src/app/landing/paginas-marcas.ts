@@ -8,9 +8,9 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-cocina-ikea',
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
-    title: 'Montadores de Muebles IKEA en Madrid | ArmaMuebles',
+    title: `Montaje de muebles IKEA en Madrid desde ${eur(8)} | ArmaMuebles`,
     description:
-      `Montadores de muebles IKEA en Madrid: armarios, cocinas, camas, cómodas y estanterías montados en tu casa. Montajes desde ${eurMinimo()}. Pide tu presupuesto.`,
+      `Montadores de muebles IKEA en Madrid: mesitas desde ${eur(8)}, armarios PAX desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montaje de muebles IKEA',
     h1: { antes: 'Montadores de', resaltado: 'muebles IKEA', despues: 'en Madrid' },
     kicker: 'Muebles IKEA',
@@ -76,9 +76,9 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
     path: 'montaje-muebles-leroy-merlin',
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
-    title: 'Montar Muebles de Leroy Merlin en Madrid | ArmaMuebles',
+    title: `Montaje de muebles Leroy Merlin en Madrid desde ${eur(15)}`,
     description:
-      'Montaje de muebles y cocinas de Leroy Merlin en Madrid: armarios, cocinas con electrodomésticos, baño y más. Servicio a domicilio. Pide tu presupuesto.',
+      `Montamos muebles de Leroy Merlin en Madrid: estanterías desde ${eur(15)}, armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montaje de muebles Leroy Merlin',
     h1: { antes: 'Montaje de', resaltado: 'muebles de Leroy Merlin', despues: 'en Madrid' },
     kicker: 'Muebles Leroy Merlin',

@@ -8,9 +8,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-cocina-ikea',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Cocinas en Madrid a Domicilio | ArmaMuebles',
+    title: `Montaje de cocinas en Madrid desde ${eur(1)} | ArmaMuebles`,
     description:
-      `Montaje de cocinas en Madrid con electrodomésticos incluidos: pequeñas, medianas, grandes y con isla desde ${eur(1)}. Pide tu presupuesto sin compromiso.`,
+      `Montaje de cocinas en Madrid desde ${eur(1)}, con los electrodomésticos colocados: pequeñas, medianas, grandes y con isla. Precio cerrado antes de ir.`,
     etiqueta: 'Montaje de cocinas',
     h1: { antes: 'Montaje de', resaltado: 'cocinas en Madrid', despues: 'a domicilio' },
     kicker: 'Montaje de cocinas',
@@ -75,7 +75,13 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Cocina con isla central montada y nivelada',
     ids: [1, 2, 3, 4],
     categoria: 'Cocinas',
-    relacionadas: ['colocacion-electrodomesticos-madrid', 'montaje-muebles-ikea-madrid', 'precios'],
+    relacionadas: [
+      'colocacion-electrodomesticos-madrid',
+      'montaje-armarios-madrid',
+      'montaje-muebles-bano-madrid',
+      'precios',
+      'cuanto-cuesta-montar-cocina-ikea',
+    ],
   },
 
   /* ---------------------------- ARMARIOS ---------------------------- */
@@ -84,9 +90,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-armario-pax',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Armarios en Madrid a Domicilio | ArmaMuebles',
+    title: `Montaje de armarios en Madrid desde ${eur(5)} | ArmaMuebles`,
     description:
-      `Montaje de armarios en Madrid: puertas abatibles desde ${eur(5)}, correderas desde ${eur(6)} y vestidores desde ${eur(7)}. A domicilio. Presupuesto sin compromiso.`,
+      `Montaje de armarios en Madrid desde ${eur(5)}: abatibles, correderas y vestidores, nivelados y fijados a la pared. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montaje de armarios',
     h1: { antes: 'Montaje de', resaltado: 'armarios en Madrid', despues: 'a domicilio' },
     kicker: 'Montaje de armarios',
@@ -151,7 +157,13 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Armario de puertas correderas montado en un dormitorio',
     ids: [5, 6, 7],
     categoria: 'Armarios',
-    relacionadas: ['montaje-armarios-pax', 'montaje-dormitorios-madrid', 'precios'],
+    relacionadas: [
+      'montaje-armarios-pax',
+      'montaje-dormitorios-madrid',
+      'montaje-estanterias-madrid',
+      'precios',
+      'cuanto-cuesta-montar-armario-pax',
+    ],
   },
 
   /* ---------------------------- PAX ---------------------------- */
@@ -160,9 +172,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-armario-pax',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montar Armario PAX de IKEA en Madrid | ArmaMuebles',
+    title: `Montaje de armarios PAX en Madrid desde ${eur(5)} | ArmaMuebles`,
     description:
-      'Montaje de armarios IKEA PAX en Madrid: puertas abatibles o correderas, baldas, barras y ajuste final. Servicio a domicilio. Pide tu presupuesto hoy.',
+      `Montamos tu armario PAX de IKEA en Madrid desde ${eur(5)}, con puertas abatibles o correderas y bien fijado a la pared. Precio cerrado antes de ir.`,
     etiqueta: 'Montaje de armarios PAX',
     h1: { antes: 'Montaje de', resaltado: 'armarios PAX de IKEA', despues: 'en Madrid' },
     kicker: 'Armarios PAX',
@@ -227,7 +239,13 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Armario modular de puertas abatibles montado',
     ids: [5, 6, 7],
     categoria: 'Armarios',
-    relacionadas: ['montaje-armarios-madrid', 'montaje-muebles-ikea-madrid', 'montaje-dormitorios-madrid'],
+    relacionadas: [
+      'montaje-armarios-madrid',
+      'montaje-dormitorios-madrid',
+      'montaje-estanterias-madrid',
+      'precios',
+      'cuanto-cuesta-montar-armario-pax',
+    ],
   },
 
   /* ---------------------------- DORMITORIOS ---------------------------- */
@@ -235,9 +253,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-dormitorios-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Dormitorios en Madrid a Domicilio | ArmaMuebles',
+    title: `Montaje de dormitorios en Madrid desde ${eur(8)} | ArmaMuebles`,
     description:
-      `Montaje de dormitorios en Madrid: camas desde ${eur(9)}, cómodas desde ${eur(10)} y mesitas de noche desde ${eur(8)}. Servicio a domicilio. Presupuesto sin compromiso.`,
+      `Montaje de dormitorios en Madrid: mesitas desde ${eur(8)}, camas desde ${eur(9)} y cómodas desde ${eur(10)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje de dormitorios',
     h1: { antes: 'Montaje de', resaltado: 'dormitorios en Madrid', despues: 'a domicilio' },
     kicker: 'Dormitorio',
@@ -302,7 +320,12 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Cama con estructura montada en un dormitorio',
     ids: [8, 9, 10],
     categoria: 'Dormitorio',
-    relacionadas: ['montaje-armarios-madrid', 'montaje-armarios-pax', 'montaje-salones-madrid'],
+    relacionadas: [
+      'montaje-armarios-madrid',
+      'montaje-salones-madrid',
+      'montaje-mesas-escritorios-madrid',
+      'precios',
+    ],
   },
 
   /* ---------------------------- SALONES ---------------------------- */
@@ -310,9 +333,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-salones-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Muebles de Salón en Madrid | ArmaMuebles',
+    title: `Montaje de muebles de salón en Madrid desde ${eur(11)}`,
     description:
-      `Montaje de muebles de salón en Madrid: muebles de TV desde ${eur(11)} y composiciones completas desde ${eur(12)}, nivelados y a domicilio. Pide tu presupuesto.`,
+      `Montaje de muebles de salón en Madrid: mueble de TV desde ${eur(11)} y salón completo desde ${eur(12)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje de muebles de salón',
     h1: { antes: 'Montaje de', resaltado: 'muebles de salón', despues: 'en Madrid' },
     kicker: 'Salón',
@@ -375,7 +398,12 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Mueble de televisión montado y nivelado en un salón',
     ids: [11, 12],
     categoria: 'Salón',
-    relacionadas: ['montaje-mesas-escritorios-madrid', 'montaje-estanterias-madrid', 'precios'],
+    relacionadas: [
+      'montaje-mesas-escritorios-madrid',
+      'montaje-estanterias-madrid',
+      'montaje-dormitorios-madrid',
+      'precios',
+    ],
   },
 
   /* ---------------------------- MESAS ---------------------------- */
@@ -383,9 +411,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-mesas-escritorios-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Mesas y Escritorios en Madrid | ArmaMuebles',
+    title: `Montaje de mesas y escritorios en Madrid desde ${eur(13)}`,
     description:
-      `Montaje de mesas de comedor y escritorios en Madrid desde ${eur(14)}: extensibles, auxiliares y de trabajo, estables y bien ajustados. Pide tu presupuesto.`,
+      `Montaje de mesas de comedor y escritorios en Madrid desde ${eur(13)}, nivelados y bien ajustados. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje de mesas y escritorios',
     h1: { antes: 'Montaje de', resaltado: 'mesas y escritorios', despues: 'en Madrid' },
     kicker: 'Mesas y escritorios',
@@ -448,7 +476,12 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Mesa de comedor montada',
     ids: [13, 14, 20],
     categoria: 'Mesas y auxiliares',
-    relacionadas: ['montaje-salones-madrid', 'montaje-estanterias-madrid', 'servicios'],
+    relacionadas: [
+      'montaje-salones-madrid',
+      'montaje-estanterias-madrid',
+      'montaje-dormitorios-madrid',
+      'precios',
+    ],
   },
 
   /* ---------------------------- ESTANTERÍAS ---------------------------- */
@@ -456,9 +489,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-estanterias-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Estanterías y Almacenaje en Madrid | ArmaMuebles',
+    title: `Montaje de estanterías en Madrid desde ${eur(15)} | ArmaMuebles`,
     description:
-      `Montaje de estanterías, zapateros y muebles auxiliares en Madrid desde ${eur(16)}, con fijación a pared si hace falta. A domicilio. Pide tu presupuesto hoy.`,
+      `Montaje de estanterías, zapateros y muebles auxiliares en Madrid desde ${eur(15)}, fijados a la pared cuando hace falta. Precio cerrado antes de ir.`,
     etiqueta: 'Montaje de estanterías y almacenaje',
     h1: { antes: 'Montaje de', resaltado: 'estanterías y almacenaje', despues: 'en Madrid' },
     kicker: 'Almacenamiento',
@@ -520,7 +553,12 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Mueble zapatero montado',
     ids: [15, 16, 17],
     categoria: 'Almacenamiento',
-    relacionadas: ['montaje-muebles-bano-madrid', 'montaje-mesas-escritorios-madrid', 'precios'],
+    relacionadas: [
+      'montaje-salones-madrid',
+      'montaje-muebles-bano-madrid',
+      'montaje-mesas-escritorios-madrid',
+      'precios',
+    ],
   },
 
   /* ---------------------------- BAÑO ---------------------------- */
@@ -528,9 +566,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-muebles-bano-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de Muebles de Baño en Madrid | ArmaMuebles',
+    title: `Montaje de muebles de baño en Madrid desde ${eur(18)}`,
     description:
-      `Montaje de muebles de baño en Madrid desde ${eur(18)}: muebles, cajoneras y auxiliares con los ajustes finales hechos. A domicilio. Pide tu presupuesto hoy.`,
+      `Montaje de muebles de baño en Madrid desde ${eur(18)}, nivelados y bien fijados a la pared. Te damos un precio cerrado antes de ir y sin compromiso.`,
     etiqueta: 'Montaje de muebles de baño',
     h1: { antes: 'Montaje de', resaltado: 'muebles de baño', despues: 'en Madrid' },
     kicker: 'Baño',
@@ -592,7 +630,12 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Mueble de baño montado con sus cajones',
     ids: [18],
     categoria: 'Almacenamiento',
-    relacionadas: ['montaje-estanterias-madrid', 'montaje-muebles-leroy-merlin', 'precios'],
+    relacionadas: [
+      'montaje-estanterias-madrid',
+      'montaje-cocinas-madrid',
+      'montaje-armarios-madrid',
+      'precios',
+    ],
   },
 
   /* ---------------------------- ELECTRODOMÉSTICOS ---------------------------- */
@@ -600,9 +643,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'colocacion-electrodomesticos-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Colocación de Electrodomésticos en Madrid | ArmaMuebles',
+    title: `Colocación de electrodomésticos en Madrid desde ${eur(19)}`,
     description:
-      `Colocación de electrodomésticos integrables o de libre instalación en Madrid desde ${eur(19)}, si ya tienes la cocina montada. Pide presupuesto ya.`,
+      `Colocación de electrodomésticos en Madrid desde ${eur(19)}: horno, placa, campana, lavavajillas y más. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Colocación de electrodomésticos',
     h1: { antes: 'Colocación de', resaltado: 'electrodomésticos', despues: 'en Madrid' },
     kicker: 'Solo electrodomésticos',
@@ -665,6 +708,11 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     imagenAlt: 'Electrodomésticos integrados en los muebles de una cocina',
     ids: [19],
     categoria: 'Cocinas',
-    relacionadas: ['montaje-cocinas-madrid', 'precios', 'preguntas-frecuentes'],
+    relacionadas: [
+      'montaje-cocinas-madrid',
+      'montaje-muebles-bano-madrid',
+      'montaje-salones-madrid',
+      'precios',
+    ],
   },
 ];

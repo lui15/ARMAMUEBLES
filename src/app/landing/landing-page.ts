@@ -5,6 +5,7 @@ import { RevealDirective } from '../compartido/animaciones';
 import { CtaFinal, FaqLista, ProcesoPasos } from '../compartido/bloques';
 import { CatalogoServicios } from '../compartido/catalogo-servicios';
 import { ModuloPrecios } from '../compartido/modulo-precios';
+import { srcsetDe } from '../compartido/imagenes';
 import { Opiniones } from '../compartido/opiniones';
 import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
@@ -57,6 +58,7 @@ export class LandingPage {
   readonly servicios = serviciosPorIds(this.pagina.ids ?? []);
   readonly guia = this.pagina.guia ? buscarPagina(this.pagina.guia) : null;
   readonly notaPrecios = NOTA_PRECIOS;
+  readonly srcset = srcsetDe;
   readonly relacionadas = this.pagina.relacionadas.map((path) => buscarPagina(path));
 
   /** Las páginas de catálogo y precios ya muestran todo el listado: no repiten tarjetas. */

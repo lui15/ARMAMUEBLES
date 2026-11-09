@@ -153,6 +153,9 @@
   transform: none;
 }
 .header-tel {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--ink);
   font-size: 0.9rem;
   font-weight: 700;

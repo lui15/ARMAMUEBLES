@@ -7,9 +7,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     path: 'montador-muebles-barajas',
     tipo: 'zona',
     padre: 'zonas',
-    title: 'Montador de Muebles en Barajas, Madrid | ArmaMuebles',
+    title: `Montador de muebles en Barajas (Madrid) desde ${eur(8)}`,
     description:
-      `Montador de muebles en Barajas (Madrid): cocinas, armarios, camas y estanterías montados en tu casa. Montajes desde ${eurMinimo()}. Pide presupuesto sin compromiso.`,
+      `Montador de muebles en Barajas (Madrid): mesitas desde ${eur(8)}, armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montador de muebles en Barajas',
     zona: 'Barajas',
     h1: { antes: 'Montador de', resaltado: 'muebles en Barajas', despues: '(Madrid)' },
@@ -73,9 +73,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     path: 'montador-muebles-san-blas',
     tipo: 'zona',
     padre: 'zonas',
-    title: 'Montador de Muebles en San Blas, Madrid | ArmaMuebles',
+    title: `Montador de muebles en San Blas (Madrid) desde ${eur(20)}`,
     description:
-      `Montador de muebles en San Blas-Canillejas (Madrid): cocinas, armarios, dormitorios y salones a domicilio. Desde ${eurMinimo()}. Pide presupuesto sin compromiso.`,
+      `Montador de muebles en San Blas-Canillejas (Madrid): armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montador de muebles en San Blas',
     zona: 'San Blas-Canillejas',
     h1: { antes: 'Montador de', resaltado: 'muebles en San Blas', despues: '(Madrid)' },

@@ -42,7 +42,7 @@
             @for (s of g.servicios; track s.id) {
               <tr>
                 <td class="mp-foto">
-                  <img [src]="s.foto" alt="" width="640" height="480" loading="lazy" decoding="async" />
+                  <img [src]="pequena(s.foto)" alt="" width="640" height="480" loading="lazy" decoding="async" />
                 </td>
                 <th scope="row" class="mp-nombre">{{ s.nombre }}</th>
                 <td class="mp-incluye">{{ s.resumen.join(' · ') }}</td>

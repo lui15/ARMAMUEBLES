@@ -32,6 +32,9 @@
   max-width: 19rem;
 }
 .pie-contacto a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: #fff;
   font-weight: 700;
   text-decoration: none;
@@ -55,7 +58,7 @@
 }
 .pie-columnas a {
   display: block;
-  padding: 6px 0;
+  padding: 12px 0;
   color: inherit;
   line-height: 1.4;
   text-decoration: none;
@@ -84,6 +87,9 @@
 }
 .legal-links a,
 .legal-links button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0;
   border: 0;
   background: none;

@@ -1,4 +1,4 @@
-import { serviciosPorIds } from '../datos/catalogo';
+import { ZONAS, serviciosPorIds } from '../datos/catalogo';
 import { NEGOCIO, SITE_URL } from '../seo.service';
 import { PAGINAS_GUIAS } from './paginas-guias';
 import { PAGINAS_HUB } from './paginas-hub';
@@ -86,15 +86,14 @@ export function crearJsonLd(p: PaginaSeo): object {
       image: SITE_URL + '/images/logo.png',
       logo: SITE_URL + '/images/icono-180.png',
       priceRange: '€€',
-      // TODO: añadir streetAddress y postalCode si el negocio publica una dirección física.
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Madrid',
-        addressRegion: 'Comunidad de Madrid',
-        addressCountry: 'ES',
-      },
+      // Negocio que se desplaza al domicilio del cliente: no se publica dirección,
+      // solo la zona de servicio (Madrid y los municipios de la web).
       areaServed: [
         { '@type': 'City', name: 'Madrid' },
+        ...ZONAS.filter((z) => z !== 'Madrid capital' && z !== 'Otra zona de Madrid').map((name) => ({
+          '@type': 'City',
+          name,
+        })),
         { '@type': 'AdministrativeArea', name: 'Comunidad de Madrid' },
       ],
     },

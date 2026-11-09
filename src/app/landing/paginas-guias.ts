@@ -79,7 +79,8 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     tipo: 'guia',
     padre: 'precios',
     title: `Cuánto cuesta montar una cocina IKEA en Madrid (${eur(1)})`,
-    description: `Montar una cocina IKEA en Madrid cuesta desde ${eur(1)} si es pequeña y desde ${eur(4)} con isla, con los electrodomésticos colocados. Qué incluye y qué no.`,
+    description:
+      `Montar una cocina IKEA en Madrid cuesta desde ${eur(1)} si es pequeña y desde ${eur(4)} con isla, con los electrodomésticos colocados. Qué incluye y qué no.`,
     etiqueta: 'Cuánto cuesta montar una cocina IKEA',
     h1: { antes: '¿Cuánto cuesta montar una', resaltado: 'cocina IKEA', despues: 'en Madrid?' },
     kicker: 'Guía de precios',

@@ -2,30 +2,15 @@
 <section class="hero" id="inicio">
   <div class="container hero-grid">
     <div class="hero-copia">
-      <span class="kicker rise" style="--i: 0">Montaje de cocinas y muebles · Madrid</span>
+      <span class="kicker rise" style="--i: 0">Montaje a domicilio · Madrid</span>
 
       <h1 class="rise" style="--i: 1">
-        Montamos tu <em>cocina completa</em>
-        <span class="h1-line">
-          de
-          <span class="slot slot-marca" aria-hidden="true">
-            @for (m of logos; track m.nombre; let i = $index) {
-              <span [class.on]="i === marca()" [class.out]="i === marcaPrev()">
-                @if (m.logo) {
-                  <img class="logo-marca" [src]="m.logo" alt="" [width]="m.ancho" [height]="m.alto" [style.--logo]="m.escala" />
-                } @else {
-                  <span class="marca-texto">{{ m.nombre }}</span>
-                }
-              </span>
-            }
-          </span>
-        </span>
-        <span class="sr-only">de IKEA, Leroy Merlin, Obramat, Conforama, Bricomart o Brico Depot</span>
-        <span class="h1-line">en Madrid</span>
+        Montaje de muebles en Madrid <em>desde {{ minimo }}</em>
       </h1>
+      <p class="hero-cerrado rise" style="--i: 2">Precio cerrado antes de ir.</p>
 
       <p class="hero-sub rise" style="--i: 2">
-        Y también montamos tu
+        Montamos tu
         <span class="slot slot-pieza" aria-hidden="true">
           @for (p of piezas; track p.nombre; let i = $index) {
             <span [class.on]="i === pieza()" [class.out]="i === piezaPrev()">
@@ -45,22 +30,25 @@
 
       <div class="hero-acciones rise" style="--i: 4">
         <button type="button" class="btn btn-primary btn-lg" (click)="presupuesto.abrir()">
-          Solicitar presupuesto
+          Precio en 1 minuto
           <span class="arrow">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
           </span>
         </button>
-        <a routerLink="/servicios" class="btn btn-ghost btn-lg">Ver servicios</a>
+        <a class="btn btn-ghost btn-lg" appWhatsapp="portada">WhatsApp</a>
       </div>
 
       <ul class="hero-ventajas rise" style="--i: 5">
-        <li>Montaje profesional</li>
-        <li>Atención personalizada</li>
-        <li>Servicio a domicilio</li>
+        <li>Llevamos las herramientas</li>
+        <li>Nos llevamos los cartones</li>
+        <li>Sin compromiso</li>
       </ul>
     </div>
 
-    <app-kitchen-scene class="rise" style="--i: 2" />
+    <!-- Prerenderizada (sin saltos); su JavaScript se activa al verse, para no retrasar el LCP. -->
+    @defer (hydrate on viewport) {
+      <app-kitchen-scene class="rise" style="--i: 2" />
+    }
   </div>
 </section>
 
@@ -81,11 +69,16 @@
     </div>
   </div>
   <span class="sr-only">IKEA, Leroy Merlin, Obramat, Conforama, Bricomart y Brico Depot</span>
-  <small class="cinta-nota">Marcas de sus propietarios. No estamos afiliados a ellas.</small>
+  <small class="cinta-nota">
+    Montamos muebles comprados en estas tiendas. Marcas de sus propietarios; no estamos afiliados a
+    ellas.
+  </small>
 </section>
 
 <!-- ================= OPINIONES ================= -->
-<app-opiniones formato="carrusel" path="" />
+@defer (hydrate on viewport) {
+  <app-opiniones formato="carrusel" path="" />
+}
 
 <!-- ================= PRECIO Y CONFIANZA ================= -->
 <section class="confianza" aria-label="Por qué elegirnos">
@@ -93,20 +86,20 @@
     <div class="confianza-precio" appReveal>
       <span>Nuestros montajes</span>
       <strong>Desde {{ minimo }}</strong>
-      <small>Presupuestos orientativos y atención personalizada</small>
+      <small>Precios con IVA incluido</small>
     </div>
     <ul class="confianza-puntos">
       <li appReveal [appRevealDelay]="80">
-        <strong>Vamos a tu casa</strong>
-        <span>Coordinamos día y hora contigo</span>
+        <strong>Precio cerrado antes de ir</strong>
+        <span>A partir de lo que nos cuentas o de una foto</span>
       </li>
       <li appReveal [appRevealDelay]="160">
-        <strong>Montaje sin prisas</strong>
-        <span>Nivelado, ajustado y revisado</span>
+        <strong>Llevamos las herramientas</strong>
+        <span>Nivelado y anclado a la pared cuando hace falta</span>
       </li>
       <li appReveal [appRevealDelay]="240">
-        <strong>Presupuesto sin compromiso</strong>
-        <span>Respuesta rápida</span>
+        <strong>Nos llevamos los cartones</strong>
+        <span>Y los plásticos, al terminar</span>
       </li>
     </ul>
   </div>
@@ -150,7 +143,7 @@
       @for (e of estancias; track e.path; let i = $index) {
         <li [class]="e.clase" appReveal [appRevealDelay]="i * 60">
           <a class="estancia" [routerLink]="'/' + e.path">
-            <img [src]="e.foto" [alt]="e.alt" width="800" height="1000" loading="lazy" decoding="async" />
+            <img [src]="e.foto" [attr.srcset]="srcset(e.foto)" sizes="(max-width: 860px) 50vw, 25vw" [alt]="e.alt" width="800" height="1000" loading="lazy" decoding="async" />
             <span class="estancia-texto">
               <strong>{{ e.titulo }}</strong>
               <small>Desde {{ e.desde }}</small>
@@ -209,6 +202,8 @@
       <div class="electro-foto">
         <img
           src="./images/cocina-grande.webp"
+          srcset="./images/cocina-grande-480.webp 480w, ./images/cocina-grande.webp 736w"
+          sizes="(max-width: 860px) calc(100vw - 40px), 40vw"
           alt="Cocina con electrodomésticos integrados"
           width="736"
           height="589"
@@ -245,7 +240,9 @@
   </div>
 </section>
 
-<app-proceso-pasos />
+@defer (hydrate on viewport) {
+  <app-proceso-pasos />
+}
 
 <!-- ================= ZONAS Y TIENDAS ================= -->
 <section class="section" id="zonas">
@@ -272,6 +269,10 @@
   </div>
 </section>
 
-<app-faq-lista titulo="Dudas antes de pedir presupuesto" [faqs]="pagina.faqs" />
+@defer (hydrate on viewport) {
+  <app-faq-lista titulo="Dudas antes de pedir presupuesto" [faqs]="pagina.faqs" />
+}
 
-<app-cta-final />
+@defer (hydrate on viewport) {
+  <app-cta-final />
+}

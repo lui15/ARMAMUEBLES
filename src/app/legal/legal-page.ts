@@ -54,6 +54,10 @@ const PAGINAS_LEGALES = {
 
         <h2>Propiedad intelectual</h2>
         <p>
+          Montamos muebles comprados en estas tiendas. Marcas de sus propietarios; no estamos
+          afiliados a ellas.
+        </p>
+        <p>
           Los textos, el diseño y el logotipo de ArmaMuebles pertenecen a su titular. Las marcas y
           logotipos de tiendas que aparecen pertenecen a sus respectivos propietarios y solo indican
           de qué tiendas montamos muebles: no implican afiliación ni patrocinio. No se permite
@@ -150,7 +154,8 @@ const PAGINAS_LEGALES = {
 
         <h2>Quién puede tratarlos</h2>
         <p>
-          No vendemos tus datos. Para que la web funcione, algunos proveedores los tratan por
+          No vendemos tus datos. Para prestar el servicio, los datos se comunican al montador que
+          realiza el trabajo. Además, para que la web funcione, algunos proveedores los tratan por
           cuenta nuestra:
         </p>
         <ul>

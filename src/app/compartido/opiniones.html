@@ -28,7 +28,13 @@
       </div>
     }
 
-    <ul class="op-lista" [class.op-carrusel]="formato() === 'carrusel'" role="list">
+    <ul
+      #carrusel
+      class="op-lista"
+      [class.op-carrusel]="formato() === 'carrusel'"
+      role="list"
+      [attr.aria-live]="formato() === 'carrusel' && !pausado() ? 'off' : null"
+    >
       @for (o of lista(); track o.nombre) {
         <li>
           <figure class="op-tarjeta">
@@ -51,6 +57,17 @@
     <div class="op-pie">
       <p class="op-nota">{{ nota }}</p>
       <div class="op-enlaces">
+        @if (formato() === 'carrusel' && automatico) {
+          <button type="button" class="op-pausa" (click)="alternarPausa()" [attr.aria-pressed]="pausado()">
+            @if (pausado()) {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+              Seguir pasando
+            } @else {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z" /></svg>
+              Pausar opiniones
+            }
+          </button>
+        }
         @if (formato() !== 'todas') {
           <a class="link-flecha" routerLink="/opiniones">Ver todas las opiniones</a>
         }

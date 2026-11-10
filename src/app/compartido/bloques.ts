@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
+import { ASI_TRABAJAMOS } from '../datos/asi-trabajamos';
 import { WhatsappLink } from './enlaces-contacto';
 import type { Prefill } from '../presupuesto/tipos-mueble';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
@@ -17,10 +18,10 @@ import { RevealDirective } from './animaciones';
       <div class="container">
         <div class="section-heading" appReveal>
           <div>
-            <span class="kicker">Así de fácil</span>
-            <h2>Cómo funciona, <em>en 3 pasos</em></h2>
+            <span class="kicker">Cómo trabajamos</span>
+            <h2>{{ asi.titulo }}</h2>
           </div>
-          <p>Pedir presupuesto es sin compromiso: no te obliga a contratar.</p>
+          <p>{{ asi.subtitulo }}</p>
         </div>
 
         <ol class="proceso-lista">
@@ -37,20 +38,8 @@ import { RevealDirective } from './animaciones';
   `,
 })
 export class ProcesoPasos {
-  readonly pasos = [
-    {
-      titulo: 'Nos cuentas o nos mandas una foto',
-      texto: 'Elige tus muebles en el formulario o mándanos una foto del mueble o del albarán por WhatsApp.',
-    },
-    {
-      titulo: 'Te damos un precio cerrado',
-      texto: 'Antes de ir, para que sepas exactamente lo que vas a pagar.',
-    },
-    {
-      titulo: 'Montamos y nos llevamos los cartones',
-      texto: 'Llevamos las herramientas, lo dejamos nivelado y anclado a la pared cuando el mueble lo requiere, y al terminar nos llevamos cartones y plásticos.',
-    },
-  ];
+  readonly asi = ASI_TRABAJAMOS;
+  readonly pasos = ASI_TRABAJAMOS.pasos;
 }
 
 @Component({

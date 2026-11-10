@@ -1,3 +1,4 @@
+import { ASI_TRABAJAMOS } from '../datos/asi-trabajamos';
 import { NOTA_OPINIONES, resumenOpiniones } from '../datos/opiniones';
 import { SERVICIO_MINIMO } from '../datos/precios-extra';
 import { eur, eurMinimo } from '../datos/catalogo';
@@ -355,11 +356,10 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     description:
       `Así montamos tus muebles en Madrid: nos cuentas o nos mandas una foto, te damos un precio cerrado y montamos llevándonos los cartones. Desde ${eurMinimo()}.`,
     etiqueta: 'Cómo trabajamos',
-    h1: { antes: 'Así funciona', resaltado: 'tu montaje', despues: 'con ArmaMuebles' },
+    h1: { antes: 'Así', resaltado: 'trabajamos', despues: 'contigo' },
     kicker: 'Cómo trabajamos',
-    h2: 'Un proceso claro, de la solicitud al último ajuste',
-    intro:
-      'Tú compras los muebles donde prefieras y nos cuentas qué necesitas. Nosotros revisamos los detalles, coordinamos contigo el día y dejamos todo montado, nivelado y listo para usar.',
+    h2: 'Qué pasa después de pedir presupuesto',
+    intro: `${ASI_TRABAJAMOS.subtitulo} Tú compras los muebles donde prefieras y nosotros los dejamos montados, nivelados y listos para usar.`,
     parrafos: [
       'Todo empieza con una solicitud de menos de un minuto: eliges el mueble, la cantidad y la zona, y añades los detalles que creas útiles. Con esos datos revisamos tu caso y te damos una propuesta personalizada por teléfono o WhatsApp.',
       'Si la propuesta te encaja, coordinamos contigo el día y la hora. Vamos a tu domicilio, montamos cada mueble, hacemos los ajustes finales y revisamos el resultado.',

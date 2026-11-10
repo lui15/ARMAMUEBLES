@@ -1,5 +1,5 @@
 import { eur, eurMinimo } from '../datos/catalogo';
-import { PRECIOS_TEXTO, PaginaSeo, TIENDAS_TEXTO } from './pagina-seo';
+import { meta, PaginaSeo, PRECIOS_TEXTO, TIENDAS_TEXTO } from './pagina-seo';
 
 export const PAGINAS_ZONAS: PaginaSeo[] = [
   /* ---------------------------- BARAJAS ---------------------------- */
@@ -8,8 +8,10 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     tipo: 'zona',
     padre: 'zonas',
     title: 'Montador de muebles en Barajas | ArmaMuebles',
-    description:
-      `Montador de muebles en Barajas (Madrid): mesitas desde ${eur(8)}, armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
+    description: meta(
+      ['Te atendemos solo nosotros', 'Presupuesto ajustado', 'Trato cercano'],
+      'Montador de muebles en Barajas: armarios, cocinas, camas y más.',
+    ),
     etiqueta: 'Montador de muebles en Barajas',
     zona: 'Barajas',
     h1: { antes: 'Montador de', resaltado: 'muebles en Barajas', despues: '(Madrid)' },
@@ -74,8 +76,10 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     tipo: 'zona',
     padre: 'zonas',
     title: 'Montador de muebles en San Blas | ArmaMuebles',
-    description:
-      `Montador de muebles en San Blas-Canillejas (Madrid): armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
+    description: meta(
+      ['Te atendemos solo nosotros', 'Llevamos herramientas', 'Trato cercano'],
+      'Montador de muebles en San Blas-Canillejas: armarios y cocinas.',
+    ),
     etiqueta: 'Montador de muebles en San Blas',
     zona: 'San Blas-Canillejas',
     h1: { antes: 'Montador de', resaltado: 'muebles en San Blas', despues: '(Madrid)' },

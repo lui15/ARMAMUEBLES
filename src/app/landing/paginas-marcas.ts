@@ -1,5 +1,5 @@
 import { eur, eurMinimo } from '../datos/catalogo';
-import { PRECIOS_TEXTO, PaginaSeo } from './pagina-seo';
+import { meta, PaginaSeo, PRECIOS_TEXTO } from './pagina-seo';
 
 export const PAGINAS_MARCAS: PaginaSeo[] = [
   /* ---------------------------- IKEA ---------------------------- */
@@ -9,8 +9,10 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
     title: 'Montaje de muebles IKEA en Madrid | ArmaMuebles',
-    description:
-      `Montadores de muebles IKEA en Madrid: mesitas desde ${eur(8)}, armarios PAX desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      'Montadores de muebles IKEA en Madrid: PAX, cocinas y camas.',
+    ),
     etiqueta: 'Montaje de muebles IKEA',
     h1: { antes: 'Montadores de', resaltado: 'muebles IKEA', despues: 'en Madrid' },
     kicker: 'Muebles IKEA',
@@ -77,8 +79,10 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
     title: 'Montaje de muebles Leroy Merlin en Madrid | ArmaMuebles',
-    description:
-      `Montamos muebles de Leroy Merlin en Madrid: estanterías desde ${eur(15)}, armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Te atendemos solo nosotros', 'Llevamos herramientas'],
+      'Montamos tus muebles de Leroy Merlin en tu casa de Madrid.',
+    ),
     etiqueta: 'Montaje de muebles Leroy Merlin',
     h1: { antes: 'Montaje de', resaltado: 'muebles de Leroy Merlin', despues: 'en Madrid' },
     kicker: 'Muebles Leroy Merlin',

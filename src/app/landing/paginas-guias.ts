@@ -1,6 +1,6 @@
-import { eur, servicioPorId } from '../datos/catalogo';
+import { eur, eurPlano, servicioPorId } from '../datos/catalogo';
 import { PRECIO_PAX_CORREDERAS, SERVICIO_MINIMO } from '../datos/precios-extra';
-import { PaginaSeo } from './pagina-seo';
+import { meta, PaginaSeo } from './pagina-seo';
 
 /** Guías de precio: responden a "cuánto cuesta" con las cifras de catalogo.ts. */
 export const PAGINAS_GUIAS: PaginaSeo[] = [
@@ -10,7 +10,10 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     tipo: 'guia',
     padre: 'precios',
     title: 'Cuánto cuesta montar un armario PAX en Madrid',
-    description: `Montar un armario PAX en Madrid cuesta desde ${eur(5)} con puertas abatibles y desde ${PRECIO_PAX_CORREDERAS} € con correderas. Qué revisar antes y qué errores evitar al montarlo.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Trato cercano'],
+      `PAX abatible desde ${eurPlano(5)} y con correderas desde 150 €. Qué revisar antes.`,
+    ),
     etiqueta: 'Cuánto cuesta montar un armario PAX',
     h1: { antes: '¿Cuánto cuesta montar un', resaltado: 'armario PAX', despues: 'en Madrid?' },
     kicker: 'Guía de precios',
@@ -79,8 +82,10 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     tipo: 'guia',
     padre: 'precios',
     title: 'Cuánto cuesta montar una cocina IKEA en Madrid',
-    description:
-      `Montar una cocina IKEA en Madrid cuesta desde ${eur(1)} si es pequeña y desde ${eur(4)} con isla, con los electrodomésticos colocados. Qué incluye y qué no.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      `Cocina IKEA pequeña desde ${eurPlano(1)} y con isla desde ${eurPlano(4)}.`,
+    ),
     etiqueta: 'Cuánto cuesta montar una cocina IKEA',
     h1: { antes: '¿Cuánto cuesta montar una', resaltado: 'cocina IKEA', despues: 'en Madrid?' },
     kicker: 'Guía de precios',

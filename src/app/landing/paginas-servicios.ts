@@ -1,5 +1,5 @@
 import { eur, eurMinimo } from '../datos/catalogo';
-import { PaginaSeo } from './pagina-seo';
+import { meta, PaginaSeo } from './pagina-seo';
 
 export const PAGINAS_SERVICIOS: PaginaSeo[] = [
   /* ---------------------------- COCINAS ---------------------------- */
@@ -9,8 +9,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de cocinas en Madrid | ArmaMuebles',
-    description:
-      `Montaje de cocinas en Madrid desde ${eur(1)}, con los electrodomésticos colocados: pequeñas, medianas, grandes y con isla. Precio cerrado antes de ir.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      'Tu cocina montada en Madrid con los electrodomésticos.',
+    ),
     etiqueta: 'Montaje de cocinas',
     h1: { antes: 'Montaje de', resaltado: 'cocinas en Madrid', despues: 'a domicilio' },
     kicker: 'Montaje de cocinas',
@@ -91,8 +93,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de armarios en Madrid | ArmaMuebles',
-    description:
-      `Montaje de armarios en Madrid desde ${eur(5)}: abatibles, correderas y vestidores, nivelados y fijados a la pared. Te damos un precio cerrado antes de ir.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Trato cercano'],
+      'Armarios abatibles, correderos y vestidores, nivelados y bien fijados.',
+    ),
     etiqueta: 'Montaje de armarios',
     h1: { antes: 'Montaje de', resaltado: 'armarios en Madrid', despues: 'a domicilio' },
     kicker: 'Montaje de armarios',
@@ -173,8 +177,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de armarios PAX de IKEA en Madrid',
-    description:
-      `Montamos tu armario PAX de IKEA en Madrid desde ${eur(5)}, con puertas abatibles o correderas y bien fijado a la pared. Precio cerrado antes de ir.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      'Tu PAX de IKEA montado en Madrid y bien fijado a la pared.',
+    ),
     etiqueta: 'Montaje de armarios PAX',
     h1: { antes: 'Montaje de', resaltado: 'armarios PAX de IKEA', despues: 'en Madrid' },
     kicker: 'Armarios PAX',
@@ -254,8 +260,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de dormitorios en Madrid | ArmaMuebles',
-    description:
-      `Montaje de dormitorios en Madrid: mesitas desde ${eur(8)}, camas desde ${eur(9)} y cómodas desde ${eur(10)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Nos llevamos los cartones', 'Trato cercano'],
+      'Camas, mesitas, cómodas y armarios de dormitorio montados en Madrid.',
+    ),
     etiqueta: 'Montaje de dormitorios',
     h1: { antes: 'Montaje de', resaltado: 'dormitorios en Madrid', despues: 'a domicilio' },
     kicker: 'Dormitorio',
@@ -334,8 +342,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de muebles de salón en Madrid | ArmaMuebles',
-    description:
-      `Montaje de muebles de salón en Madrid: mueble de TV desde ${eur(11)} y salón completo desde ${eur(12)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      'Muebles de TV y composiciones de salón montados en tu casa.',
+    ),
     etiqueta: 'Montaje de muebles de salón',
     h1: { antes: 'Montaje de', resaltado: 'muebles de salón', despues: 'en Madrid' },
     kicker: 'Salón',
@@ -412,8 +422,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de mesas y escritorios en Madrid | ArmaMuebles',
-    description:
-      `Montaje de mesas de comedor y escritorios en Madrid desde ${eur(13)}, nivelados y bien ajustados. Te damos un precio cerrado antes de ir, sin compromiso.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Trato cercano'],
+      'Mesas de comedor y escritorios montados, nivelados y bien ajustados.',
+    ),
     etiqueta: 'Montaje de mesas y escritorios',
     h1: { antes: 'Montaje de', resaltado: 'mesas y escritorios', despues: 'en Madrid' },
     kicker: 'Mesas y escritorios',
@@ -490,8 +502,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de estanterías en Madrid | ArmaMuebles',
-    description:
-      `Montaje de estanterías, zapateros y muebles auxiliares en Madrid desde ${eur(15)}, fijados a la pared cuando hace falta. Precio cerrado antes de ir.`,
+    description: meta(
+      ['Llevamos herramientas', 'Nos llevamos los cartones', 'Trato cercano'],
+      'Estanterías, zapateros y auxiliares, fijados si hace falta.',
+    ),
     etiqueta: 'Montaje de estanterías y almacenaje',
     h1: { antes: 'Montaje de', resaltado: 'estanterías y almacenaje', despues: 'en Madrid' },
     kicker: 'Almacenamiento',
@@ -567,8 +581,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Montaje de muebles de baño en Madrid | ArmaMuebles',
-    description:
-      `Montaje de muebles de baño en Madrid desde ${eur(18)}, nivelados y bien fijados a la pared. Te damos un precio cerrado antes de ir y sin compromiso.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Te atendemos solo nosotros'],
+      'Muebles de baño montados, nivelados y bien fijados.',
+    ),
     etiqueta: 'Montaje de muebles de baño',
     h1: { antes: 'Montaje de', resaltado: 'muebles de baño', despues: 'en Madrid' },
     kicker: 'Baño',
@@ -644,8 +660,10 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     tipo: 'servicio',
     padre: 'servicios',
     title: 'Colocación de electrodomésticos en Madrid | ArmaMuebles',
-    description:
-      `Colocación de electrodomésticos en Madrid desde ${eur(19)}: horno, placa, campana, lavavajillas y más. Te damos un precio cerrado antes de ir, sin compromiso.`,
+    description: meta(
+      ['Presupuesto ajustado', 'Te atendemos solo nosotros', 'Trato cercano'],
+      'Colocamos horno, placa, campana, lavavajillas y más en tu cocina.',
+    ),
     etiqueta: 'Colocación de electrodomésticos',
     h1: { antes: 'Colocación de', resaltado: 'electrodomésticos', despues: 'en Madrid' },
     kicker: 'Solo electrodomésticos',

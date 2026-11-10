@@ -7,7 +7,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     path: 'montador-muebles-barajas',
     tipo: 'zona',
     padre: 'zonas',
-    title: `Montador de muebles en Barajas (Madrid) desde ${eur(8)}`,
+    title: 'Montador de muebles en Barajas | ArmaMuebles',
     description:
       `Montador de muebles en Barajas (Madrid): mesitas desde ${eur(8)}, armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montador de muebles en Barajas',
@@ -73,7 +73,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     path: 'montador-muebles-san-blas',
     tipo: 'zona',
     padre: 'zonas',
-    title: `Montador de muebles en San Blas (Madrid) desde ${eur(20)}`,
+    title: 'Montador de muebles en San Blas | ArmaMuebles',
     description:
       `Montador de muebles en San Blas-Canillejas (Madrid): armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montador de muebles en San Blas',

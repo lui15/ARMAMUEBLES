@@ -9,7 +9,7 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     path: 'cuanto-cuesta-montar-armario-pax',
     tipo: 'guia',
     padre: 'precios',
-    title: `Cuánto cuesta montar un armario PAX en Madrid (${eur(5)})`,
+    title: 'Cuánto cuesta montar un armario PAX en Madrid',
     description: `Montar un armario PAX en Madrid cuesta desde ${eur(5)} con puertas abatibles y desde ${PRECIO_PAX_CORREDERAS} € con correderas. Qué revisar antes y qué errores evitar al montarlo.`,
     etiqueta: 'Cuánto cuesta montar un armario PAX',
     h1: { antes: '¿Cuánto cuesta montar un', resaltado: 'armario PAX', despues: 'en Madrid?' },
@@ -78,7 +78,7 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     path: 'cuanto-cuesta-montar-cocina-ikea',
     tipo: 'guia',
     padre: 'precios',
-    title: `Cuánto cuesta montar una cocina IKEA en Madrid (${eur(1)})`,
+    title: 'Cuánto cuesta montar una cocina IKEA en Madrid',
     description:
       `Montar una cocina IKEA en Madrid cuesta desde ${eur(1)} si es pequeña y desde ${eur(4)} con isla, con los electrodomésticos colocados. Qué incluye y qué no.`,
     etiqueta: 'Cuánto cuesta montar una cocina IKEA',

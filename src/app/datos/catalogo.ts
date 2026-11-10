@@ -409,3 +409,13 @@ export const eur = (id: number): string => formatearPrecio(servicioPorId(id)?.pr
 /** Precio del montaje más económico del catálogo, con formato. */
 export const eurMinimo = (): string =>
   formatearPrecio(Math.min(...SERVICIOS.map((s) => s.precioDesde)));
+
+/** Precio "desde" con espacio normal, para title y description (sin &nbsp;). */
+export const eurPlano = (id: number): string => eur(id).replace(/ /g, ' ');
+
+/**
+ * Nota media del negocio en su ficha de Google, tal como aparece en Google (por ejemplo "5,0").
+ * Todas las meta descriptions la leen de aquí. Debe ser la nota real de la ficha: vacía (''),
+ * las descripciones se publican sin la estrella.
+ */
+export const NOTA_GOOGLE = '5,0';

@@ -8,7 +8,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-cocina-ikea',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de cocinas en Madrid desde ${eur(1)} | ArmaMuebles`,
+    title: 'Montaje de cocinas en Madrid | ArmaMuebles',
     description:
       `Montaje de cocinas en Madrid desde ${eur(1)}, con los electrodomésticos colocados: pequeñas, medianas, grandes y con isla. Precio cerrado antes de ir.`,
     etiqueta: 'Montaje de cocinas',
@@ -90,7 +90,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-armario-pax',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de armarios en Madrid desde ${eur(5)} | ArmaMuebles`,
+    title: 'Montaje de armarios en Madrid | ArmaMuebles',
     description:
       `Montaje de armarios en Madrid desde ${eur(5)}: abatibles, correderas y vestidores, nivelados y fijados a la pared. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montaje de armarios',
@@ -172,7 +172,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-armario-pax',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de armarios PAX en Madrid desde ${eur(5)} | ArmaMuebles`,
+    title: 'Montaje de armarios PAX de IKEA en Madrid',
     description:
       `Montamos tu armario PAX de IKEA en Madrid desde ${eur(5)}, con puertas abatibles o correderas y bien fijado a la pared. Precio cerrado antes de ir.`,
     etiqueta: 'Montaje de armarios PAX',
@@ -253,7 +253,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-dormitorios-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de dormitorios en Madrid desde ${eur(8)} | ArmaMuebles`,
+    title: 'Montaje de dormitorios en Madrid | ArmaMuebles',
     description:
       `Montaje de dormitorios en Madrid: mesitas desde ${eur(8)}, camas desde ${eur(9)} y cómodas desde ${eur(10)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje de dormitorios',
@@ -333,7 +333,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-salones-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de muebles de salón en Madrid desde ${eur(11)}`,
+    title: 'Montaje de muebles de salón en Madrid | ArmaMuebles',
     description:
       `Montaje de muebles de salón en Madrid: mueble de TV desde ${eur(11)} y salón completo desde ${eur(12)}. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje de muebles de salón',
@@ -411,7 +411,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-mesas-escritorios-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de mesas y escritorios en Madrid desde ${eur(13)}`,
+    title: 'Montaje de mesas y escritorios en Madrid | ArmaMuebles',
     description:
       `Montaje de mesas de comedor y escritorios en Madrid desde ${eur(13)}, nivelados y bien ajustados. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Montaje de mesas y escritorios',
@@ -489,7 +489,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-estanterias-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de estanterías en Madrid desde ${eur(15)} | ArmaMuebles`,
+    title: 'Montaje de estanterías en Madrid | ArmaMuebles',
     description:
       `Montaje de estanterías, zapateros y muebles auxiliares en Madrid desde ${eur(15)}, fijados a la pared cuando hace falta. Precio cerrado antes de ir.`,
     etiqueta: 'Montaje de estanterías y almacenaje',
@@ -566,7 +566,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'montaje-muebles-bano-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Montaje de muebles de baño en Madrid desde ${eur(18)}`,
+    title: 'Montaje de muebles de baño en Madrid | ArmaMuebles',
     description:
       `Montaje de muebles de baño en Madrid desde ${eur(18)}, nivelados y bien fijados a la pared. Te damos un precio cerrado antes de ir y sin compromiso.`,
     etiqueta: 'Montaje de muebles de baño',
@@ -643,7 +643,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     path: 'colocacion-electrodomesticos-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: `Colocación de electrodomésticos en Madrid desde ${eur(19)}`,
+    title: 'Colocación de electrodomésticos en Madrid | ArmaMuebles',
     description:
       `Colocación de electrodomésticos en Madrid desde ${eur(19)}: horno, placa, campana, lavavajillas y más. Te damos un precio cerrado antes de ir, sin compromiso.`,
     etiqueta: 'Colocación de electrodomésticos',

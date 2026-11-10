@@ -8,7 +8,7 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
     guia: 'cuanto-cuesta-montar-cocina-ikea',
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
-    title: `Montaje de muebles IKEA en Madrid desde ${eur(8)} | ArmaMuebles`,
+    title: 'Montaje de muebles IKEA en Madrid | ArmaMuebles',
     description:
       `Montadores de muebles IKEA en Madrid: mesitas desde ${eur(8)}, armarios PAX desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montaje de muebles IKEA',
@@ -76,7 +76,7 @@ export const PAGINAS_MARCAS: PaginaSeo[] = [
     path: 'montaje-muebles-leroy-merlin',
     tipo: 'marca',
     padre: 'montaje-muebles-por-tienda',
-    title: `Montaje de muebles Leroy Merlin en Madrid desde ${eur(15)}`,
+    title: 'Montaje de muebles Leroy Merlin en Madrid | ArmaMuebles',
     description:
       `Montamos muebles de Leroy Merlin en Madrid: estanterías desde ${eur(15)}, armarios desde ${eur(5)} y cocinas desde ${eur(1)}. Te damos un precio cerrado antes de ir.`,
     etiqueta: 'Montaje de muebles Leroy Merlin',

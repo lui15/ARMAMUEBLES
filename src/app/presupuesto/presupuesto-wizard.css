@@ -119,6 +119,22 @@
   color: var(--muted);
   font-size: 0.95rem;
 }
+/* "Así trabajamos", versión corta junto al formulario. */
+.wiz-garantias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-3);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.wiz-garantias li::before {
+  content: '✓ ';
+  color: var(--green-d);
+}
 
 /* Paso 1: tarjetas */
 .wiz-tipos {

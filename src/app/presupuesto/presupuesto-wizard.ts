@@ -18,6 +18,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { AnaliticaService } from '../compartido/analitica.service';
 import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { IconoMueble } from '../compartido/icono-mueble';
+import { ASI_TRABAJAMOS_CORTO } from '../datos/asi-trabajamos';
 import { ZONAS, formatearPrecio } from '../datos/catalogo';
 import { PeticionPresupuesto, PresupuestoService } from './presupuesto.service';
 import { ElementoSeleccion, TIPOS, TipoId, TipoMueble, estimar, tipoPorId } from './tipos-mueble';
@@ -165,6 +166,7 @@ export class PresupuestoWizard {
     'Barajas',
     'San Blas-Canillejas',
   ];
+  readonly asiTrabajamosCorto = ASI_TRABAJAMOS_CORTO;
   readonly pasos = [
     '¿Qué hay que montar?',
     'Detalles rápidos',

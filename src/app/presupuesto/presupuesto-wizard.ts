@@ -19,17 +19,8 @@ import { AnaliticaService } from '../compartido/analitica.service';
 import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { IconoMueble } from '../compartido/icono-mueble';
 import { ZONAS, formatearPrecio } from '../datos/catalogo';
-import { NOTA_PRECIOS, SERVICIO_MINIMO } from '../datos/precios-extra';
 import { PeticionPresupuesto, PresupuestoService } from './presupuesto.service';
-import {
-  ElementoSeleccion,
-  TIPOS,
-  TipoId,
-  TipoMueble,
-  estimar,
-  precioDesdeTipo,
-  tipoPorId,
-} from './tipos-mueble';
+import { ElementoSeleccion, TIPOS, TipoId, TipoMueble, estimar, tipoPorId } from './tipos-mueble';
 
 /* =====================================================
    CONFIGURACIÓN · CENTRAL DE SOLICITUDES (Supabase)
@@ -174,10 +165,6 @@ export class PresupuestoWizard {
     'Barajas',
     'San Blas-Canillejas',
   ];
-  readonly formatearPrecio = formatearPrecio;
-  readonly notaPrecios = NOTA_PRECIOS;
-  readonly servicioMinimo = SERVICIO_MINIMO;
-  readonly precioDesdeTipo = precioDesdeTipo;
   readonly pasos = [
     '¿Qué hay que montar?',
     'Detalles rápidos',
@@ -454,7 +441,11 @@ export class PresupuestoWizard {
     return c;
   }
 
-  /** Resumen para la columna description, el correo y WhatsApp. Solo con lo que se ha rellenado. */
+  /**
+   * Resumen para la columna description, el correo y WhatsApp. Solo con lo que se ha rellenado.
+   * El precio estimado va al panel y al correo (los ve el negocio), nunca al mensaje de WhatsApp,
+   * que escribe el propio cliente: al cliente no se le muestra ningún precio en el formulario.
+   */
   private resumen(destino: 'central' | 'whatsapp'): string {
     const lineas: string[] = [];
     const add = (etiqueta: string, valor: string | null | undefined) => {
@@ -473,7 +464,7 @@ export class PresupuestoWizard {
     add('Acceso', this.acceso());
     add('Cuándo', this.cuandoTexto());
     add('Muebles en casa', this.mueblesEnCasa());
-    if (this.seleccion().length) {
+    if (destino === 'central' && this.seleccion().length) {
       add('Precio estimado', `desde ${formatearPrecio(this.estimacion().total)}`);
     }
     add('Algo más', this.notas());

@@ -80,13 +80,6 @@
                     >
                       <app-icono-mueble [id]="t.icono" />
                       <span class="wiz-tipo-nombre">{{ t.nombre }}</span>
-                      <small>
-                        @if (precioDesdeTipo(t); as p) {
-                          desde {{ formatearPrecio(p) }}
-                        } @else {
-                          Cuéntanos qué es
-                        }
-                      </small>
                     </button>
                     @if (el) {
                       <div class="wiz-contador" role="group" [attr.aria-label]="'Cantidad de ' + t.nombre">
@@ -215,28 +208,6 @@
                   }
                 </div>
               </fieldset>
-
-              <!-- Precio en vivo -->
-              <div class="wiz-precio" aria-live="polite">
-                <p class="wiz-precio-total">
-                  Tu montaje, desde <strong>{{ formatearPrecio(estimacion().total) }}</strong>
-                </p>
-                <ul>
-                  @for (l of estimacion().lineas; track l.nombre) {
-                    <li>
-                      <span>{{ l.nombre }} × {{ l.cantidad }}</span>
-                      <span>{{ l.importe === null ? 'a valorar' : formatearPrecio(l.importe) }}</span>
-                    </li>
-                  }
-                </ul>
-                @if (estimacion().minimoAplicado) {
-                  <p class="wiz-nota">Servicio mínimo: {{ formatearPrecio(servicioMinimo) }}, con el desplazamiento en Madrid capital.</p>
-                }
-                @if (desmontar() === 'Sí') {
-                  <p class="wiz-nota">El desmontaje se suma aparte: un 50–60 % del precio de montaje.</p>
-                }
-                <p class="wiz-nota">{{ notaPrecios }}</p>
-              </div>
             }
 
             <!-- ===== Paso 3: dónde y cuándo ===== -->
@@ -464,17 +435,17 @@
         }
       </div>
 
-      <!-- Pie fijo: precio y botones -->
+      <!-- Pie fijo: lo elegido y los botones (sin precios: el precio se da después, cerrado) -->
       <footer class="wiz-pie">
         @if (enviado()) {
           <button type="button" class="btn btn-ink wiz-principal" (click)="cerrarFormulario()">
             Cerrar
           </button>
         } @else {
-          @if (seleccion().length && paso() !== 2) {
-            <p class="wiz-pie-precio">
-              Desde <strong>{{ formatearPrecio(estimacion().total) }}</strong>
-              <small>· {{ totalPiezas() }} {{ totalPiezas() === 1 ? 'mueble' : 'muebles' }}</small>
+          @if (seleccion().length) {
+            <p class="wiz-pie-resumen">
+              <strong>{{ totalPiezas() }} {{ totalPiezas() === 1 ? 'mueble' : 'muebles' }}</strong>
+              {{ totalPiezas() === 1 ? 'elegido' : 'elegidos' }}
             </p>
           }
           <div class="wiz-pie-botones">

@@ -66,6 +66,10 @@ export class LandingPage {
 
   /** Las páginas de catálogo y precios ya muestran todo el listado: no repiten tarjetas. */
   readonly muestraTarjetas = !this.pagina.modulo && this.servicios.length > 0;
+  readonly preciosExtra = this.pagina.preciosExtra ?? [];
+  readonly muestraPrecios = !this.pagina.modulo && (this.servicios.length > 0 || this.preciosExtra.length > 0);
+  /** Venta cruzada con Mudanzas360 y ObraLocal Madrid. */
+  readonly ventaCruzada = ['como-trabajamos', 'desmontaje-muebles-madrid'].includes(this.pagina.path);
 
   readonly whatsapp = WHATSAPP;
   readonly precio = formatearPrecio;

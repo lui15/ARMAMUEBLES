@@ -40,6 +40,8 @@ export interface PaginaSeo {
   categoria?: string;
   /** Sección especial de las páginas índice. */
   modulo?: ModuloPagina;
+  /** Precios complementarios (de precios-extra.ts) que se muestran en "Cuánto cuesta". */
+  preciosExtra?: { concepto: string; precio: string; detalle?: string }[];
   /** Guía de precios de este servicio, por su path. */
   guia?: string;
   /** Páginas relacionadas, por su path. */

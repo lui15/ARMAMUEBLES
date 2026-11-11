@@ -12,6 +12,11 @@ export interface PrecioExtra {
   precio: string;
 }
 
+export const PRECIO_HORA = '30–40 €/h';
+export const PRECIO_COLGAR_TV = 40;
+export const PRECIO_BALDAS = 30;
+export const DESMONTAJE = '50–60 %';
+
 /** Tabla complementaria que se muestra en /precios. */
 export const PRECIOS_EXTRA: PrecioExtra[] = [
   {
@@ -24,10 +29,10 @@ export const PRECIOS_EXTRA: PrecioExtra[] = [
     detalle: 'Según la distancia',
     precio: '0–15 €',
   },
-  { concepto: 'Trabajos a medida o por horas', precio: '30–40 €/h' },
-  { concepto: 'Colgar la TV en la pared', detalle: 'Con el soporte que nos des', precio: 'desde 40 €' },
-  { concepto: 'Colgar baldas, cuadros o espejos', detalle: 'Hasta 5 piezas', precio: 'desde 30 €' },
-  { concepto: 'Desmontar un mueble', precio: '50–60 % del precio de montaje' },
+  { concepto: 'Trabajos a medida o por horas', precio: PRECIO_HORA },
+  { concepto: 'Colgar la TV en la pared', detalle: 'Con el soporte que nos des', precio: `desde ${PRECIO_COLGAR_TV} €` },
+  { concepto: 'Colgar baldas, cuadros o espejos', detalle: 'Hasta 5 piezas', precio: `desde ${PRECIO_BALDAS} €` },
+  { concepto: 'Desmontar un mueble', precio: `${DESMONTAJE} del precio de montaje` },
   { concepto: 'Fijar el mueble a la pared (antivuelco)', precio: 'Incluido en el montaje' },
 ];
 

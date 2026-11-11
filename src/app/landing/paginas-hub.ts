@@ -1,7 +1,8 @@
+import { ASI_TRABAJAMOS } from '../datos/asi-trabajamos';
 import { NOTA_OPINIONES, resumenOpiniones } from '../datos/opiniones';
 import { SERVICIO_MINIMO } from '../datos/precios-extra';
-import { eur, eurMinimo } from '../datos/catalogo';
-import { COMO_PEDIR_TEXTO, PRECIOS_TEXTO, PaginaSeo, TIENDAS_TEXTO, ZONAS_TEXTO } from './pagina-seo';
+import { eur, eurMinimo, eurPlano } from '../datos/catalogo';
+import { COMO_PEDIR_TEXTO, meta, PaginaSeo, PRECIOS_TEXTO, TIENDAS_TEXTO, ZONAS_TEXTO } from './pagina-seo';
 
 const RESUMEN = resumenOpiniones();
 
@@ -10,9 +11,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
   {
     path: '',
     tipo: 'inicio',
-    title: `Montaje de muebles en Madrid desde ${eurMinimo()} | ArmaMuebles`,
-    description:
-      `Montamos tus muebles y cocinas en Madrid desde ${eurMinimo()}, con precio cerrado antes de ir. Llevamos las herramientas y nos llevamos los cartones al terminar.`,
+    title: 'Montaje de muebles en Madrid con trato cercano | ArmaMuebles',
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      'Montamos muebles IKEA y cocinas a domicilio en Madrid.',
+    ),
     etiqueta: 'Inicio',
     h1: { antes: 'Montamos tu', resaltado: 'cocina completa', despues: '' },
     kicker: 'Montaje de muebles y cocinas',
@@ -70,9 +73,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'servicios',
     tipo: 'hub',
     padre: '',
-    title: `Servicios de montaje de muebles en Madrid desde ${eurMinimo()}`,
-    description:
-      `Todos nuestros montajes en Madrid: cocinas, armarios, dormitorios, salones, baños y más, desde ${eurMinimo()}. Precio cerrado antes de ir y sin compromiso.`,
+    title: 'Servicios de montaje de muebles en Madrid | ArmaMuebles',
+    description: meta(
+      ['Te atendemos solo nosotros', 'Presupuesto ajustado', 'Llevamos herramientas'],
+      'Cocinas, armarios, camas y salones montados en casa.',
+    ),
     etiqueta: 'Todos los servicios',
     h1: { antes: 'Servicios de', resaltado: 'montaje de muebles', despues: 'en Madrid' },
     kicker: 'Qué podemos montar',
@@ -145,8 +150,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'precios',
     tipo: 'hub',
     padre: '',
-    title: `Precios de montaje de muebles en Madrid desde ${eurMinimo()}`,
-    description: `¿Cuánto cuesta montar muebles en Madrid? Mesita desde ${eur(8)}, armario desde ${eur(5)} y cocina desde ${eur(1)}. Busca tu mueble y recibe un precio cerrado.`,
+    title: 'Precios de montaje de muebles en Madrid 2026',
+    description: meta(
+      ['Presupuesto ajustado', 'Te atendemos solo nosotros', 'Trato cercano'],
+      `Mesita desde ${eurPlano(8)}, armario desde ${eurPlano(5)} y cocina desde ${eurPlano(1)}.`,
+    ),
     etiqueta: 'Precios',
     h1: { antes: '¿Cuánto cuesta', resaltado: 'montar muebles', despues: 'en Madrid?' },
     kicker: 'Precios con IVA incluido',
@@ -228,8 +236,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'opiniones',
     tipo: 'hub',
     padre: '',
-    title: 'Opiniones de clientes de ArmaMuebles · Montaje en Madrid',
-    description: `${RESUMEN.media} de 5 en ${RESUMEN.total} opiniones de clientes que contrataron el montaje de muebles en Madrid: armarios, salones, dormitorios y más. Publicadas sin editar.`,
+    title: 'Opiniones de clientes | ArmaMuebles',
+    description: meta(
+      ['Trato cercano', 'Te atendemos solo nosotros', 'Nos llevamos los cartones'],
+      'Lo que dicen los clientes que montaron con nosotros.',
+    ),
     etiqueta: 'Opiniones',
     h1: { antes: 'Opiniones de', resaltado: 'nuestros clientes', despues: 'en Madrid' },
     kicker: 'Opiniones',
@@ -285,9 +296,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'zonas',
     tipo: 'hub',
     padre: '',
-    title: `Montador de muebles en Madrid y alrededores desde ${eurMinimo()}`,
-    description:
-      `Montamos muebles en Madrid capital y en municipios como Alcorcón, Getafe o Móstoles, desde ${eurMinimo()}. Precio cerrado antes de ir. Mira si llegamos a tu zona.`,
+    title: 'Zonas de montaje de muebles en Madrid | ArmaMuebles',
+    description: meta(
+      ['Te atendemos solo nosotros', 'Llevamos herramientas', 'Trato cercano'],
+      'Montamos muebles en Madrid capital y municipios de alrededor.',
+    ),
     etiqueta: 'Zonas de servicio',
     h1: { antes: 'Zonas donde', resaltado: 'montamos tus muebles', despues: 'en Madrid' },
     kicker: 'Dónde trabajamos',
@@ -351,15 +364,16 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'como-trabajamos',
     tipo: 'hub',
     padre: '',
-    title: `Cómo montamos tus muebles en Madrid, desde ${eurMinimo()}`,
-    description:
-      `Así montamos tus muebles en Madrid: nos cuentas o nos mandas una foto, te damos un precio cerrado y montamos llevándonos los cartones. Desde ${eurMinimo()}.`,
+    title: 'Cómo trabajamos: un solo contacto y trato cercano',
+    description: meta(
+      ['Te atendemos solo nosotros', 'Una sola persona de contacto', 'Trato cercano'],
+      'Tu solicitud no se reparte entre empresas.',
+    ),
     etiqueta: 'Cómo trabajamos',
-    h1: { antes: 'Así funciona', resaltado: 'tu montaje', despues: 'con ArmaMuebles' },
+    h1: { antes: 'Así', resaltado: 'trabajamos', despues: 'contigo' },
     kicker: 'Cómo trabajamos',
-    h2: 'Un proceso claro, de la solicitud al último ajuste',
-    intro:
-      'Tú compras los muebles donde prefieras y nos cuentas qué necesitas. Nosotros revisamos los detalles, coordinamos contigo el día y dejamos todo montado, nivelado y listo para usar.',
+    h2: 'Qué pasa después de pedir presupuesto',
+    intro: `${ASI_TRABAJAMOS.subtitulo} Tú compras los muebles donde prefieras y nosotros los dejamos montados, nivelados y listos para usar.`,
     parrafos: [
       'Todo empieza con una solicitud de menos de un minuto: eliges el mueble, la cantidad y la zona, y añades los detalles que creas útiles. Con esos datos revisamos tu caso y te damos una propuesta personalizada por teléfono o WhatsApp.',
       'Si la propuesta te encaja, coordinamos contigo el día y la hora. Vamos a tu domicilio, montamos cada mueble, hacemos los ajustes finales y revisamos el resultado.',
@@ -418,9 +432,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'preguntas-frecuentes',
     tipo: 'hub',
     padre: '',
-    title: `Preguntas sobre montaje de muebles en Madrid desde ${eurMinimo()}`,
-    description:
-      `Resolvemos tus dudas sobre el montaje de muebles en Madrid: precios desde ${eurMinimo()}, herramientas, cartones, fijación a la pared y cómo pedir presupuesto.`,
+    title: 'Preguntas frecuentes sobre montaje de muebles',
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
+      'Respuestas claras antes de montar tus muebles en Madrid.',
+    ),
     etiqueta: 'Preguntas frecuentes',
     h1: { antes: 'Preguntas', resaltado: 'frecuentes', despues: 'sobre el montaje de muebles' },
     kicker: 'Resolvemos tus dudas',
@@ -498,9 +514,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'montaje-muebles-por-tienda',
     tipo: 'hub',
     padre: '',
-    title: `Montamos muebles de IKEA y más tiendas en Madrid desde ${eurMinimo()}`,
-    description:
-      `Montamos muebles de IKEA, Leroy Merlin, Conforama, Obramat y otras tiendas en Madrid, desde ${eurMinimo()}. Te damos un precio cerrado antes de ir, sin compromiso.`,
+    title: 'Montamos muebles de IKEA y otras tiendas en Madrid',
+    description: meta(
+      ['Presupuesto ajustado', 'Te atendemos solo nosotros', 'Llevamos herramientas'],
+      'Montamos muebles de IKEA, Leroy Merlin, Conforama y más.',
+    ),
     etiqueta: 'Montaje por tienda',
     h1: { antes: 'Montaje de', resaltado: 'muebles de tu tienda', despues: 'favorita en Madrid' },
     kicker: 'Compra donde prefieras',

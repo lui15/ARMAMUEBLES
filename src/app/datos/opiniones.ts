@@ -71,7 +71,7 @@ export const OPINIONES: Opinion[] = [
       'Rápidos, eficientes y muy educados. Me ahorraron horas de dolor de cabeza armando el vestidor.',
     servicio: 'Montaje de vestidor',
     filtro: 'Armarios',
-    paginas: ['montaje-armarios-madrid'],
+    paginas: ['montaje-vestidores-madrid', 'montaje-armarios-madrid'],
   },
   {
     estrellas: 4,
@@ -98,7 +98,7 @@ export const OPINIONES: Opinion[] = [
       'Súper satisfechas con el montaje del dormitorio infantil. Dejaron los cajones y puertas ajustados al milímetro.',
     servicio: 'Dormitorio infantil',
     filtro: 'Dormitorio',
-    paginas: ['montaje-dormitorios-madrid'],
+    paginas: ['montaje-dormitorios-madrid', 'montaje-camas-canapes-madrid'],
   },
   {
     estrellas: 5,
@@ -116,7 +116,7 @@ export const OPINIONES: Opinion[] = [
       'Sin duda los volveré a llamar. Armaron un mueble a medida que requería varios ajustes y quedó de revista.',
     servicio: 'Mueble a medida',
     filtro: 'A medida',
-    paginas: ['servicios', 'montaje-cocinas-madrid'],
+    paginas: ['montaje-muebles-a-medida-madrid', 'montaje-cocinas-madrid'],
   },
 ];
 

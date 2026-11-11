@@ -74,3 +74,28 @@ LCP de laboratorio: portada 1,8–3,3 s; `/precios` 2,8–2,9 s. CLS: 0,005 o me
 - **EmailJS sin configurar:** el servicio, la plantilla y la clave pública siguen con valores `TU_...`, así que no se envía ningún aviso por correo.
 - **Mínimo de 40 €:** la portada anuncia "desde 25 €" (la mesita del catálogo), pero el servicio mínimo es de 40 €. Se avisa en el formulario y en `/precios`.
 - **Sin probar:** Safari, Firefox y móviles reales. Tampoco se ha pasado la herramienta de resultados enriquecidos de Google, que necesita la web publicada.
+
+---
+
+# Revisión del 10 de noviembre de 2026 (rama `mejora-completa`)
+
+Punto de partida: `main` con los PR #1 a #5 fusionados.
+
+## Ya hecho (no se rehace)
+- **Medición:** `analitica.service.ts` solo envía con consentimiento y nunca en el servidor. Se miden `click_whatsapp` con `ubicacion` (cabecera, menú móvil, barra móvil, landing, llamada final, pie y formulario), `click_telefono`, `form_open`, `form_step`, `form_error` y `generate_lead`, este solo cuando Supabase confirma, con `value` y `currency: 'EUR'`.
+- **Formulario:** los cuatro pasos pedidos, selección múltiple con contador, sin precios a la vista, progreso en `sessionStorage`, errores junto al campo, WhatsApp en cada paso y al fallar, mueble, tienda o zona preseleccionados, y los campos nuevos en `details`.
+- **Opiniones:** `datos/opiniones.ts` con las 10 opiniones, `/opiniones` con filtro, carrusel continuo en la portada, opiniones en cada servicio y la nota obligatoria.
+- **Schema:** sin dirección, con `areaServed`; sin `Review` ni `AggregateRating`. Logos de tiendas con su aviso.
+- **Venta cruzada:** en `/como-trabajamos` y en la pantalla de éxito.
+
+## Falta según este encargo
+- **Formulario:**
+  - Textos: éxito "Te escribimos por WhatsApp al…" y barra móvil "Pide presupuesto".
+  - Versión corta de "Así trabajamos" junto al formulario.
+  - Atributos `toolname` en un `<form>`.
+- **Opiniones:** las de Roberto, Patricia y Beatriz deben ir también a las páginas nuevas de vestidores, camas y muebles a medida.
+- **"Así trabajamos":** los 4 pasos nuevos, que sustituyen a "Cómo funciona, en 3 pasos".
+- **Títulos:** sin precios fuera de `/precios` y de las guías de precio.
+- **Descripciones:** con la nota de Google (`NOTA_GOOGLE`).
+- **Páginas nuevas:** 7 servicios, 4 guías y, solo si hay contenido real, zonas.
+- **Asistentes de IA:** `robots.txt` con señales, `llms.txt`, Markdown por página, cabecera `Link` en la portada.

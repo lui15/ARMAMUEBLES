@@ -75,6 +75,11 @@
   </small>
 </section>
 
+<!-- ================= ASÍ TRABAJAMOS ================= -->
+@defer (hydrate on viewport) {
+  <app-proceso-pasos />
+}
+
 <!-- ================= OPINIONES ================= -->
 @defer (hydrate on viewport) {
   <app-opiniones formato="carrusel" path="" />
@@ -240,9 +245,6 @@
   </div>
 </section>
 
-@defer (hydrate on viewport) {
-  <app-proceso-pasos />
-}
 
 <!-- ================= ZONAS Y TIENDAS ================= -->
 <section class="section" id="zonas">

@@ -2,6 +2,11 @@ import { ZONAS, serviciosPorIds } from '../datos/catalogo';
 import { NEGOCIO, SITE_URL } from '../seo.service';
 import { PAGINAS_GUIAS } from './paginas-guias';
 import { PAGINAS_HUB } from './paginas-hub';
+import {
+  PAGINAS_GUIAS_NUEVAS,
+  PAGINAS_MARCAS_NUEVAS,
+  PAGINAS_SERVICIOS_NUEVOS,
+} from './paginas-nuevas';
 import { PAGINAS_MARCAS } from './paginas-marcas';
 import { PAGINAS_SERVICIOS } from './paginas-servicios';
 import { PAGINAS_ZONAS } from './paginas-zonas';
@@ -27,6 +32,15 @@ const PREFILL: Record<string, Prefill> = {
   'montador-muebles-san-blas': { zona: 'San Blas-Canillejas' },
   'cuanto-cuesta-montar-armario-pax': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
   'cuanto-cuesta-montar-cocina-ikea': { tipos: [{ tipo: 'cocina' }], tienda: 'IKEA' },
+  'montaje-vestidores-madrid': { tipos: [{ tipo: 'armario', subtipo: 'vestidor' }] },
+  'montaje-camas-canapes-madrid': { tipos: [{ tipo: 'dormitorio' }] },
+  'montaje-muebles-oficina-madrid': { tipos: [{ tipo: 'mesa' }] },
+  'desmontaje-muebles-madrid': { tipos: [{ tipo: 'otro' }] },
+  'colgar-tv-baldas-espejos-madrid': { tipos: [{ tipo: 'otro' }] },
+  'montaje-muebles-a-medida-madrid': { tipos: [{ tipo: 'otro' }] },
+  'montaje-muebles-conforama-madrid': { tienda: 'Conforama' },
+  'cuanto-tarda-montar-una-cocina-ikea': { tipos: [{ tipo: 'cocina' }], tienda: 'IKEA' },
+  'montar-un-pax-tu-mismo-o-con-montador': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
 };
 
 export const prefillDe = (p: PaginaSeo): Prefill => PREFILL[p.path] ?? {};
@@ -35,9 +49,12 @@ export const prefillDe = (p: PaginaSeo): Prefill => PREFILL[p.path] ?? {};
 export const PAGINAS: PaginaSeo[] = [
   ...PAGINAS_HUB,
   ...PAGINAS_SERVICIOS,
+  ...PAGINAS_SERVICIOS_NUEVOS,
   ...PAGINAS_MARCAS,
+  ...PAGINAS_MARCAS_NUEVAS,
   ...PAGINAS_ZONAS,
   ...PAGINAS_GUIAS,
+  ...PAGINAS_GUIAS_NUEVAS,
 ];
 
 export function buscarPagina(slug: unknown): PaginaSeo {

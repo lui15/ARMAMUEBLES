@@ -37,7 +37,7 @@
             </span>
             <h2 id="wiz-titulo" #titulo tabindex="-1">¡Gracias, {{ nombre().trim() }}!</h2>
             <p class="wiz-lead">
-              Te enviamos el precio cerrado por WhatsApp al
+              Te escribimos por WhatsApp al
               <strong>{{ telefonoFinal() ?? telefono() }}</strong>.
             </p>
 
@@ -68,6 +68,11 @@
             <!-- ===== Paso 1: qué hay que montar ===== -->
             @case (1) {
               <p class="wiz-ayuda">Elige todo lo que necesites e indica cuántos.</p>
+              <ul class="wiz-garantias" aria-label="Así trabajamos">
+                @for (g of asiTrabajamosCorto; track g) {
+                  <li>{{ g }}</li>
+                }
+              </ul>
               <ul class="wiz-tipos" role="list">
                 @for (t of tipos; track t.id) {
                   @let el = elemento(t.id);
@@ -394,6 +399,12 @@
                   (input)="honeypot.set($any($event.target).value)"
                 />
               </div>
+
+              <ul class="wiz-garantias" aria-label="Así trabajamos">
+                @for (g of asiTrabajamosCorto; track g) {
+                  <li>{{ g }}</li>
+                }
+              </ul>
 
               <label class="wiz-check">
                 <input

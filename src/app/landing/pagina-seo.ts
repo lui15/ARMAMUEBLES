@@ -1,4 +1,4 @@
-import { eur, eurMinimo } from '../datos/catalogo';
+import { NOTA_GOOGLE, eur, eurMinimo } from '../datos/catalogo';
 
 export type TipoPagina = 'inicio' | 'hub' | 'servicio' | 'marca' | 'zona' | 'guia';
 export type ModuloPagina = 'catalogo' | 'precios' | 'zonas' | 'tiendas' | 'opiniones';
@@ -40,6 +40,8 @@ export interface PaginaSeo {
   categoria?: string;
   /** Sección especial de las páginas índice. */
   modulo?: ModuloPagina;
+  /** Precios complementarios (de precios-extra.ts) que se muestran en "Cuánto cuesta". */
+  preciosExtra?: { concepto: string; precio: string; detalle?: string }[];
   /** Guía de precios de este servicio, por su path. */
   guia?: string;
   /** Páginas relacionadas, por su path. */
@@ -57,3 +59,22 @@ export const TIENDAS_TEXTO =
 
 export const COMO_PEDIR_TEXTO =
   'Con el formulario de cuatro pasos: eliges el mueble, indicas la cantidad y la zona, y dejas tus datos. Revisamos los detalles y te damos una propuesta personalizada por teléfono o WhatsApp.';
+
+/** Ventajas que se pueden afirmar en las meta descriptions. */
+export type VentajaMeta =
+  | 'Presupuesto ajustado'
+  | 'Llevamos herramientas'
+  | 'Nos llevamos los cartones'
+  | 'Te atendemos solo nosotros'
+  | 'Una sola persona de contacto'
+  | 'Trato cercano';
+
+/**
+ * Meta description con el formato común:
+ * "⭐ {NOTA_GOOGLE} en Google · ✓ ventaja · ✓ ventaja · ✓ ventaja. Frase de la página."
+ * Sin nota de Google, empieza directamente por las ventajas.
+ */
+export function meta(ventajas: [VentajaMeta, VentajaMeta, VentajaMeta], frase: string): string {
+  const estrella = NOTA_GOOGLE ? `⭐ ${NOTA_GOOGLE} en Google · ` : '';
+  return `${estrella}${ventajas.map((v) => `✓ ${v}`).join(' · ')}. ${frase}`;
+}

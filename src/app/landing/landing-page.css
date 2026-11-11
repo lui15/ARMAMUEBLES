@@ -364,6 +364,36 @@ h1 {
   }
 }
 
+/* ---------- Precios complementarios ---------- */
+.lp-extra {
+  width: 100%;
+  max-width: 44rem;
+  margin-bottom: 28px;
+  border-collapse: collapse;
+}
+.lp-extra th,
+.lp-extra td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.lp-extra th {
+  padding-right: 16px;
+  font-weight: 600;
+}
+.lp-extra th small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.lp-extra td {
+  color: var(--green-d);
+  font-weight: 700;
+  text-align: right;
+}
+
 /* ---------- Venta cruzada ---------- */
 .lp-cruzada {
   display: flex;

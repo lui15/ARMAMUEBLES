@@ -70,7 +70,7 @@
 </section>
 
 <!-- ================= SERVICIOS Y PRECIOS DE LA PÁGINA ================= -->
-@if (muestraTarjetas) {
+@if (muestraPrecios) {
   <section class="section section-alt" id="precios">
     <div class="container">
       <div class="section-heading" appReveal>
@@ -80,11 +80,30 @@
         </div>
         <p>{{ notaPrecios }}</p>
       </div>
-      <ul class="lp-tarjetas">
-        @for (s of servicios; track s.id) {
-          <li><app-tarjeta-servicio [servicio]="s" /></li>
-        }
-      </ul>
+      @if (preciosExtra.length) {
+        <table class="lp-extra">
+          <tbody>
+            @for (e of preciosExtra; track e.concepto) {
+              <tr>
+                <th scope="row">
+                  {{ e.concepto }}
+                  @if (e.detalle) {
+                    <small>{{ e.detalle }}</small>
+                  }
+                </th>
+                <td>{{ e.precio }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      @if (muestraTarjetas) {
+        <ul class="lp-tarjetas">
+          @for (s of servicios; track s.id) {
+            <li><app-tarjeta-servicio [servicio]="s" /></li>
+          }
+        </ul>
+      }
       <p class="lp-ver-todo">
         <a class="link-flecha" routerLink="/precios">Ver todos los precios</a>
         @if (guia) {
@@ -190,7 +209,7 @@
   </div>
 </section>
 
-@if (pagina.path === 'como-trabajamos') {
+@if (ventaCruzada) {
   <!-- ================= VENTA CRUZADA ================= -->
   <section class="section-tight" aria-label="Otros servicios de confianza">
     <div class="container">

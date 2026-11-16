@@ -45,6 +45,31 @@ const PREFILL: Record<string, Prefill> = {
 
 export const prefillDe = (p: PaginaSeo): Prefill => PREFILL[p.path] ?? {};
 
+/** Qué quiere el cliente en cada página de servicio, para el mensaje ya escrito de WhatsApp. */
+const TRABAJO_WHATSAPP: Record<string, string> = {
+  'montaje-cocinas-madrid': 'montar una cocina',
+  'montaje-armarios-madrid': 'montar un armario',
+  'montaje-armarios-pax': 'montar un armario PAX de IKEA',
+  'montaje-dormitorios-madrid': 'montar un dormitorio',
+  'montaje-salones-madrid': 'montar muebles de salón',
+  'montaje-mesas-escritorios-madrid': 'montar una mesa o escritorio',
+  'montaje-estanterias-madrid': 'montar estanterías',
+  'montaje-muebles-bano-madrid': 'montar un mueble de baño',
+  'colocacion-electrodomesticos-madrid': 'colocar electrodomésticos',
+  'montaje-vestidores-madrid': 'montar un vestidor',
+  'montaje-camas-canapes-madrid': 'montar una cama o canapé',
+  'montaje-muebles-oficina-madrid': 'montar muebles de oficina',
+  'desmontaje-muebles-madrid': 'desmontar muebles',
+  'colgar-tv-baldas-espejos-madrid': 'colgar una TV, baldas o espejos',
+  'montaje-muebles-a-medida-madrid': 'montar muebles a medida',
+};
+
+/** Mensaje de WhatsApp que nombra el servicio, o null si la página no es de un servicio concreto. */
+export const mensajeWhatsappDe = (p: PaginaSeo): string | null => {
+  const trabajo = TRABAJO_WHATSAPP[p.path];
+  return trabajo ? `Hola, quiero presupuesto para ${trabajo}. Zona: ___ . (Si puedo, os mando una foto)` : null;
+};
+
 /** Fuente única de todas las URL. Añadir una página es añadir un objeto en su archivo. */
 export const PAGINAS: PaginaSeo[] = [
   ...PAGINAS_HUB,

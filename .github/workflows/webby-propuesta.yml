@@ -95,7 +95,7 @@ jobs:
             exit 0
           fi
           git commit -m "webby: $TITULO" -m "Propuesta $PROPUESTA_ID aprobada en Webby." -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
-          git push -u origin "$RAMA"
+          git push -u --force origin "$RAMA"
           if [ "$COMPILA" = "success" ]; then ESTADO="✅ La web compila correctamente."; else ESTADO="⚠️ La web NO compila: revisa el registro de este flujo antes de fusionar."; fi
           {
             echo "## $TITULO"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { RevealDirective } from '../compartido/animaciones';
@@ -7,7 +7,7 @@ import { CatalogoServicios } from '../compartido/catalogo-servicios';
 import { ModuloPrecios } from '../compartido/modulo-precios';
 import { srcsetDe } from '../compartido/imagenes';
 import { Opiniones } from '../compartido/opiniones';
-import { WhatsappLink } from '../compartido/enlaces-contacto';
+import { MENSAJE_WHATSAPP, MensajeWhatsapp, WhatsappLink } from '../compartido/enlaces-contacto';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
 import {
   MARCAS,
@@ -22,6 +22,7 @@ import { SeoService } from '../seo.service';
 import {
   buscarPagina,
   crearJsonLd,
+  mensajeWhatsappDe,
   migasDe,
   prefillDe,
   precioDesde,
@@ -77,6 +78,16 @@ export class LandingPage {
   readonly zonas = ZONAS.filter((z) => z !== 'Otra zona de Madrid');
 
   constructor() {
+    // En las páginas de servicio, todos los WhatsApp de la página nombran el servicio.
+    const mensaje = mensajeWhatsappDe(this.pagina);
+    if (mensaje) {
+      const texto = inject(MensajeWhatsapp).texto;
+      texto.set(mensaje);
+      inject(DestroyRef).onDestroy(() => {
+        if (texto() === mensaje) texto.set(MENSAJE_WHATSAPP);
+      });
+    }
+
     inject(SeoService).update({
       title: this.pagina.title,
       description: this.pagina.description,

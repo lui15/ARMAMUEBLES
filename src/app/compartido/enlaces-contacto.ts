@@ -1,7 +1,19 @@
-import { Directive, computed, inject, input } from '@angular/core';
+import { Directive, Injectable, computed, inject, input, signal } from '@angular/core';
 
 import { TELEFONO, WHATSAPP } from '../datos/catalogo';
 import { AnaliticaService } from './analitica.service';
+
+/** Mensaje por defecto: el cliente solo tiene que rellenar los huecos. */
+export const MENSAJE_WHATSAPP = 'Hola, quiero presupuesto para montar: ___ . Zona: ___ . (Si puedo, os mando una foto)';
+
+/**
+ * Mensaje ya escrito que usan todos los botones de WhatsApp de la página actual
+ * (cabecera, pie, barra móvil...). Las páginas de servicio lo cambian para nombrar el servicio.
+ */
+@Injectable({ providedIn: 'root' })
+export class MensajeWhatsapp {
+  readonly texto = signal(MENSAJE_WHATSAPP);
+}
 
 /** Enlace de WhatsApp con el mensaje ya escrito, si se indica. */
 export function enlaceWhatsApp(texto = ''): string {
@@ -24,12 +36,13 @@ export function enlaceWhatsApp(texto = ''): string {
 })
 export class WhatsappLink {
   readonly appWhatsapp = input.required<string>();
-  /** Mensaje opcional que aparece ya escrito en WhatsApp. */
+  /** Mensaje que aparece ya escrito en WhatsApp. Sin él, se usa el de la página actual. */
   readonly mensaje = input('');
 
   private readonly analitica = inject(AnaliticaService);
+  private readonly mensajePagina = inject(MensajeWhatsapp).texto;
 
-  readonly url = computed(() => enlaceWhatsApp(this.mensaje()));
+  readonly url = computed(() => enlaceWhatsApp(this.mensaje() || this.mensajePagina()));
 
   alPulsar(): void {
     this.analitica.evento('click_whatsapp', { ubicacion: this.appWhatsapp() });

@@ -1,0 +1,116 @@
+# Webby → Pull Request
+# Cuando apruebas una propuesta en Webby, Webby lanza este flujo (repository_dispatch).
+# Claude hace el cambio en una rama nueva, se comprueba que la web compila y se abre un
+# Pull Request para que lo revises. Nada se publica hasta que tú lo fusiones.
+name: Webby · propuesta aprobada
+
+on:
+  repository_dispatch:
+    types: [webby-propuesta]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: webby-${{ github.event.client_payload.id }}
+  cancel-in-progress: false
+
+jobs:
+  cambio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PROPUESTA_ID: ${{ github.event.client_payload.id }}
+      RAMA: ${{ github.event.client_payload.rama }}
+      TITULO: ${{ github.event.client_payload.titulo }}
+      QUE: ${{ github.event.client_payload.que }}
+      PORQUE: ${{ github.event.client_payload.porque }}
+      ARCHIVOS: ${{ join(github.event.client_payload.archivos, ', ') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Crear la rama
+        run: git checkout -b "$RAMA"
+
+      - name: Claude hace el cambio
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+          base_branch: main
+          prompt: |
+            Eres el agente de Desarrollo de Webby. El dueño de esta web (un negocio local en Madrid) ha aprobado
+            esta propuesta y tienes que implementarla en el código de este repositorio (Angular con SSR).
+
+            Título: ${{ github.event.client_payload.titulo }}
+            Qué hacer: ${{ github.event.client_payload.que }}
+            Por qué: ${{ github.event.client_payload.porque }}
+            Archivos o páginas sugeridos (orientativo): ${{ join(github.event.client_payload.archivos, ', ') }}
+
+            Reglas:
+            - Estás ya en la rama correcta. No hagas commits, no cambies de rama, no hagas push ni abras PRs: eso lo hace el flujo.
+            - Haz el cambio mínimo y limpio que cumpla la propuesta, siguiendo el estilo y la estructura existentes.
+              Lee el README.md y MEJORAS.md si existen.
+            - Textos en español de España, pensados para clientes de Madrid. No inventes datos (precios, reseñas,
+              teléfonos, premios): si faltan, deja el texto sin ese dato.
+            - Mantén el SEO existente (títulos, descripciones, datos estructurados, sitemap) coherente con el cambio.
+            - Al terminar, ejecuta `npm run build` y corrige los errores hasta que compile.
+            - Por último, escribe en el archivo `.webby-resumen.md` (en la raíz) un resumen corto en español,
+              para alguien no técnico: qué has cambiado, en qué páginas se nota y qué conviene revisar.
+          claude_args: |
+            --model claude-opus-5-5
+            --max-turns 60
+            --permission-mode default
+            --allowedTools "Read,Edit,Write,Glob,Grep,Bash(npm run build),Bash(npm run build:*),Bash(npx ng build:*),Bash(ls:*),Bash(cat:*)"
+
+      - name: Comprobar que la web compila
+        id: build
+        continue-on-error: true
+        run: npm run build
+
+      - name: Guardar y abrir el Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMPILA: ${{ steps.build.outcome }}
+        run: |
+          RESUMEN="$(cat .webby-resumen.md 2>/dev/null || echo 'Claude no dejó resumen.')"
+          rm -f .webby-resumen.md
+          git config user.name "Webby"
+          git config user.email "webby@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Claude no cambió ningún archivo; no se abre PR."
+            exit 0
+          fi
+          git commit -m "webby: $TITULO" -m "Propuesta $PROPUESTA_ID aprobada en Webby." -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          git push -u origin "$RAMA"
+          if [ "$COMPILA" = "success" ]; then ESTADO="✅ La web compila correctamente."; else ESTADO="⚠️ La web NO compila: revisa el registro de este flujo antes de fusionar."; fi
+          {
+            echo "## $TITULO"
+            echo
+            echo "**Qué:** $QUE"
+            echo
+            echo "**Por qué:** $PORQUE"
+            echo
+            echo "### Lo que ha hecho Claude"
+            echo "$RESUMEN"
+            echo
+            echo "$ESTADO"
+            echo
+            echo "_Propuesta aprobada en Webby ($PROPUESTA_ID). Nada se publica hasta que fusiones este PR._"
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > /tmp/cuerpo.md
+          gh pr create --base main --head "$RAMA" --title "Webby: $TITULO" --body-file /tmp/cuerpo.md

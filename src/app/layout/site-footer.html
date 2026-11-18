@@ -27,6 +27,7 @@
         @for (p of zonas; track p.path) {
           <a [routerLink]="'/' + p.path">{{ p.etiqueta }}</a>
         }
+        <a routerLink="/zonas">Todas las zonas</a>
       </nav>
       <nav aria-label="Información">
         <strong>Información</strong>

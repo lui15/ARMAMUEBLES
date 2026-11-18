@@ -1,6 +1,6 @@
-import { ZONAS, serviciosPorIds } from '../datos/catalogo';
-import { NEGOCIO, SITE_URL } from '../seo.service';
+import { crearJsonLd as crearJsonLdBase, precioDesde, urlDePagina } from './esquema';
 import { PAGINAS_GUIAS } from './paginas-guias';
+import { PAGINAS_ZONAS_CONTENIDO } from '../contenido/zonas';
 import { PAGINAS_HUB } from './paginas-hub';
 import {
   PAGINAS_GUIAS_NUEVAS,
@@ -9,11 +9,11 @@ import {
 } from './paginas-nuevas';
 import { PAGINAS_MARCAS } from './paginas-marcas';
 import { PAGINAS_SERVICIOS } from './paginas-servicios';
-import { PAGINAS_ZONAS } from './paginas-zonas';
 import { PaginaSeo } from './pagina-seo';
 import type { Prefill } from '../presupuesto/tipos-mueble';
 
 export type { PaginaSeo } from './pagina-seo';
+export { precioDesde, urlDePagina };
 
 /** Formulario ya rellenado según la página: mueble, tienda o zona. */
 const PREFILL: Record<string, Prefill> = {
@@ -28,8 +28,6 @@ const PREFILL: Record<string, Prefill> = {
   'colocacion-electrodomesticos-madrid': { tipos: [{ tipo: 'electro' }] },
   'montaje-muebles-ikea-madrid': { tienda: 'IKEA' },
   'montaje-muebles-leroy-merlin': { tienda: 'Leroy Merlin' },
-  'montador-muebles-barajas': { zona: 'Barajas' },
-  'montador-muebles-san-blas': { zona: 'San Blas-Canillejas' },
   'cuanto-cuesta-montar-armario-pax': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
   'cuanto-cuesta-montar-cocina-ikea': { tipos: [{ tipo: 'cocina' }], tienda: 'IKEA' },
   'montaje-vestidores-madrid': { tipos: [{ tipo: 'armario', subtipo: 'vestidor' }] },
@@ -43,7 +41,8 @@ const PREFILL: Record<string, Prefill> = {
   'montar-un-pax-tu-mismo-o-con-montador': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
 };
 
-export const prefillDe = (p: PaginaSeo): Prefill => PREFILL[p.path] ?? {};
+export const prefillDe = (p: PaginaSeo): Prefill =>
+  PREFILL[p.path] ?? (p.tipo === 'zona' && p.zona ? { zona: p.zona } : {});
 
 /** Qué quiere el cliente en cada página de servicio, para el mensaje ya escrito de WhatsApp. */
 const TRABAJO_WHATSAPP: Record<string, string> = {
@@ -77,18 +76,13 @@ export const PAGINAS: PaginaSeo[] = [
   ...PAGINAS_SERVICIOS_NUEVOS,
   ...PAGINAS_MARCAS,
   ...PAGINAS_MARCAS_NUEVAS,
-  ...PAGINAS_ZONAS,
+  ...PAGINAS_ZONAS_CONTENIDO,
   ...PAGINAS_GUIAS,
   ...PAGINAS_GUIAS_NUEVAS,
 ];
 
 export function buscarPagina(slug: unknown): PaginaSeo {
   return PAGINAS.find((p) => p.path === slug) ?? PAGINAS[0];
-}
-
-/** Ruta canónica de la página, con barra inicial. */
-export function urlDePagina(p: PaginaSeo): string {
-  return '/' + p.path;
 }
 
 /** Cadena de páginas desde el inicio hasta la actual, para las migas de pan. */
@@ -98,91 +92,5 @@ export function migasDe(p: PaginaSeo): PaginaSeo[] {
   return padre && padre.path !== '' ? [PAGINAS[0], padre, p] : [PAGINAS[0], p];
 }
 
-/** Precio más bajo de los servicios de la página, o null si no tiene servicios asociados. */
-export function precioDesde(p: PaginaSeo): number | null {
-  const precios = serviciosPorIds(p.ids ?? []).map((s) => s.precioDesde);
-  return precios.length ? Math.min(...precios) : null;
-}
-
-export function crearJsonLd(p: PaginaSeo): object {
-  const url = SITE_URL + urlDePagina(p);
-  const idNegocio = SITE_URL + '/#organization';
-  const servicios = serviciosPorIds(p.ids ?? []);
-  const desde = precioDesde(p);
-
-  const nodos: object[] = [
-    {
-      '@type': 'WebSite',
-      '@id': SITE_URL + '/#website',
-      url: SITE_URL + '/',
-      name: NEGOCIO.nombre,
-      inLanguage: 'es-ES',
-      publisher: { '@id': idNegocio },
-    },
-    {
-      '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
-      '@id': idNegocio,
-      name: NEGOCIO.nombre,
-      url: SITE_URL + '/',
-      telephone: NEGOCIO.telefono,
-      image: SITE_URL + '/images/logo.png',
-      logo: SITE_URL + '/images/icono-180.png',
-      priceRange: '€€',
-      // Negocio que se desplaza al domicilio del cliente: no se publica dirección,
-      // solo la zona de servicio (Madrid y los municipios de la web).
-      areaServed: [
-        { '@type': 'City', name: 'Madrid' },
-        ...ZONAS.filter((z) => z !== 'Madrid capital' && z !== 'Otra zona de Madrid').map((name) => ({
-          '@type': 'City',
-          name,
-        })),
-        { '@type': 'AdministrativeArea', name: 'Comunidad de Madrid' },
-      ],
-    },
-    {
-      '@type': 'Service',
-      name: p.servicio.nombre,
-      description: p.servicio.descripcion,
-      serviceType: p.servicio.nombre,
-      url,
-      provider: { '@id': idNegocio },
-      areaServed: { '@type': 'Place', name: p.zona ?? 'Madrid' },
-      ...(desde !== null
-        ? {
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'EUR',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                minPrice: desde,
-                priceCurrency: 'EUR',
-                valueAddedTaxIncluded: true,
-              },
-            },
-          }
-        : {}),
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: p.faqs.map((f) => ({
-        '@type': 'Question',
-        name: f.pregunta,
-        acceptedAnswer: { '@type': 'Answer', text: f.respuesta },
-      })),
-    },
-  ];
-
-  if (p.path !== '') {
-    nodos.push({
-      '@type': 'BreadcrumbList',
-      itemListElement: migasDe(p).map((m, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: m.path === '' ? 'Inicio' : m.etiqueta,
-        item: SITE_URL + urlDePagina(m),
-      })),
-    });
-  }
-
-  return { '@context': 'https://schema.org', '@graph': nodos };
-}
+/** JSON-LD de la página, con sus migas de pan. */
+export const crearJsonLd = (p: PaginaSeo): object => crearJsonLdBase(p, migasDe(p));

@@ -152,10 +152,28 @@ export const INDICE_PAGINAS: EntradaIndice[] = [
     zona: 'Alcobendas'
   },
   {
+    path: 'montador-muebles-arganzuela',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Arganzuela',
+    zona: 'Arganzuela'
+  },
+  {
     path: 'montador-muebles-barajas',
     tipo: 'zona',
     etiqueta: 'Montador de muebles en Barajas',
     zona: 'Barajas'
+  },
+  {
+    path: 'montador-muebles-carabanchel',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Carabanchel',
+    zona: 'Carabanchel'
+  },
+  {
+    path: 'montador-muebles-chamartin',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Chamartín',
+    zona: 'Chamartín'
   },
   {
     path: 'montador-muebles-ciudad-lineal',
@@ -176,16 +194,40 @@ export const INDICE_PAGINAS: EntradaIndice[] = [
     zona: 'Hortaleza'
   },
   {
+    path: 'montador-muebles-latina',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Latina',
+    zona: 'Latina'
+  },
+  {
     path: 'montador-muebles-moratalaz',
     tipo: 'zona',
     etiqueta: 'Montador de muebles en Moratalaz',
     zona: 'Moratalaz'
   },
   {
+    path: 'montador-muebles-puente-de-vallecas',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Puente de Vallecas',
+    zona: 'Puente de Vallecas'
+  },
+  {
+    path: 'montador-muebles-retiro',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Retiro',
+    zona: 'Retiro'
+  },
+  {
     path: 'montador-muebles-rivas-vaciamadrid',
     tipo: 'zona',
     etiqueta: 'Montador de muebles en Rivas-Vaciamadrid',
     zona: 'Rivas-Vaciamadrid'
+  },
+  {
+    path: 'montador-muebles-salamanca',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Salamanca',
+    zona: 'Salamanca'
   },
   {
     path: 'montador-muebles-san-blas',
@@ -200,16 +242,34 @@ export const INDICE_PAGINAS: EntradaIndice[] = [
     zona: 'San Fernando de Henares'
   },
   {
+    path: 'montador-muebles-tetuan',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Tetuán',
+    zona: 'Tetuán'
+  },
+  {
     path: 'montador-muebles-torrejon-de-ardoz',
     tipo: 'zona',
     etiqueta: 'Montador de muebles en Torrejón de Ardoz',
     zona: 'Torrejón de Ardoz'
   },
   {
+    path: 'montador-muebles-usera',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Usera',
+    zona: 'Usera'
+  },
+  {
     path: 'montador-muebles-vicalvaro',
     tipo: 'zona',
     etiqueta: 'Montador de muebles en Vicálvaro',
     zona: 'Vicálvaro'
+  },
+  {
+    path: 'montador-muebles-villa-de-vallecas',
+    tipo: 'zona',
+    etiqueta: 'Montador de muebles en Villa de Vallecas',
+    zona: 'Villa de Vallecas'
   },
   {
     path: 'cuanto-cuesta-montar-armario-pax',

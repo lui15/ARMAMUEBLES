@@ -152,18 +152,32 @@
 .header-acciones .btn:active:not(:disabled) {
   transform: none;
 }
-.header-tel {
+.header-wa {
   display: inline-flex;
   align-items: center;
+  gap: 7px;
   min-height: 44px;
-  color: var(--ink);
-  font-size: 0.9rem;
+  padding: 0 16px 0 13px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #0b3d20;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
+  --icono: 18px;
 }
-.header-tel:hover {
-  color: var(--green-d);
+.header-wa:hover {
+  background: #1fc05c;
+  color: #0b3d20;
+}
+.header-wa svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linejoin: round;
 }
 .hamburguesa {
   display: none;
@@ -263,7 +277,7 @@
   }
 }
 @media (max-width: 1240px) {
-  .header-tel {
+  .header-wa {
     display: none;
   }
 }

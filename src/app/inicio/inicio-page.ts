@@ -27,7 +27,9 @@ import {
   ZONAS,
   servicioPorId,
 } from '../datos/catalogo';
-import { PAGINAS, buscarPagina, crearJsonLd, urlDePagina } from '../landing/landing-data';
+import { crearJsonLd, urlDePagina } from '../landing/esquema';
+import { INDICE_PAGINAS as PAGINAS } from '../landing/indice.generado';
+import { PAGINAS_HUB } from '../landing/paginas-hub';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
 import { KitchenScene } from './kitchen-scene';
@@ -68,7 +70,7 @@ export class InicioPage {
   private readonly destroyRef = inject(DestroyRef);
   readonly presupuesto = inject(PresupuestoService);
 
-  readonly pagina = buscarPagina('');
+  readonly pagina = PAGINAS_HUB.find((p) => p.path === '')!;
   readonly minimo = eurMinimo();
   readonly srcset = srcsetDe;
   readonly cifras = {

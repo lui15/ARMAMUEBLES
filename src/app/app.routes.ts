@@ -1,8 +1,8 @@
 import { Route, Routes } from '@angular/router';
 
-import { PAGINAS } from './landing/landing-data';
+import { INDICE_PAGINAS } from './landing/indice.generado';
 
-const rutasLanding: Routes = PAGINAS.map(
+const rutasLanding: Routes = INDICE_PAGINAS.map(
   (pagina): Route => ({
     path: pagina.path,
     pathMatch: 'full',

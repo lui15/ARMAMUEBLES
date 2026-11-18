@@ -146,6 +146,12 @@
           </div>
           <p>Si la tuya no aparece, elige «Otra zona de Madrid» en el formulario y lo revisamos.</p>
         </div>
+        <nav class="enlaces-grid" aria-label="Zonas con página propia">
+          @for (z of paginasZona; track z.path) {
+            <a class="enlace-card" [routerLink]="'/' + z.path">{{ z.zona }}</a>
+          }
+        </nav>
+        <p class="lp-rel-titulo">También montamos en</p>
         <ul class="chips-grandes" appReveal>
           @for (z of zonas; track z) {
             <li>{{ z }}</li>
@@ -205,6 +211,14 @@
           </li>
         }
       </ol>
+      @if (pagina.fuentes?.length) {
+        <p class="lp-fuentes">
+          Fuentes de los datos de la zona:
+          @for (f of pagina.fuentes; track f.url; let ultima = $last) {
+            <a [href]="f.url" target="_blank" rel="noopener">{{ f.texto }}</a>{{ ultima ? '.' : ',' }}
+          }
+        </p>
+      }
     </div>
   </div>
 </section>

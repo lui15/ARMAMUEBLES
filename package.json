@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prestart": "node scripts/generar-zonas.mjs && node scripts/generar-indice.mjs",
     "start": "ng serve",
+    "prebuild": "node scripts/generar-zonas.mjs && node scripts/generar-indice.mjs",
     "build": "ng build",
+    "postbuild": "node scripts/generar-sitemap.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:arma-muebles": "node dist/arma-muebles/server/server.mjs"

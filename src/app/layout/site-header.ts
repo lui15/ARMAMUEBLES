@@ -13,7 +13,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
 import { TELEFONO, TELEFONO_VISIBLE } from '../datos/catalogo';
-import { PAGINAS } from '../landing/landing-data';
+import { INDICE_PAGINAS as PAGINAS } from '../landing/indice.generado';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { ScrollEstado } from './scroll-estado.service';
 
@@ -37,7 +37,8 @@ export class SiteHeader {
 
   readonly servicios = PAGINAS.filter((p) => p.tipo === 'servicio');
   readonly tiendas = PAGINAS.filter((p) => p.tipo === 'marca');
-  readonly zonas = PAGINAS.filter((p) => p.tipo === 'zona');
+  /** Con muchas zonas, el menú enseña unas pocas; el título del bloque enlaza a /zonas. */
+  readonly zonas = PAGINAS.filter((p) => p.tipo === 'zona').slice(0, 6);
 
   readonly enlaces = [
     { ruta: '/precios', texto: 'Precios' },

@@ -20,6 +20,7 @@ import { NOTA_PRECIOS } from '../datos/precios-extra';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
 import {
+  PAGINAS,
   buscarPagina,
   crearJsonLd,
   mensajeWhatsappDe,
@@ -76,6 +77,7 @@ export class LandingPage {
   readonly precio = formatearPrecio;
   readonly marcas = MARCAS;
   readonly zonas = ZONAS.filter((z) => z !== 'Otra zona de Madrid');
+  readonly paginasZona = PAGINAS.filter((p) => p.tipo === 'zona');
 
   constructor() {
     // En las páginas de servicio, todos los WhatsApp de la página nombran el servicio.

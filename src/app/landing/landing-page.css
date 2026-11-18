@@ -364,6 +364,18 @@ h1 {
   }
 }
 
+.lp-fuentes {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.lp-fuentes a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--green-d);
+}
+
 /* ---------- Precios complementarios ---------- */
 .lp-extra {
   width: 100%;

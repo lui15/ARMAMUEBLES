@@ -1,0 +1,70 @@
+# ArmaMuebles
+
+> Montador de muebles a domicilio en Madrid capital y municipios cercanos: cocinas, armarios PAX, dormitorios, salones y muebles de IKEA, Leroy Merlin, Conforama y otras tiendas. Precio cerrado antes de ir y presupuesto por WhatsApp o formulario.
+
+Web: https://armamuebles.es/ · Presupuesto: formulario de la web o WhatsApp desde cualquier página.
+
+## Páginas principales
+
+- [Servicios de montaje de muebles en Madrid](https://armamuebles.es/servicios/): Cocinas, armarios, camas y salones montados en casa.
+- [Precios de montaje de muebles en Madrid 2026](https://armamuebles.es/precios/): Mesita desde 25 €, armario desde 65 € y cocina desde 120 €.
+- [Zonas de montaje de muebles en Madrid](https://armamuebles.es/zonas/): Montamos muebles en Madrid capital y municipios de alrededor.
+- [Opiniones de clientes](https://armamuebles.es/opiniones/): Lo que dicen los clientes que montaron con nosotros.
+- [Preguntas frecuentes sobre montaje de muebles](https://armamuebles.es/preguntas-frecuentes/): Respuestas claras antes de montar tus muebles en Madrid.
+- [Cómo trabajamos: un solo contacto y trato cercano](https://armamuebles.es/como-trabajamos/): Tu solicitud no se reparte entre empresas.
+
+## Servicios
+
+- [Colgar TV, baldas y espejos en Madrid](https://armamuebles.es/colgar-tv-baldas-espejos-madrid/): Colgamos tu TV, baldas, cuadros y espejos bien anclados a la pared.
+- [Colocación de electrodomésticos en Madrid](https://armamuebles.es/colocacion-electrodomesticos-madrid/): Colocamos horno, placa, campana, lavavajillas y más en tu cocina.
+- [Desmontaje de muebles en Madrid](https://armamuebles.es/desmontaje-muebles-madrid/): Desmontamos tus muebles antes de una mudanza.
+- [Montaje de armarios en Madrid](https://armamuebles.es/montaje-armarios-madrid/): Armarios abatibles, correderos y vestidores, nivelados y bien fijados.
+- [Montaje de armarios PAX de IKEA en Madrid](https://armamuebles.es/montaje-armarios-pax/): Tu PAX de IKEA montado en Madrid y bien fijado a la pared.
+- [Montaje de camas y canapés en Madrid](https://armamuebles.es/montaje-camas-canapes-madrid/): Camas, literas, canapés abatibles y cabeceros montados.
+- [Montaje de cocinas en Madrid](https://armamuebles.es/montaje-cocinas-madrid/): Tu cocina montada en Madrid con los electrodomésticos.
+- [Montaje de dormitorios en Madrid](https://armamuebles.es/montaje-dormitorios-madrid/): Camas, mesitas, cómodas y armarios de dormitorio montados en Madrid.
+- [Montaje de estanterías en Madrid](https://armamuebles.es/montaje-estanterias-madrid/): Estanterías, zapateros y auxiliares, fijados si hace falta.
+- [Montaje de mesas y escritorios en Madrid](https://armamuebles.es/montaje-mesas-escritorios-madrid/): Mesas de comedor y escritorios montados, nivelados y bien ajustados.
+- [Montaje de muebles a medida en Madrid](https://armamuebles.es/montaje-muebles-a-medida-madrid/): Montaje de muebles a medida y trabajos con ajustes.
+- [Montaje de muebles de baño en Madrid](https://armamuebles.es/montaje-muebles-bano-madrid/): Muebles de baño montados, nivelados y bien fijados.
+- [Montaje de muebles Conforama en Madrid](https://armamuebles.es/montaje-muebles-conforama-madrid/): Tus muebles de Conforama montados en casa.
+- [Montaje de muebles IKEA en Madrid](https://armamuebles.es/montaje-muebles-ikea-madrid/): Montadores de muebles IKEA en Madrid: PAX, cocinas y camas.
+- [Montaje de muebles Leroy Merlin en Madrid](https://armamuebles.es/montaje-muebles-leroy-merlin/): Montamos tus muebles de Leroy Merlin en tu casa de Madrid.
+- [Montaje de muebles de oficina en Madrid](https://armamuebles.es/montaje-muebles-oficina-madrid/): Escritorios, estanterías y archivadores montados.
+- [Montamos muebles de IKEA y otras tiendas en Madrid](https://armamuebles.es/montaje-muebles-por-tienda/): Montamos muebles de IKEA, Leroy Merlin, Conforama y más.
+- [Montaje de muebles de salón en Madrid](https://armamuebles.es/montaje-salones-madrid/): Muebles de TV y composiciones de salón montados en tu casa.
+- [Montaje de vestidores en Madrid](https://armamuebles.es/montaje-vestidores-madrid/): Vestidores abiertos y modulares montados y nivelados.
+
+## Zonas
+
+- [Montador de muebles en Alcalá de Henares](https://armamuebles.es/montador-muebles-alcala-de-henares/): Del centro histórico peatonal a Espartales y La Garena.
+- [Montador de muebles en Alcobendas](https://armamuebles.es/montador-muebles-alcobendas/): Del centro y Valdelasfuentes a La Moraleja.
+- [Montador de muebles en Arganzuela](https://armamuebles.es/montador-muebles-arganzuela/): Delicias, Legazpi, Acacias, Imperial y Madrid Río.
+- [Montador de muebles en Barajas](https://armamuebles.es/montador-muebles-barajas/): Alameda de Osuna, el casco de Barajas, Timón y Corralejos.
+- [Montador de muebles en Carabanchel](https://armamuebles.es/montador-muebles-carabanchel/): Vista Alegre, Opañel, Comillas, Abrantes y Buenavista.
+- [Montador de muebles en Chamartín](https://armamuebles.es/montador-muebles-chamartin/): El Viso, Prosperidad, Hispanoamérica, Castilla y más.
+- [Montador de muebles en Ciudad Lineal](https://armamuebles.es/montador-muebles-ciudad-lineal/): De Arturo Soria a Pueblo Nuevo y La Elipa, piso a piso.
+- [Montador de muebles en Coslada](https://armamuebles.es/montador-muebles-coslada/): Del Casco y Ciudad 70 al Barrio del Puerto.
+- [Montador de muebles en Hortaleza](https://armamuebles.es/montador-muebles-hortaleza/): De los poblados de los 50 a Sanchinarro y Valdebebas.
+- [Montador de muebles en Latina](https://armamuebles.es/montador-muebles-latina/): Aluche, Lucero, Las Águilas, Campamento y Cuatro Vientos.
+- [Montador de muebles en Moratalaz](https://armamuebles.es/montador-muebles-moratalaz/): Pisos de los años 60 y 70 entre la M-30 y la M-40.
+- [Montador de muebles en Puente de Vallecas](https://armamuebles.es/montador-muebles-puente-de-vallecas/): Entrevías, Palomeras, Portazgo, Numancia y San Diego.
+- [Montador de muebles en Retiro](https://armamuebles.es/montador-muebles-retiro/): Pacífico, Ibiza, Niño Jesús, Estrella y Jerónimos.
+- [Montador de muebles en Rivas-Vaciamadrid](https://armamuebles.es/montador-muebles-rivas-vaciamadrid/): Covibar, Rivas Futura, La Partija y Rivas Urbanizaciones.
+- [Montador de muebles en Salamanca](https://armamuebles.es/montador-muebles-salamanca/): Recoletos, Goya, Lista, Castellana y La Guindalera.
+- [Montador de muebles en San Blas-Canillejas](https://armamuebles.es/montador-muebles-san-blas/): Simancas, Arcos, Las Rosas, Canillejas y el Metropolitano.
+- [Montador de muebles en San Fernando de Henares](https://armamuebles.es/montador-muebles-san-fernando-de-henares/): Casco histórico, Parque Henares y urbanizaciones.
+- [Montador de muebles en Tetuán](https://armamuebles.es/montador-muebles-tetuan/): Bravo Murillo, Cuatro Caminos, Ventilla y Valdeacederas.
+- [Montador de muebles en Torrejón de Ardoz](https://armamuebles.es/montador-muebles-torrejon-de-ardoz/): Parque Cataluña, Soto del Henares, Fresnos y el centro.
+- [Montador de muebles en Usera](https://armamuebles.es/montador-muebles-usera/): Orcasitas, Almendrales, Moscardó, Zofío y Pradolongo.
+- [Montador de muebles en Vicálvaro](https://armamuebles.es/montador-muebles-vicalvaro/): Del casco antiguo a Valdebernardo, Valderrivas y El Cañaveral.
+- [Montador de muebles en Villa de Vallecas](https://armamuebles.es/montador-muebles-villa-de-vallecas/): El casco de Vallecas, Santa Eugenia y el Ensanche.
+
+## Guías
+
+- [Cómo preparar la casa para el montador](https://armamuebles.es/como-preparar-la-casa-para-el-montador/): Lista sencilla para que el montaje de tus muebles vaya rápido.
+- [Cuánto cuesta montar un armario PAX en Madrid](https://armamuebles.es/cuanto-cuesta-montar-armario-pax/): PAX abatible desde 65 € y con correderas desde 150 €. Qué revisar antes.
+- [Cuánto cuesta montar una cocina IKEA en Madrid](https://armamuebles.es/cuanto-cuesta-montar-cocina-ikea/): Cocina IKEA pequeña desde 120 € y con isla desde 450 €.
+- [Cuánto tarda montar una cocina IKEA](https://armamuebles.es/cuanto-tarda-montar-una-cocina-ikea/): De qué depende el tiempo de montar tu cocina IKEA.
+- [Fijar muebles a la pared: guía antivuelco](https://armamuebles.es/fijar-muebles-a-la-pared-antivuelco/): Por qué fijar armarios a la pared y qué taco usar en cada una.
+- [Montar un PAX tú mismo o con montador](https://armamuebles.es/montar-un-pax-tu-mismo-o-con-montador/): Qué hace falta para montar un PAX y cuándo compensa.

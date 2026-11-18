@@ -41,6 +41,7 @@ export function crearJsonLd(p: PaginaSeo, migas: PaginaSeo[] = [p]): object {
       image: SITE_URL + '/images/logo.png',
       logo: SITE_URL + '/images/icono-180.png',
       priceRange: '€€',
+      sameAs: NEGOCIO.perfiles,
       // Negocio que se desplaza al domicilio del cliente: no se publica dirección,
       // solo la zona de servicio (Madrid y los municipios de la web).
       areaServed: [

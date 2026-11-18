@@ -8,6 +8,11 @@ export const SITE_URL = 'https://armamuebles.es';
 export const NEGOCIO = {
   nombre: 'ArmaMuebles',
   telefono: '+34624671374',
+  /** Perfiles del negocio en otros sitios. Se publican como sameAs en los datos estructurados. */
+  perfiles: [
+    // Ficha de Google Maps (Google Business Profile).
+    'https://maps.google.com/?cid=5922403047880842944',
+  ],
 } as const;
 
 /**

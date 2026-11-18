@@ -1,4 +1,6 @@
 User-agent: *
+# Uso permitido del contenido: buscadores e IAs que citan o recomiendan la web, sí; entrenar modelos, no.
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 Sitemap: https://armamuebles.es/sitemap.xml

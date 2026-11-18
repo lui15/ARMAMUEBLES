@@ -1,5 +1,8 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
+
+import { BarraFinalLocationStrategy } from './barra-final.strategy';
 
 import { routes } from './app.routes';
 import {
@@ -12,6 +15,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })), provideClientHydration(withEventReplay(), withIncrementalHydration())
+    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })), provideClientHydration(withEventReplay(), withIncrementalHydration()),
+    { provide: LocationStrategy, useClass: BarraFinalLocationStrategy },
   ]
 };

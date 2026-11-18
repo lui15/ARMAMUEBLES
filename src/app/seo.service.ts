@@ -10,6 +10,19 @@ export const NEGOCIO = {
   telefono: '+34624671374',
 } as const;
 
+/**
+ * Ruta pública con barra final, como la sirve Hostinger (/precios/). La portada es "/" y los
+ * archivos (/images/logo.png) se quedan igual. Así el canónico y el sitemap no apuntan a una
+ * redirección.
+ */
+export function conBarra(ruta: string): string {
+  const limpia = ruta.startsWith('/') ? ruta : '/' + ruta;
+  if (limpia === '/' || limpia.endsWith('/') || /\.[a-z0-9]+$/i.test(limpia)) {
+    return limpia;
+  }
+  return limpia + '/';
+}
+
 export interface SeoConfig {
   title: string;
   description: string;
@@ -27,7 +40,7 @@ export class SeoService {
   private readonly doc = inject(DOCUMENT);
 
   update(config: SeoConfig): void {
-    const url = SITE_URL + config.path;
+    const url = SITE_URL + conBarra(config.path);
 
     this.titleService.setTitle(config.title);
     this.meta.updateTag({ name: 'description', content: config.description });

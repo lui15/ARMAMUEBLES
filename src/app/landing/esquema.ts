@@ -1,5 +1,5 @@
 import { serviciosPorIds } from '../datos/catalogo';
-import { NEGOCIO, SITE_URL } from '../seo.service';
+import { NEGOCIO, SITE_URL, conBarra } from '../seo.service';
 import { ZONAS } from '../datos/catalogo';
 import { PaginaSeo } from './pagina-seo';
 
@@ -18,7 +18,7 @@ export function precioDesde(p: PaginaSeo): number | null {
 
 /** JSON-LD de la página. Las migas se pasan ya calculadas (la portada no las necesita). */
 export function crearJsonLd(p: PaginaSeo, migas: PaginaSeo[] = [p]): object {
-  const url = SITE_URL + urlDePagina(p);
+  const url = SITE_URL + conBarra(urlDePagina(p));
   const idNegocio = SITE_URL + '/#organization';
   const servicios = serviciosPorIds(p.ids ?? []);
   const desde = precioDesde(p);
@@ -92,7 +92,7 @@ export function crearJsonLd(p: PaginaSeo, migas: PaginaSeo[] = [p]): object {
         '@type': 'ListItem',
         position: i + 1,
         name: m.path === '' ? 'Inicio' : m.etiqueta,
-        item: SITE_URL + urlDePagina(m),
+        item: SITE_URL + conBarra(urlDePagina(m)),
       })),
     });
   }

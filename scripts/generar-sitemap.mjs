@@ -30,7 +30,7 @@ const filas = indexables
   .sort((a, b) => a.url.localeCompare(b.url))
   .map(
     ({ url }) =>
-      `  <url>\n    <loc>${SITIO}${url || '/'}</loc>\n    <lastmod>${hoy}</lastmod>\n    <priority>${prioridad(url)}</priority>\n  </url>`,
+      `  <url>\n    <loc>${SITIO}${url ? url + '/' : '/'}</loc>\n    <lastmod>${hoy}</lastmod>\n    <priority>${prioridad(url)}</priority>\n  </url>`,
   );
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

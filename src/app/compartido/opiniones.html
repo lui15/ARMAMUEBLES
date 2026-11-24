@@ -6,16 +6,16 @@
           <span class="kicker">Opiniones de clientes</span>
           <h2 id="op-titulo">Lo que dicen <em>quienes ya montaron</em></h2>
         } @else {
-          <h2 id="op-titulo">Todas las opiniones</h2>
+          <h2 id="op-titulo">Reseñas en nuestra ficha de Google</h2>
         }
       </div>
       <p class="op-resumen">
         <span aria-hidden="true"><app-estrellas [valor]="5" /></span>
-        <span><strong>{{ resumen.media }} de 5</strong> · {{ resumen.total }} opiniones de clientes</span>
+        <span><strong>{{ resumen.media }} de 5</strong> · {{ resumen.texto }} de clientes en Google</span>
       </p>
     </div>
 
-    @if (formato() === 'todas') {
+    @if (formato() === 'todas' && filtros.length) {
       <div class="op-filtros" role="group" aria-label="Filtrar opiniones">
         <button type="button" [attr.aria-pressed]="filtro() === null" (click)="filtro.set(null)">
           Todas <small>{{ resumen.total }}</small>
@@ -44,7 +44,7 @@
       </figure>
     </ng-template>
 
-    @if (formato() === 'carrusel') {
+    @if (formato() === 'carrusel' && !carruselFijo()) {
       <!-- Pasa sola sin fin: la segunda vuelta es una copia oculta a los lectores de pantalla. -->
       <div
         #ventana

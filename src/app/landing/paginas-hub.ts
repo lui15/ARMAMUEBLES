@@ -245,22 +245,22 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     h1: { antes: 'Opiniones de', resaltado: 'nuestros clientes', despues: 'en Madrid' },
     kicker: 'Opiniones',
     h2: 'Cómo publicamos las opiniones',
-    intro: `${RESUMEN.media} de 5 con ${RESUMEN.total} opiniones de clientes. Las publicamos completas, sin editar.`,
+    intro: `${RESUMEN.media} de 5 con ${RESUMEN.texto} en nuestra ficha de Google. Las copiamos completas, sin editar.`,
     parrafos: [
-      'Cada opinión la envió un cliente que contrató el montaje con nosotros. La publicamos tal cual nos la dio: con su texto completo, sus estrellas y su nombre con la inicial del apellido.',
-      'Puedes filtrarlas por tipo de mueble para leer las de lo que necesitas montar.',
+      'Aquí mostramos las reseñas que los clientes han dejado en nuestra ficha de Google. Las copiamos tal cual: con su texto completo, sus estrellas y su nombre con la inicial del apellido.',
+      'Puedes leerlas también en Google y, si ya montaste con nosotros, dejar allí la tuya.',
     ],
     puntos: [
       `${RESUMEN.media} de 5`,
-      `${RESUMEN.total} opiniones de clientes`,
-      'Publicadas sin editar',
+      `${RESUMEN.texto} en Google`,
+      'Copiadas sin editar',
       'Precio cerrado antes de ir',
     ],
     bloques: [
       { titulo: 'Sin editar', texto: NOTA_OPINIONES },
       {
         titulo: 'Tu opinión también cuenta',
-        texto: 'Si ya montaste con nosotros, cuéntanos qué tal fue por WhatsApp.',
+        texto: 'Si ya montaste con nosotros, déjanos tu reseña en nuestra ficha de Google.',
       },
     ],
     faqs: [
@@ -270,11 +270,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       },
       {
         pregunta: '¿Puedo dejar mi opinión?',
-        respuesta: 'Sí. Si contrataste el montaje con nosotros, cuéntanos qué tal fue por WhatsApp.',
-      },
-      {
-        pregunta: '¿Por qué hay una opinión de 4 estrellas?',
-        respuesta: 'Porque publicamos todas las opiniones que nos envían los clientes, completas y sin editar.',
+        respuesta: 'Sí. Si contrataste el montaje con nosotros, puedes dejar tu reseña en nuestra ficha de Google con el botón «Escribir mi opinión».',
       },
       {
         pregunta: '¿Cuánto cuesta el montaje?',

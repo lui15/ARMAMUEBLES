@@ -83,7 +83,8 @@ export class Opiniones {
   readonly nota = NOTA_OPINIONES;
   readonly resumen = resumenOpiniones();
   readonly google = PERFIL_GOOGLE;
-  readonly filtros = FILTROS_OPINIONES;
+  /** Solo los filtros que tienen alguna opinión. Si no queda ninguno, no se muestra el filtro. */
+  readonly filtros = FILTROS_OPINIONES.filter((f) => OPINIONES.some((o) => o.filtro === f));
   readonly filtro = signal<FiltroOpinion | null>(null);
 
   /* ---------- Carrusel en movimiento continuo, como un anuncio ---------- */
@@ -101,6 +102,11 @@ export class Opiniones {
   readonly visible = signal(false);
   /** Duración de una vuelta, calculada para que la velocidad sea la misma en cualquier pantalla. */
   readonly duracion = signal(60);
+  /** Con menos de tres opiniones el carrusel no se mueve: se muestran fijas, sin repetir. */
+  static readonly MINIMO_CARRUSEL = 3;
+  readonly carruselFijo = computed(
+    () => this.formato() === 'carrusel' && this.lista().length < Opiniones.MINIMO_CARRUSEL,
+  );
   /** Distancia de una vuelta: lo que ocupan las opiniones originales, en píxeles. */
   readonly vuelta = signal(0);
 

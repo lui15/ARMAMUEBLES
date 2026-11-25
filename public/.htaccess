@@ -1,0 +1,10 @@
+# Hostinger (LiteSpeed / Apache). Solo la redirección de www a sin www.
+# El resto ya lo hace el hosting y no se toca aquí: http -> https (en su CDN), la barra final
+# de las carpetas prerenderizadas y la página 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # www.armamuebles.es -> https://armamuebles.es, con la misma ruta y parámetros (301).
+  RewriteCond %{HTTP_HOST} ^www\.armamuebles\.es$ [NC]
+  RewriteRule ^(.*)$ https://armamuebles.es/$1 [R=301,L]
+</IfModule>

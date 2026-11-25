@@ -83,6 +83,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'montaje-muebles-bano-madrid',
       'precios',
       'cuanto-cuesta-montar-cocina-ikea',
+      'precio-montaje-cocina-metro-lineal',
     ],
   },
 
@@ -332,6 +333,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'montaje-armarios-madrid',
       'montaje-salones-madrid',
       'montaje-mesas-escritorios-madrid',
+      'montaje-cama-abatible-madrid',
       'precios',
     ],
   },

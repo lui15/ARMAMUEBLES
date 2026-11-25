@@ -410,6 +410,9 @@ export const eur = (id: number): string => formatearPrecio(servicioPorId(id)?.pr
 export const eurMinimo = (): string =>
   formatearPrecio(Math.min(...SERVICIOS.map((s) => s.precioDesde)));
 
+/** Precio del montaje más económico, con espacio normal, para title y description. */
+export const eurMinimoPlano = (): string => eurMinimo().replace(/ /g, ' ');
+
 /** Precio "desde" con espacio normal, para title y description (sin &nbsp;). */
 export const eurPlano = (id: number): string => eur(id).replace(/ /g, ' ');
 

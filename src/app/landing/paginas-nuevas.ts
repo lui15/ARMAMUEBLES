@@ -156,7 +156,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     imagenAlt: 'Cama montada en un dormitorio luminoso',
     ids: [9, 8, 10],
     categoria: 'Dormitorio',
-    relacionadas: ['montaje-dormitorios-madrid', 'montaje-armarios-madrid', 'montaje-vestidores-madrid', 'precios'],
+    relacionadas: ['montaje-dormitorios-madrid', 'montaje-cama-abatible-madrid', 'montaje-armarios-madrid', 'montaje-vestidores-madrid', 'precios'],
   },
 
   /* ---------------------------- OFICINA ---------------------------- */
@@ -225,7 +225,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     imagenAlt: 'Escritorio de esquina con silla y baldas iluminadas',
     ids: [14, 15, 16],
     categoria: 'Mesas y auxiliares',
-    relacionadas: ['montaje-mesas-escritorios-madrid', 'montaje-estanterias-madrid', 'colgar-tv-baldas-espejos-madrid', 'precios'],
+    relacionadas: ['montaje-mesas-escritorios-madrid', 'montaje-estanterias-madrid', 'montaje-mobiliario-tiendas-madrid', 'colgar-tv-baldas-espejos-madrid', 'precios'],
   },
 
   /* ---------------------------- DESMONTAJE ---------------------------- */
@@ -440,6 +440,155 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       { concepto: 'Servicio mínimo', detalle: 'Incluye el desplazamiento en Madrid capital', precio: `${SERVICIO_MINIMO} €` },
     ],
     relacionadas: ['montaje-cocinas-madrid', 'montaje-armarios-madrid', 'montaje-vestidores-madrid', 'precios'],
+  },
+
+  /* ---------------------------- CAMAS ABATIBLES ---------------------------- */
+  {
+    path: 'montaje-cama-abatible-madrid',
+    tipo: 'servicio',
+    padre: 'servicios',
+    title: 'Montaje de camas abatibles en Madrid | ArmaMuebles',
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Una sola persona de contacto'],
+      'Camas abatibles de pared montadas y bien ancladas.',
+    ),
+    etiqueta: 'Montaje de camas abatibles',
+    h1: { antes: 'Montaje de', resaltado: 'camas abatibles', despues: 'en Madrid' },
+    kicker: 'Camas abatibles',
+    h2: 'Una cama que se recoge contra la pared, bien anclada',
+    intro: 'Montamos camas abatibles en tu casa: la cama que se pliega contra la pared y deja libre la habitación durante el día. Te damos un precio cerrado antes de ir, según el modelo y tu pared.',
+    parrafos: [
+      'Una cama abatible no es lo mismo que un canapé abatible. En el canapé se levanta la tapa del somier para guardar cosas debajo; en la cama abatible, la cama entera se pliega y queda recogida en un mueble pegado a la pared.',
+      'Al plegarse, el peso de la cama y del colchón trabaja contra el mueble y la pared, por eso el anclaje es la parte más importante del montaje. Seguimos las instrucciones del fabricante, fijamos el mueble a la pared y comprobamos que la cama abra y cierre bien antes de irnos.',
+      'Para darte un precio cerrado nos ayuda saber la tienda o el modelo, si es individual o de matrimonio, si se abre en vertical o en horizontal y cómo es la pared. Lo más rápido es una foto del albarán y otra de la pared.',
+    ],
+    puntos: [
+      'Verticales y horizontales',
+      'Fijación a la pared incluida',
+      'Precio cerrado antes de ir',
+      'Nos llevamos los cartones',
+    ],
+    bloques: [
+      {
+        titulo: 'Qué montamos',
+        texto: 'Camas abatibles individuales y de matrimonio, de apertura vertical u horizontal, con su mueble y los estantes o módulos laterales que traiga el modelo.',
+      },
+      {
+        titulo: 'La pared importa',
+        texto: 'En ladrillo u hormigón se fija con el taco adecuado a esa pared. En pladur depende de lo que indique el fabricante: mándanos el modelo y una foto de la pared y lo revisamos antes de ir.',
+      },
+      {
+        titulo: 'Antes de que lleguemos',
+        texto: 'Deja despejada la pared donde va la cama y la zona de delante. Si hay que desmontar la cama antigua, indícalo en el formulario.',
+      },
+    ],
+    faqs: [
+      {
+        pregunta: '¿Cuánto cuesta montar una cama abatible?',
+        respuesta: `Depende del modelo, del tamaño y de la pared. Mándanos el modelo o una foto del albarán y te damos un precio cerrado antes de ir. El servicio mínimo es de ${SERVICIO_MINIMO} € e incluye el desplazamiento en Madrid capital.`,
+      },
+      {
+        pregunta: '¿Hay que anclarla a la pared?',
+        respuesta: 'Sí. Una cama abatible tiene que ir fijada a la pared como indica el fabricante. La fijación va incluida en el montaje.',
+      },
+      {
+        pregunta: '¿Se puede montar en una pared de pladur?',
+        respuesta: 'Depende de lo que indique el fabricante de tu cama. Si lo permite, se fija con tacos específicos para pladur o a los montantes. Pregúntanos con el modelo y una foto de la pared y lo revisamos antes de ir.',
+      },
+      {
+        pregunta: '¿Cuánto se tarda en montarla?',
+        respuesta: 'Orientativamente, entre 1 y 2,5 horas, según el modelo y la pared. Al darte el precio te decimos el tiempo que calculamos para la tuya.',
+      },
+      {
+        pregunta: '¿Desmontáis la cama antigua?',
+        respuesta: `Sí. El desmontaje cuesta entre el ${DESMONTAJE} del precio de montaje de ese mueble. Indícalo en el formulario.`,
+      },
+    ],
+    servicio: {
+      nombre: 'Montaje de camas abatibles',
+      descripcion: 'Montaje de camas abatibles de pared a domicilio en Madrid, con la fijación a la pared incluida.',
+    },
+    imagen: './images/cama.webp',
+    imagenAlt: 'Cama montada en un dormitorio',
+    preciosExtra: [
+      { concepto: 'Montaje de cama abatible', detalle: 'Según el modelo, el tamaño y la pared', precio: 'Precio cerrado antes de ir' },
+      { concepto: 'Desmontar la cama antigua', precio: `${DESMONTAJE} del precio de montaje` },
+      { concepto: 'Servicio mínimo', detalle: 'Incluye el desplazamiento en Madrid capital', precio: `${SERVICIO_MINIMO} €` },
+    ],
+    categoria: 'Dormitorio',
+    relacionadas: ['montaje-camas-canapes-madrid', 'montaje-dormitorios-madrid', 'fijar-muebles-a-la-pared-antivuelco', 'precios'],
+  },
+
+  /* ---------------------------- TIENDAS Y LOCALES ---------------------------- */
+  {
+    path: 'montaje-mobiliario-tiendas-madrid',
+    tipo: 'servicio',
+    padre: 'servicios',
+    title: 'Montaje de mobiliario para tiendas y locales en Madrid',
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Una sola persona de contacto'],
+      `Estanterías, mostradores y expositores, a ${PRECIO_HORA}.`,
+    ),
+    etiqueta: 'Montaje de mobiliario para tiendas',
+    h1: { antes: 'Montaje de', resaltado: 'mobiliario para tiendas', despues: 'y locales en Madrid' },
+    kicker: 'Tiendas y locales',
+    h2: 'Tu local montado y listo para abrir',
+    intro: `Montamos estanterías, mostradores, probadores y expositores en tiendas y locales de Madrid. Se presupuesta por horas, a ${PRECIO_HORA}, o con un precio cerrado cuando el trabajo se puede valorar de antemano.`,
+    parrafos: [
+      'En un local, los muebles aguantan el uso de cada día: estanterías cargadas, mostradores en los que se apoya la gente y expositores que se mueven. Los montamos nivelados, bien ajustados y fijados a la pared cuando el mueble lo requiere.',
+      'Montamos mobiliario de tiendas como IKEA, Leroy Merlin u Obramat y también el que te entrega tu proveedor por piezas. Cuéntanos qué muebles son y cuántos, y mándanos fotos del local y de los albaranes o planos.',
+      'Consúltanos el horario que te venga mejor para el montaje y lo vemos contigo. Te atiende una sola persona de contacto de principio a fin, para que no tengas que explicar lo mismo dos veces.',
+    ],
+    puntos: [
+      `Por horas, a ${PRECIO_HORA}`,
+      'Estanterías, mostradores y expositores',
+      'Probadores y muebles auxiliares',
+      'Una sola persona de contacto',
+    ],
+    bloques: [
+      {
+        titulo: 'Qué montamos',
+        texto: 'Estanterías, mostradores, probadores, expositores, vitrinas y muebles auxiliares para tiendas, locales y pequeños negocios.',
+      },
+      {
+        titulo: 'Cómo se calcula el precio',
+        texto: `Por horas, a ${PRECIO_HORA}, o con un presupuesto cerrado para todo el trabajo si se puede valorar de antemano. Con la lista de muebles, fotos y planos te orientamos antes de ir.`,
+      },
+      {
+        titulo: 'Bien fijado',
+        texto: 'Las estanterías y los muebles altos se fijan a la pared para que no vuelquen. La fijación antivuelco va incluida en el montaje.',
+      },
+    ],
+    faqs: [
+      {
+        pregunta: '¿Qué muebles montáis en tiendas y locales?',
+        respuesta: 'Estanterías, mostradores, probadores, expositores, vitrinas y muebles auxiliares. Si tu mueble es distinto, cuéntanoslo y lo revisamos.',
+      },
+      {
+        pregunta: '¿Cómo se calcula el precio?',
+        respuesta: `Por horas, a ${PRECIO_HORA}, o con un presupuesto cerrado cuando el trabajo se puede valorar de antemano. El servicio mínimo es de ${SERVICIO_MINIMO} € e incluye el desplazamiento en Madrid capital.`,
+      },
+      {
+        pregunta: '¿Trabajáis en varios días?',
+        respuesta: 'Cuéntanos cuántos muebles son y vemos contigo cómo organizar el trabajo. Si no cabe en una visita, pregúntanos y lo hablamos.',
+      },
+      {
+        pregunta: '¿Podéis venir cuando la tienda está cerrada?',
+        respuesta: 'Consúltanos el horario que te venga mejor y lo vemos contigo.',
+      },
+    ],
+    servicio: {
+      nombre: 'Montaje de mobiliario para tiendas',
+      descripcion: 'Montaje de estanterías, mostradores, probadores y expositores para tiendas y locales en Madrid.',
+    },
+    imagen: './images/estanteria.webp',
+    imagenAlt: 'Estantería grande montada y fijada a la pared',
+    preciosExtra: [
+      { concepto: 'Trabajos por horas', precio: PRECIO_HORA },
+      { concepto: 'Servicio mínimo', detalle: 'Incluye el desplazamiento en Madrid capital', precio: `${SERVICIO_MINIMO} €` },
+      { concepto: 'Desplazamiento a municipios del área metropolitana', detalle: 'Según la distancia', precio: '0–15 €' },
+    ],
+    relacionadas: ['montaje-muebles-oficina-madrid', 'montaje-estanterias-madrid', 'montaje-muebles-a-medida-madrid', 'precios'],
   },
 ];
 
@@ -740,7 +889,7 @@ export const PAGINAS_GUIAS_NUEVAS: PaginaSeo[] = [
     imagenAlt: 'Estantería grande montada y fijada en un salón',
     preciosExtra: [{ concepto: 'Fijar el mueble a la pared (antivuelco)', precio: 'Incluido en el montaje' }],
     ids: [5, 10, 15],
-    relacionadas: ['montaje-armarios-madrid', 'montaje-estanterias-madrid', 'como-preparar-la-casa-para-el-montador', 'precios'],
+    relacionadas: ['montaje-armarios-madrid', 'montaje-estanterias-madrid', 'montaje-cama-abatible-madrid', 'como-preparar-la-casa-para-el-montador', 'precios'],
   },
 
   /* ---------------------------- PAX: TÚ MISMO O CON MONTADOR ---------------------------- */
@@ -814,5 +963,82 @@ export const PAGINAS_GUIAS_NUEVAS: PaginaSeo[] = [
     imagenAlt: 'Armario de puertas abatibles montado en un dormitorio',
     ids: [5, 6, 7],
     relacionadas: ['montaje-armarios-pax', 'cuanto-cuesta-montar-armario-pax', 'fijar-muebles-a-la-pared-antivuelco', 'precios'],
+  },
+
+  /* ---------------------------- COCINA POR METRO LINEAL ---------------------------- */
+  {
+    path: 'precio-montaje-cocina-metro-lineal',
+    tipo: 'guia',
+    padre: 'precios',
+    guia: 'cuanto-cuesta-montar-cocina-ikea',
+    title: 'Precio de montaje de cocina por metro lineal en Madrid',
+    description: meta(
+      ['Presupuesto ajustado', 'Llevamos herramientas', 'Una sola persona de contacto'],
+      'Cómo medir tu cocina y cuánto cuesta montarla por tamaño.',
+    ),
+    etiqueta: 'Precio de cocina por metro lineal',
+    h1: { antes: 'Precio de montaje de cocina', resaltado: 'por metro lineal', despues: 'en Madrid' },
+    kicker: 'Guía de precios',
+    h2: 'Metros lineales y tamaño de cocina: cómo se calcula el precio',
+    intro: `El metro lineal es una forma habitual de medir una cocina. Nuestros precios van por tamaño: desde ${eur(1)} una cocina pequeña, ${eur(2)} una mediana, ${eur(3)} una grande y ${eur(4)} una con isla, con los electrodomésticos colocados.`,
+    parrafos: [
+      'El metro lineal es el largo de la cocina medido a lo largo de la pared, por la línea de los muebles bajos. Sirve para saber qué tamaño de cocina tienes y para comparar presupuestos.',
+      `Nuestro precio de partida va por tamaño de cocina: una pequeña es de hasta 6 módulos y parte de ${eur(1)}; las medianas, grandes y con isla llevan más módulos, columnas y ajustes. Si tienes un presupuesto por metro lineal de otra empresa y quieres comparar, pregúntanos con tus medidas.`,
+      'Para darte el precio cerrado nos basta con el plano de la tienda, el albarán o unas fotos con las medidas. Te lo damos antes de ir.',
+    ],
+    puntos: [
+      `Cocina pequeña desde ${eur(1)}`,
+      `Mediana desde ${eur(2)} y grande desde ${eur(3)}`,
+      `Con isla desde ${eur(4)}`,
+      'Precio cerrado con tus medidas',
+    ],
+    bloques: [
+      {
+        titulo: 'Cómo medir tu cocina',
+        texto: 'Mide el largo de cada pared con muebles bajos y suma los tramos. En una cocina en L o en U, no cuentes dos veces el rincón. La isla se mide aparte. Si hay muebles altos o columnas, apunta también la altura hasta el techo.',
+      },
+      {
+        titulo: 'Qué entra en el precio',
+        texto: 'El montaje de los módulos bajos y altos, las columnas, las cajoneras y las puertas; los tiradores; la nivelación y el ajuste final, y la colocación de tus electrodomésticos.',
+      },
+      {
+        titulo: 'Qué no incluye',
+        texto: 'La fontanería, la instalación eléctrica y la encimera de piedra. Si tu encimera es de otro material, pregúntanos al pedir presupuesto.',
+      },
+    ],
+    faqs: [
+      {
+        pregunta: '¿Cuánto cuesta el metro lineal de montaje de cocina?',
+        respuesta: `Nuestros precios van por tamaño de cocina: desde ${eur(1)} una pequeña (hasta 6 módulos) y desde ${eur(4)} una con isla. Si quieres comparar con un precio por metro lineal, pregúntanos con tus medidas.`,
+      },
+      {
+        pregunta: '¿Qué entra en el precio del montaje?',
+        respuesta: 'Los módulos bajos y altos, las columnas, las cajoneras, las puertas y los tiradores, la nivelación, el ajuste final y la colocación de tus electrodomésticos.',
+      },
+      {
+        pregunta: '¿Los electrodomésticos están incluidos?',
+        respuesta: 'La colocación de tus electrodomésticos va incluida en todos los tamaños de cocina. Los electrodomésticos los compras tú.',
+      },
+      {
+        pregunta: '¿Cómo mido mi cocina?',
+        respuesta: 'Mide el largo de cada pared con muebles bajos y suma los tramos, sin contar dos veces el rincón. La isla, aparte. Con esas medidas o con el plano de la tienda te damos un precio cerrado.',
+      },
+      {
+        pregunta: '¿Montáis la encimera?',
+        respuesta: 'La encimera de piedra no está incluida en el montaje. Si tu encimera es de otro material, pregúntanos al pedir presupuesto.',
+      },
+    ],
+    servicio: {
+      nombre: 'Montaje de cocinas',
+      descripcion: 'Montaje de cocinas a domicilio en Madrid, con precio según el tamaño y la colocación de electrodomésticos incluida.',
+    },
+    imagen: './images/cocina-mediana.webp',
+    imagenAlt: 'Cocina con muebles altos y bajos montados',
+    ids: [1, 2, 3, 4],
+    preciosExtra: [
+      { concepto: 'Precio por metro lineal', detalle: 'Para comparar presupuestos, con tus medidas', precio: 'Pregúntanos' },
+      { concepto: 'Servicio mínimo', detalle: 'Incluye el desplazamiento en Madrid capital', precio: `${SERVICIO_MINIMO} €` },
+    ],
+    relacionadas: ['montaje-cocinas-madrid', 'cuanto-cuesta-montar-cocina-ikea', 'cuanto-tarda-montar-una-cocina-ikea', 'precios'],
   },
 ];

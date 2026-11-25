@@ -39,6 +39,9 @@ const PREFILL: Record<string, Prefill> = {
   'montaje-muebles-conforama-madrid': { tienda: 'Conforama' },
   'cuanto-tarda-montar-una-cocina-ikea': { tipos: [{ tipo: 'cocina' }], tienda: 'IKEA' },
   'montar-un-pax-tu-mismo-o-con-montador': { tipos: [{ tipo: 'armario' }], tienda: 'IKEA' },
+  'precio-montaje-cocina-metro-lineal': { tipos: [{ tipo: 'cocina' }] },
+  'montaje-cama-abatible-madrid': { tipos: [{ tipo: 'dormitorio' }] },
+  'montaje-mobiliario-tiendas-madrid': { tipos: [{ tipo: 'otro' }] },
 };
 
 export const prefillDe = (p: PaginaSeo): Prefill =>
@@ -61,6 +64,8 @@ const TRABAJO_WHATSAPP: Record<string, string> = {
   'desmontaje-muebles-madrid': 'desmontar muebles',
   'colgar-tv-baldas-espejos-madrid': 'colgar una TV, baldas o espejos',
   'montaje-muebles-a-medida-madrid': 'montar muebles a medida',
+  'montaje-cama-abatible-madrid': 'montar una cama abatible',
+  'montaje-mobiliario-tiendas-madrid': 'montar mobiliario para una tienda o local',
 };
 
 /** Mensaje de WhatsApp que nombra el servicio, o null si la página no es de un servicio concreto. */

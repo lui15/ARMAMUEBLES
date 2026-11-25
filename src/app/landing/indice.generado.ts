@@ -125,6 +125,16 @@ export const INDICE_PAGINAS: EntradaIndice[] = [
     etiqueta: 'Montaje de muebles a medida'
   },
   {
+    path: 'montaje-cama-abatible-madrid',
+    tipo: 'servicio',
+    etiqueta: 'Montaje de camas abatibles'
+  },
+  {
+    path: 'montaje-mobiliario-tiendas-madrid',
+    tipo: 'servicio',
+    etiqueta: 'Montaje de mobiliario para tiendas'
+  },
+  {
     path: 'montaje-muebles-ikea-madrid',
     tipo: 'marca',
     etiqueta: 'Montaje de muebles IKEA'
@@ -300,5 +310,10 @@ export const INDICE_PAGINAS: EntradaIndice[] = [
     path: 'montar-un-pax-tu-mismo-o-con-montador',
     tipo: 'guia',
     etiqueta: 'Montar un PAX tú mismo o con montador'
+  },
+  {
+    path: 'precio-montaje-cocina-metro-lineal',
+    tipo: 'guia',
+    etiqueta: 'Precio de cocina por metro lineal'
   }
 ];

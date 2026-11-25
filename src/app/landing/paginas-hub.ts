@@ -1,7 +1,7 @@
 import { ASI_TRABAJAMOS } from '../datos/asi-trabajamos';
 import { NOTA_OPINIONES, resumenOpiniones } from '../datos/opiniones';
 import { SERVICIO_MINIMO } from '../datos/precios-extra';
-import { eur, eurMinimo, eurPlano } from '../datos/catalogo';
+import { eur, eurMinimo, eurMinimoPlano, eurPlano } from '../datos/catalogo';
 import { COMO_PEDIR_TEXTO, meta, PaginaSeo, PRECIOS_TEXTO, TIENDAS_TEXTO, ZONAS_TEXTO } from './pagina-seo';
 
 const RESUMEN = resumenOpiniones();
@@ -11,7 +11,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
   {
     path: '',
     tipo: 'inicio',
-    title: 'Montaje de muebles en Madrid con trato cercano | ArmaMuebles',
+    title: `Montaje de muebles a domicilio en Madrid desde ${eurMinimoPlano()} | ArmaMuebles`,
     description: meta(
       ['Presupuesto ajustado', 'Llevamos herramientas', 'Nos llevamos los cartones'],
       'Montamos muebles IKEA y cocinas a domicilio en Madrid.',
@@ -142,7 +142,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     imagenAlt: 'Varios muebles montados',
     ids: [1, 5, 8, 9, 11, 13, 15, 18, 19, 20],
     modulo: 'catalogo',
-    relacionadas: ['precios', 'montaje-cocinas-madrid', 'montaje-armarios-madrid'],
+    relacionadas: ['precios', 'montaje-cocinas-madrid', 'montaje-armarios-madrid', 'montaje-mobiliario-tiendas-madrid'],
   },
 
   /* ---------------------------- PRECIOS ---------------------------- */
@@ -226,8 +226,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     relacionadas: [
       'cuanto-cuesta-montar-cocina-ikea',
       'cuanto-cuesta-montar-armario-pax',
+      'precio-montaje-cocina-metro-lineal',
       'montaje-cocinas-madrid',
       'montaje-armarios-madrid',
+      'montaje-cama-abatible-madrid',
+      'montaje-mobiliario-tiendas-madrid',
     ],
   },
 

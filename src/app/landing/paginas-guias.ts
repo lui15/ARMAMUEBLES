@@ -144,6 +144,6 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     imagen: './images/cocina-pequena.webp',
     imagenAlt: 'Cocina pequeña montada, con los electrodomésticos colocados',
     ids: [1, 2, 3, 4],
-    relacionadas: ['montaje-cocinas-madrid', 'montaje-muebles-ikea-madrid', 'precios', 'cuanto-cuesta-montar-armario-pax'],
+    relacionadas: ['montaje-cocinas-madrid', 'precio-montaje-cocina-metro-lineal', 'montaje-muebles-ikea-madrid', 'precios', 'cuanto-cuesta-montar-armario-pax'],
   },
 ];

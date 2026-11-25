@@ -10,8 +10,12 @@ export function urlDePagina(p: PaginaSeo): string {
   return '/' + p.path;
 }
 
-/** Precio más bajo de los servicios de la página, o null si no tiene servicios asociados. */
+/**
+ * Precio más bajo de la página: el precio mínimo propio si lo tiene; si no, el más bajo de sus
+ * servicios del catálogo, o null si no tiene ninguno.
+ */
 export function precioDesde(p: PaginaSeo): number | null {
+  if (p.precioMinimo) return p.precioMinimo.precio;
   const precios = serviciosPorIds(p.ids ?? []).map((s) => s.precioDesde);
   return precios.length ? Math.min(...precios) : null;
 }
@@ -22,6 +26,7 @@ export function crearJsonLd(p: PaginaSeo, migas: PaginaSeo[] = [p]): object {
   const idNegocio = SITE_URL + '/#organization';
   const servicios = serviciosPorIds(p.ids ?? []);
   const desde = precioDesde(p);
+  const unidad = p.precioMinimo?.unidad;
 
   const nodos: object[] = [
     {
@@ -67,8 +72,9 @@ export function crearJsonLd(p: PaginaSeo, migas: PaginaSeo[] = [p]): object {
               '@type': 'Offer',
               priceCurrency: 'EUR',
               priceSpecification: {
-                '@type': 'PriceSpecification',
+                '@type': unidad ? 'UnitPriceSpecification' : 'PriceSpecification',
                 minPrice: desde,
+                ...(unidad ? { unitText: unidad } : {}),
                 priceCurrency: 'EUR',
                 valueAddedTaxIncluded: true,
               },

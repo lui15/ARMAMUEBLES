@@ -3,7 +3,9 @@ import {
   DESMONTAJE,
   PRECIO_BALDAS,
   PRECIO_COLGAR_TV,
+  PRECIO_CAMA_ABATIBLE,
   PRECIO_HORA,
+  PRECIO_METRO_COCINA,
   PRECIO_PAX_CORREDERAS,
   SERVICIO_MINIMO,
 } from '../datos/precios-extra';
@@ -447,26 +449,26 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'montaje-cama-abatible-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    title: 'Montaje de camas abatibles en Madrid | ArmaMuebles',
+    title: `Montaje de camas abatibles en Madrid desde ${PRECIO_CAMA_ABATIBLE} €`,
     description: meta(
       ['Presupuesto ajustado', 'Llevamos herramientas', 'Una sola persona de contacto'],
-      'Camas abatibles de pared montadas y bien ancladas.',
+      `Camas abatibles de pared, desde ${PRECIO_CAMA_ABATIBLE} € y bien ancladas.`,
     ),
     etiqueta: 'Montaje de camas abatibles',
     h1: { antes: 'Montaje de', resaltado: 'camas abatibles', despues: 'en Madrid' },
     kicker: 'Camas abatibles',
     h2: 'Una cama que se recoge contra la pared, bien anclada',
-    intro: 'Montamos camas abatibles en tu casa: la cama que se pliega contra la pared y deja libre la habitación durante el día. Te damos un precio cerrado antes de ir, según el modelo y tu pared.',
+    intro: `Montamos camas abatibles en tu casa, desde ${PRECIO_CAMA_ABATIBLE} €: la cama que se pliega contra la pared y deja libre la habitación durante el día. Te damos un precio cerrado antes de ir, según el modelo y tu pared.`,
     parrafos: [
       'Una cama abatible no es lo mismo que un canapé abatible. En el canapé se levanta la tapa del somier para guardar cosas debajo; en la cama abatible, la cama entera se pliega y queda recogida en un mueble pegado a la pared.',
       'Al plegarse, el peso de la cama y del colchón trabaja contra el mueble y la pared, por eso el anclaje es la parte más importante del montaje. Seguimos las instrucciones del fabricante, fijamos el mueble a la pared y comprobamos que la cama abra y cierre bien antes de irnos.',
       'Para darte un precio cerrado nos ayuda saber la tienda o el modelo, si es individual o de matrimonio, si se abre en vertical o en horizontal y cómo es la pared. Lo más rápido es una foto del albarán y otra de la pared.',
     ],
     puntos: [
+      `Camas abatibles desde ${PRECIO_CAMA_ABATIBLE} €`,
       'Verticales y horizontales',
       'Fijación a la pared incluida',
       'Precio cerrado antes de ir',
-      'Nos llevamos los cartones',
     ],
     bloques: [
       {
@@ -485,7 +487,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     faqs: [
       {
         pregunta: '¿Cuánto cuesta montar una cama abatible?',
-        respuesta: `Depende del modelo, del tamaño y de la pared. Mándanos el modelo o una foto del albarán y te damos un precio cerrado antes de ir. El servicio mínimo es de ${SERVICIO_MINIMO} € e incluye el desplazamiento en Madrid capital.`,
+        respuesta: `Desde ${PRECIO_CAMA_ABATIBLE} €. El precio final depende del modelo, del tamaño y de la pared: mándanos el modelo o una foto del albarán y te damos un precio cerrado antes de ir. El servicio mínimo es de ${SERVICIO_MINIMO} € e incluye el desplazamiento en Madrid capital.`,
       },
       {
         pregunta: '¿Hay que anclarla a la pared?',
@@ -510,8 +512,9 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     },
     imagen: './images/cama.webp',
     imagenAlt: 'Cama montada en un dormitorio',
+    precioMinimo: { precio: PRECIO_CAMA_ABATIBLE },
     preciosExtra: [
-      { concepto: 'Montaje de cama abatible', detalle: 'Según el modelo, el tamaño y la pared', precio: 'Precio cerrado antes de ir' },
+      { concepto: 'Montaje de cama abatible', detalle: 'Según el modelo, el tamaño y la pared', precio: `desde ${PRECIO_CAMA_ABATIBLE} €` },
       { concepto: 'Desmontar la cama antigua', precio: `${DESMONTAJE} del precio de montaje` },
       { concepto: 'Servicio mínimo', detalle: 'Incluye el desplazamiento en Madrid capital', precio: `${SERVICIO_MINIMO} €` },
     ],
@@ -974,23 +977,23 @@ export const PAGINAS_GUIAS_NUEVAS: PaginaSeo[] = [
     title: 'Precio de montaje de cocina por metro lineal en Madrid',
     description: meta(
       ['Presupuesto ajustado', 'Llevamos herramientas', 'Una sola persona de contacto'],
-      'Cómo medir tu cocina y cuánto cuesta montarla por tamaño.',
+      `Desde ${PRECIO_METRO_COCINA} € el metro lineal y cómo medir tu cocina.`,
     ),
     etiqueta: 'Precio de cocina por metro lineal',
     h1: { antes: 'Precio de montaje de cocina', resaltado: 'por metro lineal', despues: 'en Madrid' },
     kicker: 'Guía de precios',
     h2: 'Metros lineales y tamaño de cocina: cómo se calcula el precio',
-    intro: `El metro lineal es una forma habitual de medir una cocina. Nuestros precios van por tamaño: desde ${eur(1)} una cocina pequeña, ${eur(2)} una mediana, ${eur(3)} una grande y ${eur(4)} una con isla, con los electrodomésticos colocados.`,
+    intro: `El montaje de cocina parte de ${PRECIO_METRO_COCINA} € el metro lineal. Por tamaño: desde ${eur(1)} una cocina pequeña, ${eur(2)} una mediana, ${eur(3)} una grande y ${eur(4)} una con isla, con los electrodomésticos colocados.`,
     parrafos: [
       'El metro lineal es el largo de la cocina medido a lo largo de la pared, por la línea de los muebles bajos. Sirve para saber qué tamaño de cocina tienes y para comparar presupuestos.',
-      `Nuestro precio de partida va por tamaño de cocina: una pequeña es de hasta 6 módulos y parte de ${eur(1)}; las medianas, grandes y con isla llevan más módulos, columnas y ajustes. Si tienes un presupuesto por metro lineal de otra empresa y quieres comparar, pregúntanos con tus medidas.`,
+      `Nuestro precio de partida va por tamaño de cocina: una pequeña es de hasta 6 módulos y parte de ${eur(1)}; las medianas, grandes y con isla llevan más módulos, columnas y ajustes. Como referencia, el metro lineal parte de ${PRECIO_METRO_COCINA} €; el precio final depende de la cocina.`,
       'Para darte el precio cerrado nos basta con el plano de la tienda, el albarán o unas fotos con las medidas. Te lo damos antes de ir.',
     ],
     puntos: [
+      `Desde ${PRECIO_METRO_COCINA} € el metro lineal`,
       `Cocina pequeña desde ${eur(1)}`,
       `Mediana desde ${eur(2)} y grande desde ${eur(3)}`,
       `Con isla desde ${eur(4)}`,
-      'Precio cerrado con tus medidas',
     ],
     bloques: [
       {
@@ -1009,7 +1012,7 @@ export const PAGINAS_GUIAS_NUEVAS: PaginaSeo[] = [
     faqs: [
       {
         pregunta: '¿Cuánto cuesta el metro lineal de montaje de cocina?',
-        respuesta: `Nuestros precios van por tamaño de cocina: desde ${eur(1)} una pequeña (hasta 6 módulos) y desde ${eur(4)} una con isla. Si quieres comparar con un precio por metro lineal, pregúntanos con tus medidas.`,
+        respuesta: `Desde ${PRECIO_METRO_COCINA} € el metro lineal, como precio orientativo. El presupuesto final depende de la cocina: módulos, columnas, isla y altura. Por tamaño, una pequeña (hasta 6 módulos) parte de ${eur(1)} y una con isla de ${eur(4)}.`,
       },
       {
         pregunta: '¿Qué entra en el precio del montaje?',
@@ -1035,8 +1038,10 @@ export const PAGINAS_GUIAS_NUEVAS: PaginaSeo[] = [
     imagen: './images/cocina-mediana.webp',
     imagenAlt: 'Cocina con muebles altos y bajos montados',
     ids: [1, 2, 3, 4],
+    destacado: { texto: 'Metro lineal, desde', precio: PRECIO_METRO_COCINA },
+    precioMinimo: { precio: PRECIO_METRO_COCINA, unidad: 'metro lineal' },
     preciosExtra: [
-      { concepto: 'Precio por metro lineal', detalle: 'Para comparar presupuestos, con tus medidas', precio: 'Pregúntanos' },
+      { concepto: 'Precio por metro lineal', detalle: 'Orientativo: el presupuesto final depende de la cocina', precio: `desde ${PRECIO_METRO_COCINA} €` },
       { concepto: 'Servicio mínimo', detalle: 'Incluye el desplazamiento en Madrid capital', precio: `${SERVICIO_MINIMO} €` },
     ],
     relacionadas: ['montaje-cocinas-madrid', 'cuanto-cuesta-montar-cocina-ikea', 'cuanto-tarda-montar-una-cocina-ikea', 'precios'],

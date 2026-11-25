@@ -36,6 +36,11 @@ export interface PaginaSeo {
   ids?: number[];
   /** Precio que se destaca sobre la foto, si no debe ser el más bajo de la página. */
   destacado?: { texto: string; precio: number };
+  /**
+   * Precio mínimo confirmado por el negocio para servicios que no están en el catálogo.
+   * Si lleva unidad (por ejemplo, 'metro lineal'), el JSON-LD lo publica como precio por unidad.
+   */
+  precioMinimo?: { precio: number; unidad?: string };
   /** Categoría que se preselecciona al abrir el formulario. */
   categoria?: string;
   /** Sección especial de las páginas índice. */

@@ -36,6 +36,12 @@ export const PRECIOS_EXTRA: PrecioExtra[] = [
   { concepto: 'Fijar el mueble a la pared (antivuelco)', precio: 'Incluido en el montaje' },
 ];
 
+/** Montaje de cocina por metro lineal, precio orientativo (confirmado por el negocio el 25-11-2026). */
+export const PRECIO_METRO_COCINA = 55;
+
+/** Montaje de cama abatible de pared (confirmado por el negocio el 25-11-2026). */
+export const PRECIO_CAMA_ABATIBLE = 70;
+
 /** Armario PAX con puertas correderas (no está en el catálogo como servicio propio). */
 export const PRECIO_PAX_CORREDERAS = 150;
 

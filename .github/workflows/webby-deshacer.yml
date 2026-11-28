@@ -1,0 +1,52 @@
+# Webby → Deshacer un cambio
+# Cuando pulsas «Deshacer» en el Historial de Webby, este flujo revierte ese commit en una rama nueva
+# y abre un Pull Request. Nada se publica hasta que tú lo fusiones.
+name: Webby · deshacer un cambio
+
+on:
+  repository_dispatch:
+    types: [webby-revertir]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deshacer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SHA: ${{ github.event.client_payload.sha }}
+      RAMA: ${{ github.event.client_payload.rama }}
+      TITULO: ${{ github.event.client_payload.titulo }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Revertir el commit en una rama nueva
+        run: |
+          git config user.name "Webby"
+          git config user.email "webby@users.noreply.github.com"
+          git checkout -b "$RAMA"
+          if ! git revert --no-edit "$SHA"; then
+            echo "No se pudo revertir automáticamente (hay cambios posteriores que chocan)."
+            exit 1
+          fi
+          git push -u --force origin "$RAMA"
+
+      - name: Abrir el Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "## Deshacer: $TITULO"
+            echo
+            echo "Este Pull Request deshace el commit \`$SHA\` porque lo pediste desde el Historial de Webby."
+            echo
+            echo "_Nada cambia en la web hasta que lo fusiones._"
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > /tmp/cuerpo.md
+          gh pr create --base main --head "$RAMA" --title "Webby: deshacer «$TITULO»" --body-file /tmp/cuerpo.md
